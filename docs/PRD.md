@@ -63,7 +63,7 @@ graph TD
           * **User message** containing the content draft to analyze
           * **Assistant prefill** starting with `{` to enforce JSON output format
       * **JSON Enforcement:** Combination of prompt engineering (strict instructions) + assistant prefill technique.
-      * **Output Format:** `{"score": X, "feedback": "...", "flags": []}`
+      * **Output Format:** `{"thinking": "..." (optional), "score": X, "feedback": "...", "flags": []}`
       * **Rate Limiting (Tier 1 Configuration):**
           * 50 requests per minute (RPM)
           * 30,000 input tokens per minute (ITPM)
@@ -191,12 +191,14 @@ The output JSON must include the nested sub-parameter details and weights for fu
         "1B_Direct": {
           "score": 3.0,
           "weight": 0.10,
-          "feedback": "Direct, but lacks personality in the middle sections."
+          "feedback": "Direct, but lacks personality in the middle sections.",
+          "thinking": "The intro is punchy, but paragraphs 3-5 revert to corporate tone."
         },
         "1D_Sharp_Wit": {
           "score": 3.0,
           "weight": 0.10,
-          "feedback": "Confident, but could use sharper wit."
+          "feedback": "Confident, but could use sharper wit.",
+          "thinking": "Has clear POV but lacks the 'spicy' factor. No clichés found."
         }
         // ... 1A (5%), 1C (5%)
       }

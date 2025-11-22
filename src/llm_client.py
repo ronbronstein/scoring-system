@@ -218,37 +218,21 @@ class LLMClient:
         """
         Build the system prompt for a specific agent.
 
+        The prompt files in /prompts are complete and self-contained, including:
+        - Role definition and mental model
+        - Evaluation criteria and scoring rubric
+        - Examples and output format instructions
+
         Args:
             agent_id: Agent identifier
-            metadata: Agent metadata from config
-            instructions: Loaded prompt instructions
+            metadata: Agent metadata from config (unused but kept for compatibility)
+            instructions: Complete prompt content from file
 
         Returns:
-            System prompt string
+            System prompt string (the prompt file content as-is)
         """
-        return f"""You are a specialized content evaluation agent for monday.com's challenger brand voice.
-
-Your sole responsibility is to evaluate the following aspect:
-**{metadata['name']}** (Part of {metadata['parameter']})
-
-{instructions}
-
-CRITICAL: You must return ONLY a valid JSON object with this exact structure:
-{{
-    "score": <integer 1-4>,
-    "feedback": "<detailed explanation of your evaluation>",
-    "flags": [<list of specific issues found, can be empty>]
-}}
-
-Scoring Scale (1-4 Forced Choice):
-- 1: Critical Fail (active brand violation, toxic tone, or factually incorrect)
-- 2: Generic/Mediocre (boring, lacks challenger voice)
-- 3: Publishable Standard (clear, helpful, professional)
-- 4: Challenger Status (exceptional, unique insight, witty, zero fluff)
-
-DO NOT include any text before or after the JSON object.
-Start your response with {{ and end with }}.
-"""
+        # Return the prompt file content directly without wrapping
+        return instructions
 
     def _build_user_message(self, content: str, instructions: str) -> str:
         """
@@ -256,19 +240,16 @@ Start your response with {{ and end with }}.
 
         Args:
             content: Draft content to evaluate
-            instructions: Prompt instructions (for any additional context)
+            instructions: Prompt instructions (unused but kept for compatibility)
 
         Returns:
             User message string
         """
-        return f"""Please evaluate the following content draft:
+        return f"""Evaluate and score this content piece based on the 1-4 scale:
 
 ---BEGIN CONTENT---
 {content}
----END CONTENT---
-
-Provide your evaluation as a JSON object following the exact format specified in the system prompt.
-"""
+---END CONTENT---"""
 
     def _parse_response(
         self, agent_id: str, response: anthropic.types.Message, prefill: str
@@ -303,6 +284,7 @@ Provide your evaluation as a JSON object following the exact format specified in
 
             # Validate structure
             required_keys = {"score", "feedback", "flags"}
+            optional_keys = {"thinking"}  # Chain-of-thought reasoning (optional)
             if not required_keys.issubset(parsed.keys()):
                 missing = required_keys - set(parsed.keys())
                 return {
@@ -322,13 +304,19 @@ Provide your evaluation as a JSON object following the exact format specified in
                 }
 
             # Success!
-            return {
+            result = {
                 "agent_id": agent_id,
                 "success": True,
                 "score": parsed["score"],
                 "feedback": parsed["feedback"],
                 "flags": parsed.get("flags", []),
             }
+
+            # Include optional thinking field if present
+            if "thinking" in parsed:
+                result["thinking"] = parsed["thinking"]
+
+            return result
 
         except json.JSONDecodeError as e:
             return {

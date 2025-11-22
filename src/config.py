@@ -40,8 +40,8 @@ MODEL_NAME = "claude-sonnet-4-5-20250929"  # Claude Sonnet 4.5
 TEMPERATURE = 0.0  # Configurable for testing
 
 # Max tokens for LLM responses
-# Generous limit to allow detailed feedback and violation lists
-MAX_TOKENS = 1000  # Configurable
+# Generous limit to allow detailed feedback, thinking, and violation lists
+MAX_TOKENS = 2000  # Configurable
 
 # API retry configuration
 MAX_RETRIES = 3  # Number of retry attempts for failed API calls

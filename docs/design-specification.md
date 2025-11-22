@@ -148,5 +148,5 @@ The system generates a detailed JSON report (`report.json`) containing:
 
   * **Metadata:** Timestamp, Content ID.
   * **Executive Summary:** Final Score, Publish-Ready Status (Bool), Gate Status.
-  * **Granular Breakdown:** Nested scores for all 17 sub-parameters with specific feedback strings.
+  * **Granular Breakdown:** Nested scores for all 17 sub-parameters with specific feedback strings and optional chain-of-thought reasoning ("thinking" field).
   * **Flags:** A list of specific text snippets (from Layer 1 and Layer 2) that require manual correction.
