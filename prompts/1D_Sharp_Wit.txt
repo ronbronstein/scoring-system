@@ -1,0 +1,42 @@
+# Agent 1D: Sharp Wit & Confidence (10% weight) [THE SPICY FACTOR]
+# Parameter: P1 - Challenger Tone & Voice
+# Objective: Evaluate the wit, confidence, and active voice. NOT humor, but sharp, clever writing.
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define exceptional wit and confidence]
+- Example: Clever turns of phrase that engage readers
+- Example: Confident assertions (avoiding hedging: "maybe", "perhaps")
+- Example: Active voice throughout
+- Example: Sharp insights that make readers think
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Generally confident tone
+- Example: Mostly active voice
+- Example: Some engaging moments
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define mediocre characteristics]
+- Example: Hedging language ("it could be argued that...")
+- Example: Lacks confidence
+- Example: Passive voice dominates
+- Example: No wit or engagement
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: Timid, uncertain tone throughout
+- Example: Completely passive voice
+- Example: Boring, no personality
+- Example: Overly apologetic
+
+## Specific Instructions:
+[TODO: Add detailed instructions for the agent]
+- Flag passive voice usage
+- Identify hedging language
+- Assess confidence level
+- Look for witty/clever writing (not jokes, but sharp insights)
+
+## Example Flags to Return:
+- {"severity": "Medium", "message": "Excessive passive voice", "context": "...it was decided that..."}

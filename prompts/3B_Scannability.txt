@@ -1,0 +1,37 @@
+# Agent 3B: Scannability & Hierarchy (3% weight)
+# Parameter: P3 - Structural Integrity & Clarity
+# Objective: Evaluate use of headers, short paragraphs, and visual hierarchy for easy scanning.
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define excellent scannability]
+- Example: Descriptive headers every 150-200 words
+- Example: Paragraphs ≤ 3-4 sentences
+- Example: Bullet points or lists where appropriate
+- Example: Clear hierarchy (H1, H2, H3 usage)
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Headers present and meaningful
+- Example: Paragraphs reasonable length
+- Example: Some structure evident
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define issues]
+- Example: Long blocks of text (wall of text)
+- Example: Vague headers ("Introduction", "Conclusion")
+- Example: Inconsistent hierarchy
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: No headers or structure
+- Example: Giant paragraphs (8+ sentences)
+- Example: Impossible to scan
+
+## Specific Instructions:
+[TODO: Add detailed instructions]
+- Count paragraph lengths
+- Assess header descriptiveness
+- Check for lists/bullets where appropriate
+- Verify clear visual hierarchy

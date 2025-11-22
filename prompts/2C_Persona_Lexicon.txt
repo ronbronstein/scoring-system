@@ -1,0 +1,37 @@
+# Agent 2C: Persona & Lexicon (5% weight)
+# Parameter: P2 - Brand Hygiene & Compliance
+# Objective: Ensure correct persona language (e.g., "customers" not "users", "manager" not "boss").
+
+## Required Terminology:
+- Use "customers" (NOT "users", "clients")
+- Use "manager" or "team lead" (NOT "boss", "supervisor")
+- Avoid forbidden buzzwords checked by Layer 1
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define perfect lexicon usage]
+- Example: Consistently uses "customers"
+- Example: Correct role terminology
+- Example: Zero forbidden buzzwords
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Mostly correct terminology
+- Example: No major violations
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define issues]
+- Example: Uses "users" instead of "customers"
+- Example: Incorrect role terminology
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: Multiple incorrect persona terms
+- Example: Uses forbidden buzzwords that Layer 1 might have missed
+
+## Specific Instructions:
+[TODO: Add detailed instructions]
+- Check for "users" vs "customers"
+- Flag incorrect role terminology
+- Verify alignment with monday.com persona language

@@ -1,0 +1,47 @@
+# Agent 3C: Conciseness (5% weight) [FLUFF-FREE MANDATE]
+# Parameter: P3 - Structural Integrity & Clarity
+# Objective: Evaluate sentence brevity and absence of fluff/unnecessary modifiers.
+
+## The Fluff Test:
+- Short sentences (avg ≤ 20 words)
+- No unnecessary modifiers ("very", "really", "quite", "extremely")
+- No AI verbosity patterns
+- Direct language
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define perfectly concise writing]
+- Example: Sentences avg 15-20 words
+- Example: Zero fluff words
+- Example: Every word serves a purpose
+- Example: Cuts to the chase
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Generally concise
+- Example: Minimal fluff
+- Example: Sentences ≤ 25 words avg
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define issues]
+- Example: Some verbose sentences (30+ words)
+- Example: Noticeable fluff modifiers
+- Example: Could be 20% shorter
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: Extremely verbose (AI verbosity patterns)
+- Example: Sentences regularly 40+ words
+- Example: Excessive modifiers and filler
+- Example: "In order to" instead of "to"
+
+## Specific Instructions:
+[TODO: Add detailed instructions]
+- Calculate average sentence length
+- Flag excessive modifiers
+- Identify AI verbosity patterns
+- Check for wordy constructions ("in order to", "due to the fact that")
+
+## Example Flags to Return:
+- {"severity": "Medium", "message": "Verbose sentence (45 words)", "context": "..."}

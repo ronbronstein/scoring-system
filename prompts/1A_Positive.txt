@@ -1,0 +1,40 @@
+# Agent 1A: Positive & Solution-Focused (5% weight)
+# Parameter: P1 - Challenger Tone & Voice
+# Objective: Evaluate if the content focuses on success and solutions, avoiding villainizing competitors or negativity.
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define what exceptional positive/solution-focused writing looks like]
+- Example: Content frames challenges as opportunities
+- Example: Focuses on customer success stories
+- Example: Solutions are actionable and specific
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Generally positive tone
+- Example: No negative language toward competitors
+- Example: Solution-oriented without being preachy
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define mediocre characteristics]
+- Example: Neutral tone, lacks enthusiasm
+- Example: Generic solutions without specificity
+- Example: Misses opportunities to highlight customer wins
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: Villainizing competitors (e.g., "Unlike bloated CRMs...")
+- Example: Negative/cynical tone
+- Example: Problem-focused without offering solutions
+- Example: Toxic language or fear-mongering
+
+## Specific Instructions:
+[TODO: Add detailed instructions for the agent]
+- Reference monday.com style guide sections on positivity
+- Flag any instances of villainizing language
+- Check for solution-to-problem ratio
+
+## Example Flags to Return:
+If violations found, return in "flags" array:
+- {"severity": "High", "message": "Villainizing competitor", "context": "...unlike bloated CRMs..."}

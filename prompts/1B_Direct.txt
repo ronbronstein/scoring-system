@@ -1,0 +1,39 @@
+# Agent 1B: Direct with Personality (10% weight) [CORE VOICE]
+# Parameter: P1 - Challenger Tone & Voice
+# Objective: Evaluate if the content is straightforward yet human, avoiding robotic or overly corporate language.
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define exceptional direct + personality characteristics]
+- Example: Uses conversational language without being unprofessional
+- Example: Gets to the point quickly but with personality
+- Example: Avoids corporate jargon, uses natural phrasing
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Clear and direct communication
+- Example: Some personality evident
+- Example: Minimal corporate speak
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define mediocre characteristics]
+- Example: Sounds robotic or templated
+- Example: Uses corporate clichés ("leverage synergies", "paradigm shift")
+- Example: Lacks any human personality
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: Completely robotic tone (pure AI output)
+- Example: Dense corporate jargon throughout
+- Example: Overly formal/stuffy writing
+- Example: Passive voice dominates
+
+## Specific Instructions:
+[TODO: Add detailed instructions for the agent]
+- Check for passive vs. active voice ratio
+- Flag robotic AI patterns (e.g., "In today's fast-paced world...")
+- Assess conversational flow
+
+## Example Flags to Return:
+- {"severity": "High", "message": "Robotic AI pattern detected", "context": "...in today's fast-paced digital landscape..."}

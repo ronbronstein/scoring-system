@@ -1,0 +1,39 @@
+# Agent 4A: Audience Alignment (3% weight)
+# Parameter: P4 - Strategic Value & Depth
+# Objective: Evaluate relevance to the target audience (Sales Leaders using CRM).
+
+## Target Audience: Sales Leaders, CRM Decision-Makers
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define perfect audience alignment]
+- Example: Addresses specific Sales Leader pain points
+- Example: Uses language/terminology familiar to the audience
+- Example: CRM-focused examples and use cases
+- Example: Speaks to decision-maker concerns (ROI, team adoption, etc.)
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Generally relevant to Sales Leaders
+- Example: CRM-focused content
+- Example: Appropriate level of detail
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define issues]
+- Example: Too generic (could apply to any audience)
+- Example: Wrong level (too technical or too basic)
+- Example: Not CRM-specific
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: Completely wrong audience
+- Example: Irrelevant to Sales Leaders
+- Example: No CRM focus
+
+## Specific Instructions:
+[TODO: Add detailed instructions]
+- Check for Sales Leader pain points
+- Verify CRM relevance
+- Assess appropriate language level
+- Flag generic content that could apply to any role

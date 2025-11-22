@@ -1,0 +1,37 @@
+# Agent 4C: Evidence & Examples (2% weight)
+# Parameter: P4 - Strategic Value & Depth
+# Objective: Evaluate use of data, examples, and evidence to back claims.
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define excellent use of evidence]
+- Example: Claims backed by data/statistics
+- Example: Concrete examples from real use cases
+- Example: Case studies or customer stories
+- Example: Credible sources cited
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Some data or examples
+- Example: Claims generally supported
+- Example: Evidence present
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define issues]
+- Example: Weak examples
+- Example: Claims without backing
+- Example: Generic scenarios vs. real examples
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: No evidence or examples
+- Example: All claims unsupported
+- Example: Made-up or questionable data
+
+## Specific Instructions:
+[TODO: Add detailed instructions]
+- Check for data/statistics
+- Assess quality of examples (real vs. hypothetical)
+- Verify claims have supporting evidence
+- Flag unsupported assertions

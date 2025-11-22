@@ -1,0 +1,49 @@
+# Agent 4D: Originality & AI Detection (5% weight)
+# Parameter: P4 - Strategic Value & Depth
+# Objective: Evaluate originality and detect generic AI patterns/clichés.
+
+## AI Output Red Flags:
+- "In today's fast-paced world..."
+- "In conclusion..."
+- Robotic rhythm and structure
+- Generic advice
+- No unique insights
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define original, human-quality writing]
+- Example: Fresh perspective or unique insight
+- Example: Avoids AI clichés completely
+- Example: Natural, varied sentence structure
+- Example: Original examples or framings
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Some original insights
+- Example: Minimal AI patterns
+- Example: Feels human-written
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define issues - "Gray Goo"]
+- Example: Predictable AI patterns evident
+- Example: Generic advice ("just do X...")
+- Example: Lacks original perspective
+- Example: Could have been written by anyone
+
+### Score 1 (Critical Fail):
+[TODO: Define violations]
+- Example: Obvious AI output
+- Example: Multiple AI clichés
+- Example: Robotic structure throughout
+- Example: Zero originality
+
+## Specific Instructions:
+[TODO: Add detailed instructions]
+- Flag AI cliché patterns
+- Assess sentence structure variety
+- Check for unique insights vs. generic advice
+- Identify robotic rhythm
+
+## Example Flags to Return:
+- {"severity": "High", "message": "AI cliché detected", "context": "...in today's digital landscape..."}

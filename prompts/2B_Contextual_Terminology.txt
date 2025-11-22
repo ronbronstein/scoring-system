@@ -1,0 +1,39 @@
+# Agent 2B: Contextual Terminology (10% weight) [TOOL PARADOX LOGIC]
+# Parameter: P2 - Brand Hygiene & Compliance
+# Objective: Evaluate contextual use of forbidden terms. "Tool/Hub/Task" are forbidden ONLY when referring to monday.com.
+
+## The Tool Paradox Rule:
+- FORBIDDEN: Calling monday.com a "tool", "hub", or "task management tool"
+- ALLOWED: Referring to competitors, integrations, or general concepts as "tools"
+
+## Evaluation Criteria:
+
+### Score 4 (Challenger Status):
+[TODO: Define perfect contextual compliance]
+- Example: Never refers to monday.com as a "tool"
+- Example: Uses correct terminology: "platform", "Work OS", "solution"
+- Example: Can use "tool" when discussing integrations/competitors
+
+### Score 3 (Publishable Standard):
+[TODO: Define acceptable baseline]
+- Example: Correct terminology for monday.com
+- Example: No violations
+
+### Score 2 (Generic/Mediocre):
+[TODO: Define issues]
+- Example: One minor slip in terminology
+
+### Score 1 (Critical Fail):
+[TODO: Define violations - THESE ARE CRITICAL]
+- Example: Calls monday.com a "tool"
+- Example: Uses "hub" or "task manager" for monday.com
+
+## Specific Instructions:
+[TODO: Add detailed Chain-of-Thought logic]
+1. Identify EVERY instance of: "tool", "hub", "task" (and variations)
+2. For each instance, determine the subject/referent
+3. If subject is monday.com → FLAG as CRITICAL
+4. If subject is competitor/integration/general concept → PASS
+
+## Example Flags to Return:
+- {"severity": "Critical", "message": "Called monday.com a 'tool'", "context": "...monday.com is the best CRM tool..."}
