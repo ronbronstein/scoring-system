@@ -80,9 +80,23 @@ graph TD
 
 ### 3.3 Layer 2: The Soft Gate (Granular Parallel LLM)
 
-  * **Technology:** `Asyncio` + LLM API (e.g., Claude 3.5 Sonnet/GPT-4o).
-  * **Architecture:** Asynchronous Fan-Out.
-  * **Operation:** The system triggers **18 simultaneous API calls**.
+  * **Technology:** `Asyncio` + Claude API
+  * **Model:** Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`)
+  * **Architecture:** Asynchronous Fan-Out with conservative rate limiting.
+  * **Operation:** The system triggers **18 simultaneous API calls** with the following configuration:
+      * **Temperature:** 0 (deterministic evaluation; configurable for testing)
+      * **Max Tokens:** 1000 (generous limit for detailed feedback and violations)
+      * **Prompt Structure:** System prompt + User message + Assistant prefill (`{`)
+      * **JSON Enforcement:** Prompt engineering + assistant prefill technique
+      * **Rate Limiting (Tier 1):**
+          * 50 requests per minute (RPM)
+          * 30,000 input tokens per minute (ITPM)
+          * 8,000 output tokens per minute (OTPM)
+          * Conservative batching: 10 concurrent requests, 1.2s delay between batches
+      * **Error Handling:**
+          * 3 retry attempts with exponential backoff (2s initial delay)
+          * Failed agents marked in report (does not fail entire analysis)
+          * Resume/continue functionality for retry-only workflows
   * **Rationale:** By isolating sub-parameters (e.g., Agent 3A checks *only* BLUF; Agent 1B checks *only* Wit), we prevent the model from getting confused or lazy.
 
 ### 3.4 Key Agent Logic (Advanced Prompt Engineering)
@@ -108,19 +122,24 @@ To validate "Bottom Line Up Front," the agent must understand the conclusion fir
 
 ## 4.0 Training & Calibration
 
-To ensure the "3.2" threshold is meaningful, we employ a comparative calibration strategy.
+To ensure the thresholds are meaningful and data-driven, we employ a comparative calibration strategy.
 
 1.  **The Golden Set:** 5-10 human-verified, high-performing monday.com blog posts. (Target System Score: \> 3.5).
 2.  **The Poison Set:** 5-10 generic, AI-generated posts created with standard prompts. (Target System Score: \< 2.5).
-3.  **Tuning:** If the Poison Set scores too high, we tighten the prompt instructions for "Conciseness" and "Wit" until the scores drop.
+3.  **Threshold Determination:** Based on the score distributions of both sets, determine:
+      * **Gate 1 Threshold:** Set to ensure clear separation between golden and poison sets (initial hypothesis: 3.2)
+      * **Gate 2 Tone Minimum:** Set based on tone score analysis (initial hypothesis: 3.0)
+4.  **Tuning:** If the Poison Set scores too high, we tighten the prompt instructions for "Conciseness" and "Wit" until the scores drop. If the Golden Set scores too low, we refine prompts to better capture excellence.
 
 ## 5.0 The "Publish-Ready" Definition
 
 We define "Publish-Ready" using a **3-Gate System**. Content must pass **all three gates** to receive a `true` status in the JSON output.
 
-1.  ✅ **Gate 1: Overall Weighted Score ≥ 3.2** (Ensures general high quality).
-2.  ✅ **Gate 2: Tone Veto (P1 ≥ 3.0)** (The "Boredom Penalty" — if the tone is generic/robotic, the piece fails regardless of accuracy).
-3.  ✅ **Gate 3: Brand Veto (Zero Critical Violations)** (Content cannot be published if Layer 1 or Agent 2B flags a critical violation like "Monday.com" capitalized or "Tool" usage).
+1.  ✅ **Gate 1: Overall Weighted Score ≥ [TBD]** (Initial hypothesis: 3.2; ensures general high quality). Threshold determined after calibration.
+2.  ✅ **Gate 2: Tone Veto (P1 ≥ [TBD])** (Initial hypothesis: 3.0; The "Boredom Penalty" — if the tone is generic/robotic, the piece fails regardless of accuracy). Threshold determined after calibration.
+3.  ✅ **Gate 3: Brand Veto (Zero Critical Violations)** (Non-negotiable; content cannot be published if Layer 1 or Agent 2B flags a critical violation like "Monday.com" capitalized or "Tool" usage).
+
+**Note:** Gates 1 and 2 thresholds are data-driven and will be finalized through calibration analysis. Gate 3 is absolute (zero tolerance for critical violations).
 
 ## 6.0 Output & Reporting
 

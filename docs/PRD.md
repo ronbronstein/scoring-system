@@ -53,10 +53,26 @@ graph TD
 ### 3.2 Layer 2 (LLM Client & Agents)
 
   * **Function:** Executes 18 specialized prompts against the LLM API asynchronously.
+  * **Model:** Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`)
   * **Requirements:**
-      * Parallel execution (e.g., `asyncio.gather`).
-      * LLM `temperature=0` (for determinism).
-      * Enforced structured JSON output: `{"score": X, "feedback": "...", "flags": []}`.
+      * **Parallel Execution:** Uses `asyncio.gather` to run all 18 agents concurrently.
+      * **Temperature:** 0 (configurable for testing; deterministic evaluation).
+      * **Max Tokens:** 1000 (configurable; generous limit for detailed feedback and violation lists).
+      * **Prompt Structure:** Each agent receives:
+          * Specialized **system prompt** defining evaluation criteria for that specific sub-parameter
+          * **User message** containing the content draft to analyze
+          * **Assistant prefill** starting with `{` to enforce JSON output format
+      * **JSON Enforcement:** Combination of prompt engineering (strict instructions) + assistant prefill technique.
+      * **Output Format:** `{"score": X, "feedback": "...", "flags": []}`
+      * **Rate Limiting (Tier 1 Configuration):**
+          * 50 requests per minute (RPM)
+          * 30,000 input tokens per minute (ITPM)
+          * 8,000 output tokens per minute (OTPM)
+          * Conservative batching: Max 10 concurrent requests with 1.2s delay between batches
+      * **Error Handling:**
+          * Max 3 retry attempts per agent with exponential backoff (2s initial delay)
+          * Failed agents are marked in the report with error details (does NOT fail entire analysis)
+          * Resume/continue functionality: Retry only failed agents from a previous run without re-executing successful ones
 
 ### 3.3 The 19 Sub-Parameters & Strategic Weighting
 
@@ -113,9 +129,10 @@ The weighting system is designed to prioritize the "Challenger Voice" and "Time 
     1.  **Level 1:** Calculate the score for each Parameter (P1-P5) based on the weighted average of its Sub-Parameters (using the weights defined in 3.3).
     2.  **Level 2:** Calculate the final score based on the weighted average of the 5 Parameters (P1: 30%, P3: 25%, P2: 20%, P4: 15%, P5: 10%).
   * **Logic (The 3-Gate System):** Determines "Publish-Ready" status (True/False).
-    1.  Gate 1: Overall Score ≥ 3.2 (Configurable threshold).
-    2.  Gate 2: Tone Score (P1) ≥ 3.0 (The Boredom Veto).
-    3.  Gate 3: Zero Critical Violations in Brand Hygiene (P2) (The Brand Veto).
+    1.  **Gate 1:** Overall Score ≥ [TBD after calibration] (Initial hypothesis: 3.2; configurable threshold).
+    2.  **Gate 2:** Tone Score (P1) ≥ [TBD after calibration] (Initial hypothesis: 3.0; The Boredom Veto).
+    3.  **Gate 3:** Zero Critical Violations in Brand Hygiene (P2) (The Brand Veto; non-negotiable).
+  * **Note:** Thresholds for Gates 1 and 2 will be determined through calibration analysis of golden and poison datasets. The hypothesis values (3.2 and 3.0) are starting points subject to data-driven adjustment.
 
 ## 4.0 Data Flow and Storage
 
