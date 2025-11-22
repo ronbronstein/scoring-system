@@ -21,50 +21,64 @@
 *Goal: Context-aware enforcement of the Style Guide. Binary Veto Power.*
 
 ### 2A: Mechanical Compliance (Regex Layer)
-* **Criteria**: docs/layer-1-strategy.md
+* **Source**: `src/regex_checker.py` (Deterministic)
 * **Impact**: **Critical Veto.** Any violation here triggers Gate 3 Failure.
+* **Checklist**:
+    * **Brand Naming**: `monday.com` (lowercase), `monday CRM` (lowercase 'm'), `monday apps` (lowercase), `monday.com Work OS` (exact).
+    * **Strict Terminology**: Enforces **Sub-items** (flags "sub-tasks", "subtasks").
+    * **Forbidden Jargon**: Flags `disruptive`, `innovation`, `technologist`, `synergy`, `uplevel`, `learnings`, `synch`.
+    * **Capitalization**: Enforces `Kanban`, `Scrum`, `Emoji`, `OK`, `URL`.
+    * **Compounding/Spelling**: Enforces `ebook`, `ecommerce`, `hashtag`, `headhunting`, `homepage`, `multichannel`, `nonprofit`, `username`, `website`, `pay-per-click`, `pre-sale`, `product-market fit`, `start-up`, `life cycle`.
+    * **Formatting**: Enforces `%` symbol (not "percent"), `P.S.`, and `Em-dash` (—).
+    * **Localization**: Enforces American English (flags `-ise`, `-our`, `-re`, and consonant doubling like `travelling`).
 
-### 2B: Contextual Terminology (LLM Logic Layer) 🧠 IMPROVED
+### 2B: Contextual Terminology (LLM Logic Layer) 🧠
 **Core Task**: Enforce restricted terminology by analyzing the *Referent* (the specific subject being described).
 
 **Logic Block 1: "Tool" & "Hub"**
-* **Restricted Words**: Tool, Hub.
+* **Restricted Words (Triggers)**: Tool, Hub.
 * **Evaluation Logic**:
     1.  Locate the word.
     2.  **Identify Referent**: Is it describing `monday.com` / `monday CRM`?
     3.  **Rule**:
-        * IF Referent == `monday.com`: Must use **Platform**, **Work OS**, or **Product**. (Using "Tool" or "Hub" = **CRITICAL FAIL**).
-        * IF Referent == `Competitor` (Salesforce, HubSpot) OR `General Industry`: "Tool" and "Hub" are **PERMITTED**.
+        * IF Referent == `monday.com`: **CRITICAL FAIL**. (Must use **Platform**, **Work OS**, or **Product**).
+        * IF Referent == `Competitor` (Salesforce, HubSpot) OR `General Industry`: **PERMITTED**.
 
 **Logic Block 2: "Tasks" & "To-dos"**
-* **Restricted Words**: Task, To-do.
+* **Restricted Words (Triggers)**: Task, To-do.
 * **Evaluation Logic**:
     1.  Locate the word.
     2.  **Identify Context**: Is it describing what monday.com manages or holds?
     3.  **Rule**:
-        * IF describing monday.com architecture: Must use **Items**, **Workflows**, **Processes**, or **Projects**. (e.g., "Manage your tasks in monday" = **FAIL**).
+        * IF describing monday.com architecture: **FAIL**. (Must use **Items**, **Workflows**, **Processes**, or **Projects**).
         * IF describing general work concepts: **PERMITTED**. (e.g., "Sales reps have too many administrative tasks" = **PASS**).
 
-**Logic Block 3: "Sub-tasks"**
-* **Rule**: Strict replacement. Monday.com uses **Sub-items**.
-    * "Sub-tasks" = **FAIL** (unless explicitly quoting a competitor's feature name).
+### 2C: Persona & Lexicon (Context-Aware) 🧠
+**Core Task**: Enforce persona-specific language that requires semantic understanding.
 
-### 2C: Persona & Lexicon (Context-Aware) 🧠 IMPROVED
-**Core Task**: Enforce "Customer" vs "User" logic.
-
-**Logic Block: "Customers" vs. "Users"**
-* **Restricted Word**: User(s).
+**Logic Block 1: "Customers" vs. "Users"**
+* **Restricted Word (Trigger)**: User(s).
 * **Evaluation Logic**:
     1.  Locate the word "User".
     2.  **Identify Referent**: Who are these people?
     3.  **Rule**:
-        * IF Referent == People utilizing monday.com: Must use **Customer(s)** or **Team Member(s)**. (Using "User" = **FAIL**).
+        * IF Referent == People utilizing monday.com: **FAIL**. (Must use **Customer(s)** or **Team Member(s)**).
             * *Rationale*: "Users" implies free/casual use. "Customers" implies value and commitment.
-        * IF Referent == People utilizing generic software or competitors: "User" is **PERMITTED**. (e.g., "Salesforce users often complain..." = **PASS**).
+        * IF Referent == People utilizing generic software or competitors: **PERMITTED**.
 
-**Logic Block: Forbidden Words**
-* **List**: Synergy, Uplevel, Disruptive, Innovation, Learnings.
-* **Rule**: **FAIL** if present (no context exceptions).
+**Logic Block 2: "Managers" vs. "Bosses"**
+* **Restricted Word (Trigger)**: Boss(es).
+* **Rule**: **FAIL**. (Must use **Manager**).
+    * *Rationale*: "Boss" implies negative/oppressive top-down leadership. "Manager" implies domain ownership.
+
+**Logic Block 3: Ad Hominem Descriptors**
+* **Restricted Words (Triggers)**: Crazy, Insane.
+* **Evaluation Logic**:
+    1.  Locate the word.
+    2.  **Identify Context**: Is it describing a **person** or group of people?
+    3.  **Rule**:
+        * IF describing a Person/Persona: **FAIL**. (e.g., "Sales managers are insane").
+        * IF describing a Situation/Metric: **PERMITTED** (though discouraged). (e.g., "The growth was insane").
 
 ---
 
