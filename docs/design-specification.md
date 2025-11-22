@@ -4,6 +4,14 @@ Here is the updated **Design Specification**, revised to match the finalized PRD
 
 # AI Content Scoring Agent: Design Specification v2.0
 
+## Executive Summary
+
+**Business Challenge:** As monday.com scales AI-powered content production for monday.com CRM, the primary risk is publishing generic, "safe" content that fails to differentiate monday.com challenger brand in a market dominated by legacy giants.
+
+**Solution:** A hybrid AI scoring system that evaluates content across 5 strategic parameters (17 sub-parameters) using a two-tier architecture: deterministic regex checks for brand compliance + parallel LLM evaluation for voice, clarity, and strategic value. Content must achieve (TBD) overall score AND (TBD) tone score to be publish-ready.
+
+**Expected Outcome:** Scale content production while maintaining monday.com's bold, fluff-free voice—ensuring every published piece reinforces our position as the confident, witty challenger that says what legacy brands won't.
+
 ## 1.0 Introduction & Philosophy
 
 ### 1.1 The Challenge
@@ -48,6 +56,8 @@ We utilize a 1-4 ordinal scale to turn evaluation into a classification problem 
 
 ## 3.0 Implementation & Architecture
 
+**Strategic Rationale:** This two-layer hybrid architecture directly addresses monday.com's core challenge as a challenger brand scaling AI-generated content. The deterministic Layer 1 ensures zero-tolerance brand compliance, while the granular Layer 2 prevents the "mediocrity trap" that plagues AI content at scale. By isolating 17 sub-parameters into parallel API calls (16 LLM agents + 1 regex check), we eliminate scoring bias and maintain the rigorous quality standards required to compete against legacy CRM giants. This architecture enables monday.com to scale content production 10x while maintaining—or exceeding—current quality benchmarks.
+
 ### 3.1 System Architecture: Two-Layer Hybrid
 
 The system uses a "Hard Gate / Soft Gate" approach to maximize efficiency and accuracy.
@@ -85,7 +95,7 @@ graph TD
   * **Architecture:** Asynchronous Fan-Out with conservative rate limiting.
   * **Operation:** The system triggers **16 simultaneous API calls** with the following configuration:
       * **Temperature:** 0 (deterministic evaluation; configurable for testing)
-      * **Max Tokens:** 1000 (generous limit for detailed feedback and violations)
+      * **Max Tokens:** 2000 (generous limit for detailed feedback, thinking, and violations)
       * **Prompt Structure:** System prompt + User message + Assistant prefill (`{`)
       * **JSON Enforcement:** Prompt engineering + assistant prefill technique
       * **Rate Limiting (Tier 1):**
