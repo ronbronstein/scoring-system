@@ -1,0 +1,24 @@
+{
+  "topic": "Sales pipeline management: 9 proven strategies to keep deals moving",
+  "filename": "sales-pipeline-management-9-proven-strategies-to-keep-deals-moving.md",
+  "violations": [
+    "3C: Nominalization & Jargon (Anti-Concise)",
+    "1D: Vanilla Clich\u00e9s (Anti-Spicy)",
+    "3D: Vague Language (Anti-Specific)",
+    "2A: Mechanical Brand Violations",
+    "3A: Buried Lead (Anti-BLUF)",
+    "1A: Problem-Dwelling (Anti-Solution-Focused)",
+    "1B: Corporate Brochure-Speak (Anti-Direct)"
+  ],
+  "violation_keys": [
+    "3C_nominalization_jargon",
+    "1D_vanilla_cliches",
+    "3D_vague_language",
+    "2A_mechanical_violations",
+    "3A_buried_lead",
+    "1A_problem_dwelling",
+    "1B_corporate_brochure"
+  ],
+  "generated_at": "2025-11-22T21:49:45.841294",
+  "word_count": 1314
+}

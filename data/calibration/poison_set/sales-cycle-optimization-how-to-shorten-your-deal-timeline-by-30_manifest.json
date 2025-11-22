@@ -1,0 +1,24 @@
+{
+  "topic": "Sales cycle optimization: How to shorten your deal timeline by 30%",
+  "filename": "sales-cycle-optimization-how-to-shorten-your-deal-timeline-by-30.md",
+  "violations": [
+    "5B: Keyword Stuffing (Anti-Natural SEO)",
+    "3B: Walls of Text (Anti-Scannable)",
+    "1B: Corporate Brochure-Speak (Anti-Direct)",
+    "3C: Nominalization & Jargon (Anti-Concise)",
+    "2A: Mechanical Brand Violations",
+    "4A: Junior/Generic Advice (Anti-Audience-Aligned)",
+    "1C: Unsubstantiated Claims (Anti-Trustworthy)"
+  ],
+  "violation_keys": [
+    "5B_keyword_stuffing",
+    "3B_poor_scannability",
+    "1B_corporate_brochure",
+    "3C_nominalization_jargon",
+    "2A_mechanical_violations",
+    "4A_junior_generic",
+    "1C_unsubstantiated_claims"
+  ],
+  "generated_at": "2025-11-22T21:48:21.471511",
+  "word_count": 1178
+}

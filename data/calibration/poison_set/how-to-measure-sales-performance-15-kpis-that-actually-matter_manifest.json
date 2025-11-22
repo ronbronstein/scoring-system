@@ -1,0 +1,24 @@
+{
+  "topic": "How to measure sales performance: 15 KPIs that actually matter",
+  "filename": "how-to-measure-sales-performance-15-kpis-that-actually-matter.md",
+  "violations": [
+    "1C: Unsubstantiated Claims (Anti-Trustworthy)",
+    "4C: Weak Evidence & Examples",
+    "2C: Users/Bosses Terminology (Persona Violation)",
+    "1B: Corporate Brochure-Speak (Anti-Direct)",
+    "3B: Walls of Text (Anti-Scannable)",
+    "3D: Vague Language (Anti-Specific)",
+    "1A: Problem-Dwelling (Anti-Solution-Focused)"
+  ],
+  "violation_keys": [
+    "1C_unsubstantiated_claims",
+    "4C_weak_evidence",
+    "2C_users_bosses",
+    "1B_corporate_brochure",
+    "3B_poor_scannability",
+    "3D_vague_language",
+    "1A_problem_dwelling"
+  ],
+  "generated_at": "2025-11-22T21:51:14.648585",
+  "word_count": 1388
+}

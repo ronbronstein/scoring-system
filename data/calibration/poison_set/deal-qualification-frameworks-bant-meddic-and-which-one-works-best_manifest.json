@@ -1,0 +1,24 @@
+{
+  "topic": "Deal qualification frameworks: BANT, MEDDIC, and which one works best",
+  "filename": "deal-qualification-frameworks-bant-meddic-and-which-one-works-best.md",
+  "violations": [
+    "3D: Vague Language (Anti-Specific)",
+    "2C: Users/Bosses Terminology (Persona Violation)",
+    "5A: Generic Headline (Anti-Hook)",
+    "1C: Unsubstantiated Claims (Anti-Trustworthy)",
+    "4C: Weak Evidence & Examples",
+    "4B: Vague Non-Actionable Advice",
+    "3C: Nominalization & Jargon (Anti-Concise)"
+  ],
+  "violation_keys": [
+    "3D_vague_language",
+    "2C_users_bosses",
+    "5A_generic_headline",
+    "1C_unsubstantiated_claims",
+    "4C_weak_evidence",
+    "4B_vague_unactionable",
+    "3C_nominalization_jargon"
+  ],
+  "generated_at": "2025-11-22T21:46:26.052262",
+  "word_count": 1063
+}

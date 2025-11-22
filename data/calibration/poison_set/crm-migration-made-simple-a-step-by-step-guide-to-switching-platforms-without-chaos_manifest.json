@@ -1,0 +1,24 @@
+{
+  "topic": "CRM migration made simple: A step-by-step guide to switching platforms without chaos",
+  "filename": "crm-migration-made-simple-a-step-by-step-guide-to-switching-platforms-without-chaos.md",
+  "violations": [
+    "1A: Problem-Dwelling (Anti-Solution-Focused)",
+    "4B: Vague Non-Actionable Advice",
+    "1C: Unsubstantiated Claims (Anti-Trustworthy)",
+    "2C: Users/Bosses Terminology (Persona Violation)",
+    "3B: Walls of Text (Anti-Scannable)",
+    "4C: Weak Evidence & Examples",
+    "4A: Junior/Generic Advice (Anti-Audience-Aligned)"
+  ],
+  "violation_keys": [
+    "1A_problem_dwelling",
+    "4B_vague_unactionable",
+    "1C_unsubstantiated_claims",
+    "2C_users_bosses",
+    "3B_poor_scannability",
+    "4C_weak_evidence",
+    "4A_junior_generic"
+  ],
+  "generated_at": "2025-11-22T21:47:45.308883",
+  "word_count": 1294
+}

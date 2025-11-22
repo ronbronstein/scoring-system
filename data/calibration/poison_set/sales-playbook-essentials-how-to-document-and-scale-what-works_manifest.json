@@ -1,0 +1,24 @@
+{
+  "topic": "Sales playbook essentials: How to document and scale what works",
+  "filename": "sales-playbook-essentials-how-to-document-and-scale-what-works.md",
+  "violations": [
+    "1C: Unsubstantiated Claims (Anti-Trustworthy)",
+    "4B: Vague Non-Actionable Advice",
+    "1D: Vanilla Clich\u00e9s (Anti-Spicy)",
+    "1A: Problem-Dwelling (Anti-Solution-Focused)",
+    "3D: Vague Language (Anti-Specific)",
+    "1B: Corporate Brochure-Speak (Anti-Direct)",
+    "2A: Mechanical Brand Violations"
+  ],
+  "violation_keys": [
+    "1C_unsubstantiated_claims",
+    "4B_vague_unactionable",
+    "1D_vanilla_cliches",
+    "1A_problem_dwelling",
+    "3D_vague_language",
+    "1B_corporate_brochure",
+    "2A_mechanical_violations"
+  ],
+  "generated_at": "2025-11-22T21:52:36.355659",
+  "word_count": 1116
+}

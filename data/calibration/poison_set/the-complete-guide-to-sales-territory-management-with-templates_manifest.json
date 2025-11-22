@@ -1,0 +1,24 @@
+{
+  "topic": "The complete guide to sales territory management (with templates)",
+  "filename": "the-complete-guide-to-sales-territory-management-with-templates.md",
+  "violations": [
+    "5B: Keyword Stuffing (Anti-Natural SEO)",
+    "1B: Corporate Brochure-Speak (Anti-Direct)",
+    "4A: Junior/Generic Advice (Anti-Audience-Aligned)",
+    "1C: Unsubstantiated Claims (Anti-Trustworthy)",
+    "1A: Problem-Dwelling (Anti-Solution-Focused)",
+    "4B: Vague Non-Actionable Advice",
+    "4D: AI Gray Goo (Anti-Original)"
+  ],
+  "violation_keys": [
+    "5B_keyword_stuffing",
+    "1B_corporate_brochure",
+    "4A_junior_generic",
+    "1C_unsubstantiated_claims",
+    "1A_problem_dwelling",
+    "4B_vague_unactionable",
+    "4D_ai_gray_goo"
+  ],
+  "generated_at": "2025-11-22T21:45:47.115022",
+  "word_count": 1123
+}

@@ -1,0 +1,24 @@
+{
+  "topic": "CRM integration guide: Connect your sales stack for maximum efficiency",
+  "filename": "crm-integration-guide-connect-your-sales-stack-for-maximum-efficiency.md",
+  "violations": [
+    "2B: Tool/Hub Reference (Contextual Violation)",
+    "2C: Users/Bosses Terminology (Persona Violation)",
+    "5B: Keyword Stuffing (Anti-Natural SEO)",
+    "3D: Vague Language (Anti-Specific)",
+    "5A: Generic Headline (Anti-Hook)",
+    "3A: Buried Lead (Anti-BLUF)",
+    "1A: Problem-Dwelling (Anti-Solution-Focused)"
+  ],
+  "violation_keys": [
+    "2B_tool_hub_language",
+    "2C_users_bosses",
+    "5B_keyword_stuffing",
+    "3D_vague_language",
+    "5A_generic_headline",
+    "3A_buried_lead",
+    "1A_problem_dwelling"
+  ],
+  "generated_at": "2025-11-22T21:51:56.880121",
+  "word_count": 1105
+}
