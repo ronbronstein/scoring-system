@@ -55,6 +55,15 @@ reports/
 !package.json
 !package-lock.json
 
+# Project-specific data directories
+data/reports/
+data/input/*.txt
+data/input/*.md
+data/calibration/golden_set/*.txt
+data/calibration/golden_set/*.md
+data/calibration/poison_set/*.txt
+data/calibration/poison_set/*.md
+
 # Temporary files
 *.tmp
 *.temp

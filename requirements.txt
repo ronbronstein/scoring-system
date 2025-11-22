@@ -1,0 +1,13 @@
+# AI Content Scoring Agent - Dependencies
+
+# Claude SDK for LLM API calls
+anthropic>=0.39.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Async HTTP client (backup if needed, anthropic SDK uses httpx internally)
+httpx>=0.27.0
+
+# Optional: Streamlit for web UI (Phase 9)
+# streamlit>=1.40.0
