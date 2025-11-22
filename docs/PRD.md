@@ -1,24 +1,21 @@
-This is an excellent strategic decision. You are right to insist on the granularity of sub-parameters. This level of detail is crucial for objective scoring, providing actionable feedback to writers, and demonstrating a sophisticated approach to the assignment.
-
-To maximize precision and isolation, we will adopt the **"Granular Parallel"** architecture. This means every sub-parameter will have its own dedicated, isolated API call running in parallel. This completely eliminates the "Halo Effect" and provides the most objective scoring possible.
-
-Here is the revised Product Requirements Document (PRD) and Task List, designed for rapid MVP development using this granular approach.
+This is the finalized Product Requirements Document (PRD) and Task List for the AI Content Scoring Agent MVP. It incorporates the revised strategic weighting system designed to rigorously enforce the monday.com challenger brand voice and prioritize clarity (BLUF).
 
 -----
 
-# PRD: AI Content Scoring Agent (MVP - Granular Parallel Architecture)
+# FINAL PRD: AI Content Scoring Agent (MVP - Granular Parallel Architecture)
 
 ## 1.0 Overview and Goals
 
 ### 1.1 Objective
 
-Develop a locally hosted Python application that analyzes a content draft and scores it against 19 predefined sub-parameters using a Hybrid (Regex + LLM) architecture. The primary goal is maximum scoring objectivity and granularity.
+Develop a locally hosted Python application that analyzes a content draft and scores it against 19 predefined sub-parameters using a Hybrid (Regex + LLM) architecture. The primary goal is maximum scoring objectivity and granularity, ensuring content meets the "Challenger" standard.
 
 ### 1.2 Goals for MVP
 
   * Implement the 19 isolated scoring sub-parameters (defined in 3.3).
-  * Utilize the **"Granular Parallel" Architecture**: Execute 18 asynchronous LLM API calls (plus 1 internal Regex check) simultaneously.
-  * Implement the 1-4 scoring scale and the 3-Gate decision logic.
+  * Utilize the **"Granular Parallel" Architecture**: Execute 18 asynchronous LLM API calls (plus 1 internal Regex check) simultaneously to eliminate the "Halo Effect."
+  * Implement the 1-4 scoring scale and the strategic weighting system.
+  * Implement the 3-Gate decision logic (Overall Threshold, Boredom Veto, Brand Veto).
   * Output a detailed, nested JSON report stored locally.
 
 ## 2.0 System Architecture
@@ -33,10 +30,10 @@ graph TD
     B --> D(Layer 2: Async Fan-Out - 18 Calls via LLMClient.py);
 
     subgraph Parallel Execution (18 Isolated LLM Agents)
-        D -- Parallel --> E1(Agent 1A: Positive);
-        D -- Parallel --> E2(Agent 1B: Direct);
+        D -- Parallel --> E1(Agent 1A);
+        D -- Parallel --> E2(Agent 1B);
         D -- Parallel --> E3(...);
-        D -- Parallel --> E18(Agent 5C: Shareability);
+        D -- Parallel --> E18(Agent 5C);
     end
 
     E1 & E2 & E3 & E18 --> F(LLM API Provider);
@@ -58,54 +55,64 @@ graph TD
   * **Function:** Executes 18 specialized prompts against the LLM API asynchronously.
   * **Requirements:**
       * Parallel execution (e.g., `asyncio.gather`).
-      * LLM `temperature=0`.
+      * LLM `temperature=0` (for determinism).
       * Enforced structured JSON output: `{"score": X, "feedback": "...", "flags": []}`.
 
-### 3.3 The 19 Sub-Parameters (Isolated Checks)
+### 3.3 The 19 Sub-Parameters & Strategic Weighting
 
-This breakdown is optimized based on the monday.com style guide and the assignment requirements.
+The weighting system is designed to prioritize the "Challenger Voice" and "Time to Value" (BLUF, Clarity), while penalizing generic AI output and brand violations.
 
-#### P1: Challenger Tone & Voice (30% | 4 LLM Calls)
+#### P1: Challenger Tone & Voice (30% Total | 4 LLM Calls)
 
-  * **1A: Positive & Solution-Focused (7.5%):** Focus on success; avoids villainizing.
-  * **1B: Direct with Personality (7.5%):** Straightforward but human; not robotic/corporate.
-  * **1C: Trustworthy & Authentic (7.5%):** Credible but not "square."
-  * **1D: Sharp Wit & Confidence (7.5%):** Witty (not funny); Active voice; Confident tone.
+*Rationale: The primary brand differentiator and the biggest risk when using AI. Heavily weighted towards the "spicy" and direct elements.*
 
-#### P2: Brand Hygiene & Compliance (25% | 1 Regex, 2 LLM Calls)
+  * **1B: Direct with Personality (10%):** Straightforward but human; not robotic/corporate. The core of the voice.
+  * **1D: Sharp Wit & Confidence (10%):** Witty (not funny); Active voice; Confident tone. The "spicy" factor.
+  * 1A: Positive & Solution-Focused (5%): Focus on success; avoids villainizing (Style guide mandate).
+  * 1C: Trustworthy & Authentic (5%): Credible but not "square."
 
-  * **2A: Mechanical Compliance (5%):** (Layer 1 Regex) `monday.com` lowercase, Oxford comma, %.
-  * **2B: Contextual Terminology (10%):** (Layer 2 LLM) The "Tool/Hub/Task" paradox logic.
-  * **2C: Persona & Lexicon (10%):** (Layer 2 LLM) Customers (not Users); Manager (not Boss); No forbidden words (Synergy, Uplevel).
+#### P3: Structural Integrity & Clarity (25% Total | 5 LLM Calls)
 
-#### P3: Structural Integrity & Clarity (20% | 5 LLM Calls)
+*Rationale: Increased significantly to emphasize BLUF and the "fluff-free" requirement mandated by the style guide and demanded by the audience (Sales Leaders).*
 
-  * **3A: BLUF (4%):** Bottom Line Up Front (uses conclusion-comparison Chain-of-Thought logic).
-  * **3B: Scannability & Hierarchy (4%):** Descriptive headers, short paragraphs.
-  * **3C: Conciseness (4%):** Short sentences, no fluff/modifiers.
-  * **3D: Specificity (4%):** Concrete language, avoids vague terms.
-  * **3E: Human Language/Jargon (4%):** Accessible language, no corporate-speak.
+  * **3A: BLUF (10%):** Bottom Line Up Front (uses conclusion-comparison Chain-of-Thought logic). Now correctly weighted as a critical requirement.
+  * **3C: Conciseness (5%):** Short sentences, no fluff/modifiers. The "Fluff-free" mandate; combats AI verbosity.
+  * **3E: Human Language/Jargon (5%):** Accessible language, no corporate-speak (Style guide mandate).
+  * 3B: Scannability & Hierarchy (3%): Descriptive headers, short paragraphs.
+  * 3D: Specificity (2%): Concrete language, avoids vague terms.
 
-#### P4: Strategic Value & Depth (15% | 4 LLM Calls)
+#### P2: Brand Hygiene & Compliance (20% Total | 1 Regex, 2 LLM Calls)
 
-  * **4A: Audience Alignment (3.75%):** Relevance to Sales Leaders/CRM focus.
-  * **4B: Actionability (3.75%):** Clear takeaway or next steps (CTA).
-  * **4C: Evidence & Examples (3.75%):** Data-backed claims, concrete examples.
-  * **4D: Originality & AI Detection (3.75%):** Fresh perspective; avoids AI patterns/cliches/robotic rhythm.
+*Rationale: Reduced numeric weight, but retains critical Veto Power (Gate 3). Prioritizes complex contextual checks.*
 
-#### P5: Engagement & Discoverability (10% | 3 LLM Calls)
+  * **2B: Contextual Terminology (10%):** (Layer 2 LLM) The "Tool/Hub/Task" paradox logic. High weight because it requires nuanced understanding and is non-negotiable.
+  * 2A: Mechanical Compliance (5%): (Layer 1 Regex) `monday.com` lowercase, Oxford comma, %.
+  * 2C: Persona & Lexicon (5%): (Layer 2 LLM) Customers (not Users); Manager (not Boss); No forbidden words (Synergy, Uplevel).
 
-  * **5A: Headline & Hook (3.33%):** Compelling title; immediate attention capture in intro.
-  * **5B: SEO Alignment (3.33%):** Strategic keyword usage; search intent match.
-  * **5C: Shareability (3.34%):** Thought-provoking; worth sharing or bookmarking.
+#### P4: Strategic Value & Depth (15% Total | 4 LLM Calls)
+
+*Rationale: Essential for substance. Prioritizes actionability and combating generic AI output.*
+
+  * **4B: Actionability (5%):** Clear takeaway or next steps (CTA).
+  * **4D: Originality & AI Detection (5%):** Fresh perspective; avoids AI patterns/cliches/robotic rhythm.
+  * 4A: Audience Alignment (3%): Relevance to Sales Leaders/CRM focus.
+  * 4C: Evidence & Examples (2%): Data-backed claims, concrete examples.
+
+#### P5: Engagement & Discoverability (10% Total | 3 LLM Calls)
+
+*Rationale: Important for reach, but secondary to core quality. Prioritizes initial attention capture.*
+
+  * **5A: Headline & Hook (5%):** Compelling title; immediate attention capture in intro.
+  * 5B: SEO Alignment (3%): Strategic keyword usage; search intent match.
+  * 5C: Shareability (2%): Thought-provoking; worth sharing or bookmarking.
 
 ### 3.4 Scorer & Decision Engine
 
   * **Function:** Aggregates results using a two-level weighting system.
   * **Two-Level Aggregation:**
-    1.  **Level 1:** Calculate the score for each Parameter (P1-P5) based on the weighted average of its Sub-Parameters.
-    2.  **Level 2:** Calculate the final score based on the weighted average of the 5 Parameters.
-  * **Logic (The 3-Gate System):**
+    1.  **Level 1:** Calculate the score for each Parameter (P1-P5) based on the weighted average of its Sub-Parameters (using the weights defined in 3.3).
+    2.  **Level 2:** Calculate the final score based on the weighted average of the 5 Parameters (P1: 30%, P3: 25%, P2: 20%, P4: 15%, P5: 10%).
+  * **Logic (The 3-Gate System):** Determines "Publish-Ready" status (True/False).
     1.  Gate 1: Overall Score ≥ 3.2 (Configurable threshold).
     2.  Gate 2: Tone Score (P1) ≥ 3.0 (The Boredom Veto).
     3.  Gate 3: Zero Critical Violations in Brand Hygiene (P2) (The Brand Veto).
@@ -137,13 +144,13 @@ The `/prompts` directory requires 18 distinct files.
 │   ├── llm_client.py (Handles 18 Async API calls)
 │   └── scorer.py (Two-level aggregation and 3-Gate Logic)
 │
-├── .env (API Keys)
+├── .env (API Keys - DO NOT COMMIT)
 └── requirements.txt
 ```
 
 ## 5.0 Output Schema (JSON)
 
-The output JSON must include the nested sub-parameter details for full transparency.
+The output JSON must include the nested sub-parameter details and weights for full transparency.
 
 ```json
 {
@@ -155,39 +162,45 @@ The output JSON must include the nested sub-parameter details for full transpare
     "overall_score": 3.15,
     "publish_ready": false
   },
-  "gates_status": { /* ... */ },
+  "gates_status": {
+    "gate_1_overall_threshold_met": false,
+    "gate_2_tone_veto_passed": true,
+    "gate_3_brand_veto_passed": true
+  },
   "parameters": {
     "P1_challenger_tone": {
       "parameter_score": 3.0,
       "weight": 0.30,
       "contribution": 0.90,
       "sub_parameters": {
-        "1A_Positive": {
-          "score": 4.0,
-          "weight": 0.075,
-          "feedback": "Excellent focus on solutions, no villainizing."
+        "1B_Direct": {
+          "score": 3.0,
+          "weight": 0.10,
+          "feedback": "Direct, but lacks personality in the middle sections."
         },
-        // ... 1B, 1C, 1D
+        "1D_Sharp_Wit": {
+          "score": 3.0,
+          "weight": 0.10,
+          "feedback": "Confident, but could use sharper wit."
+        }
+        // ... 1A (5%), 1C (5%)
       }
     },
-    "P2_brand_hygiene": {
-       // ... Includes 2A (Regex results), 2B (LLM), 2C (LLM)
-    }
-    // ... P3, P4, P5
+    // ... P3 (25%), P2 (20%), P4 (15%), P5 (10%)
   }
 }
 ```
 
 -----
 
-# Development Task List (Rapid Build - Today)
+# Development Task List (Rapid Build)
 
 This task list is prioritized for rapid execution, separating tasks between the User (Strategist/PM) and the Developer (Dev).
 
 ## Phase 0: Setup & Environment (0.5 Hours)
 
 1.  [ ] **(Dev) Project Structure & Environment:** Create directory structure (PRD 4.1). Set up Python venv and dependencies (`httpx`, `python-dotenv`, LLM SDK).
-2.  [ ] **(Dev/User) Configuration:** Set up `.env` (API keys) and `src/config.py`.
+2.  [ ] **(Dev/User) Configuration:** Set up `.env` (API keys) and `src/config.py` (Input the finalized weights from PRD 3.3).
 
 ## Phase 1: Data Preparation (1.5 Hours) - Parallelizable
 
@@ -222,7 +235,7 @@ This task list is prioritized for rapid execution, separating tasks between the 
 
 ## Phase 4: Testing & Calibration (2.0 Hours)
 
-1.  [ ] **(Dev) End-to-End Test:** Verify the output JSON is complete, correctly nested, and the aggregation math is correct.
+1.  [ ] **(Dev) End-to-End Test:** Verify the output JSON is complete, correctly nested, and the aggregation math is correct based on the new weights.
 2.  [ ] **(User/Dev) Calibration Run (Poison/Golden Sets):** Run the system on the calibration data.
 3.  [ ] **(User/Dev) Prompt Refinement Loop:** Analyze the feedback provided by *each* of the 18 sub-parameters. Refine prompts where feedback is weak or scores misalign with human intuition.
 4.  [ ] **(User) Threshold Setting:** Determine the final threshold and update `src/config.py`.
