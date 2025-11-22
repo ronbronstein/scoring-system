@@ -57,12 +57,12 @@ ITPM_LIMIT = 30000  # Input tokens per minute
 OTPM_LIMIT = 8000  # Output tokens per minute
 
 # Conservative rate limiting for parallel execution
-# We're making 18 parallel calls, so we limit to batches
+# We're making 16 parallel LLM calls (17 total sub-parameters - 1 regex), so we limit to batches
 MAX_CONCURRENT_REQUESTS = 10  # Process in batches to avoid hitting RPM
 REQUEST_DELAY = 1.2  # Delay between batches in seconds (conservative)
 
 # ============================================================================
-# SCORING WEIGHTS: 19 SUB-PARAMETERS
+# SCORING WEIGHTS: 17 SUB-PARAMETERS (v6.0)
 # ============================================================================
 # All weights are expressed as decimals (0.10 = 10%)
 # Total weights per parameter must sum to the parameter's total weight
@@ -79,59 +79,57 @@ WEIGHTS_P1 = {
 # Verify: 0.05 + 0.10 + 0.05 + 0.10 = 0.30 ✓
 
 # ----------------------------------------------------------------------------
-# P2: BRAND HYGIENE & COMPLIANCE (20% Total)
+# P2: BRAND HYGIENE & COMPLIANCE (5% Total)
 # ----------------------------------------------------------------------------
 WEIGHTS_P2 = {
-    "2A_Mechanical": 0.05,  # Mechanical Compliance (Layer 1 Regex)
-    "2B_Contextual": 0.10,  # Contextual Terminology (Tool Paradox Logic)
-    "2C_Persona": 0.05,  # Persona & Lexicon
+    "2A_Mechanical": 0.02,  # Mechanical Compliance (Layer 1 Regex)
+    "2B_Contextual": 0.02,  # Contextual Terminology (Referent Analysis)
+    "2C_Persona": 0.01,  # Persona & Lexicon (Customers/Managers/Ad Hominem)
 }
-# Verify: 0.05 + 0.10 + 0.05 = 0.20 ✓
+# Verify: 0.02 + 0.02 + 0.01 = 0.05 ✓
 
 # ----------------------------------------------------------------------------
 # P3: STRUCTURAL INTEGRITY & CLARITY (25% Total)
 # ----------------------------------------------------------------------------
 WEIGHTS_P3 = {
     "3A_BLUF": 0.10,  # Bottom Line Up Front (CRITICAL)
-    "3B_Scannability": 0.03,  # Scannability & Hierarchy
-    "3C_Conciseness": 0.05,  # Conciseness (Fluff-Free Mandate)
-    "3D_Specificity": 0.02,  # Specificity
-    "3E_Human_Language": 0.05,  # Human Language/No Jargon
+    "3B_Scannability": 0.05,  # Scannability & Hierarchy
+    "3C_Conciseness": 0.05,  # Conciseness & Human Language (combined)
+    "3D_Specificity": 0.05,  # Specificity
 }
-# Verify: 0.10 + 0.03 + 0.05 + 0.02 + 0.05 = 0.25 ✓
+# Verify: 0.10 + 0.05 + 0.05 + 0.05 = 0.25 ✓
 
 # ----------------------------------------------------------------------------
-# P4: STRATEGIC VALUE & DEPTH (15% Total)
+# P4: STRATEGIC VALUE & DEPTH (30% Total - DOUBLED)
 # ----------------------------------------------------------------------------
 WEIGHTS_P4 = {
-    "4A_Audience": 0.03,  # Audience Alignment (Sales Leaders/CRM)
-    "4B_Actionability": 0.05,  # Actionability (Clear Takeaway/CTA)
-    "4C_Evidence": 0.02,  # Evidence & Examples
+    "4A_Audience": 0.10,  # Audience Alignment (Sales Leaders/CRM)
+    "4B_Actionability": 0.10,  # Actionability (Clear Takeaway/CTA)
+    "4C_Evidence": 0.05,  # Evidence & Examples
     "4D_Originality": 0.05,  # Originality & AI Detection
 }
-# Verify: 0.03 + 0.05 + 0.02 + 0.05 = 0.15 ✓
+# Verify: 0.10 + 0.10 + 0.05 + 0.05 = 0.30 ✓
 
 # ----------------------------------------------------------------------------
 # P5: ENGAGEMENT & DISCOVERABILITY (10% Total)
 # ----------------------------------------------------------------------------
 WEIGHTS_P5 = {
     "5A_Headline": 0.05,  # Headline & Hook (Attention Capture)
-    "5B_SEO": 0.03,  # SEO Alignment
-    "5C_Shareability": 0.02,  # Shareability
+    "5B_SEO": 0.05,  # SEO & Shareability (combined)
 }
-# Verify: 0.05 + 0.03 + 0.02 = 0.10 ✓
+# Verify: 0.05 + 0.05 = 0.10 ✓
 
 # ----------------------------------------------------------------------------
-# PARAMETER-LEVEL WEIGHTS (Second Level Aggregation)
+# PARAMETER-LEVEL WEIGHTS (Second Level Aggregation - v6.0)
 # ----------------------------------------------------------------------------
 WEIGHTS_PARAMETERS = {
     "P1_Challenger_Tone": 0.30,
-    "P2_Brand_Hygiene": 0.20,
+    "P2_Brand_Hygiene": 0.05,      # Reduced but retains Gate 3 veto power
     "P3_Structural_Clarity": 0.25,
-    "P4_Strategic_Value": 0.15,
+    "P4_Strategic_Value": 0.30,    # Doubled - Substance = Style
     "P5_Engagement": 0.10,
 }
-# Verify: 0.30 + 0.20 + 0.25 + 0.15 + 0.10 = 1.00 ✓
+# Verify: 0.30 + 0.05 + 0.25 + 0.30 + 0.10 = 1.00 ✓
 
 # ============================================================================
 # COMPLETE SUB-PARAMETER REGISTRY
@@ -205,7 +203,7 @@ SUB_PARAMETERS = {
         "requires_llm": True,
     },
     "3C_Conciseness": {
-        "name": "Conciseness",
+        "name": "Conciseness & Human Language",
         "parameter": "P3_Structural_Clarity",
         "weight": WEIGHTS_P3["3C_Conciseness"],
         "prompt_file": "3C_Conciseness.txt",
@@ -216,13 +214,6 @@ SUB_PARAMETERS = {
         "parameter": "P3_Structural_Clarity",
         "weight": WEIGHTS_P3["3D_Specificity"],
         "prompt_file": "3D_Specificity.txt",
-        "requires_llm": True,
-    },
-    "3E_Human_Language": {
-        "name": "Human Language/No Jargon",
-        "parameter": "P3_Structural_Clarity",
-        "weight": WEIGHTS_P3["3E_Human_Language"],
-        "prompt_file": "3E_Human_Language.txt",
         "requires_llm": True,
     },
     # P4: Strategic Value & Depth
@@ -263,17 +254,10 @@ SUB_PARAMETERS = {
         "requires_llm": True,
     },
     "5B_SEO": {
-        "name": "SEO Alignment",
+        "name": "SEO & Shareability",
         "parameter": "P5_Engagement",
         "weight": WEIGHTS_P5["5B_SEO"],
         "prompt_file": "5B_SEO.txt",
-        "requires_llm": True,
-    },
-    "5C_Shareability": {
-        "name": "Shareability",
-        "parameter": "P5_Engagement",
-        "weight": WEIGHTS_P5["5C_Shareability"],
-        "prompt_file": "5C_Shareability.txt",
         "requires_llm": True,
     },
 }

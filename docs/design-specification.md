@@ -1,4 +1,4 @@
-Here is the updated **Design Specification**, revised to match the finalized PRD, the Granular Parallel Architecture (18 agents), and the specific Layer 1 Regex strategy.
+Here is the updated **Design Specification**, revised to match the finalized PRD v6.0, the Granular Parallel Architecture (16 agents), and the specific Layer 1 Regex strategy.
 
 -----
 
@@ -12,28 +12,28 @@ When scaling content production using AI, the primary risk is mediocrity. AI mod
 
 ### 1.2 The Solution
 
-We propose a locally hosted, **Hybrid Discriminative AI System** designed to act as an automated quality control layer. Unlike standard "evals" that use a single prompt, this system utilizes a **Granular Parallel Architecture**, breaking content evaluation down into **19 isolated sub-parameters** to ensure maximum objectivity.
+We propose a locally hosted, **Hybrid Discriminative AI System** designed to act as an automated quality control layer. Unlike standard "evals" that use a single prompt, this system utilizes a **Granular Parallel Architecture**, breaking content evaluation down into **17 isolated sub-parameters** to ensure maximum objectivity.
 
 ### 1.3 Core Principles
 
-  * **Objectivity by Isolation:** We eliminate the "Halo Effect" (where good grammar inflates strategy scores) by using 18 separate, asynchronous LLM calls. Each agent evaluates *only* one specific criteria (e.g., "Did this use passive voice?") without knowledge of the other scores.
+  * **Objectivity by Isolation:** We eliminate the "Halo Effect" (where good grammar inflates strategy scores) by using 16 separate, asynchronous LLM calls. Each agent evaluates *only* one specific criteria (e.g., "Did this use passive voice?") without knowledge of the other scores.
   * **Determinism First (Layer 1):** We do not waste tokens asking an LLM to check spelling or capitalization. A rigorous Python Regex layer handles strict compliance (e.g., `monday.com` lowercase) with 100% accuracy before the AI is ever invoked.
   * **The "Boredom Penalty":** The scoring system is weighted to heavily penalize generic, "safe" content.
   * **Forced Choice Scoring:** We employ a 1-4 ordinal scale (`temperature=0`) to force the model to make a clear decision, eliminating the noise of 1-10 scales.
 
 ## 2.0 Scoring Logic
 
-### 2.1 The 5 Parameters & 19 Sub-Parameters
+### 2.1 The 5 Parameters & 17 Sub-Parameters (v6.0)
 
-The agent evaluates content across 5 weighted parameters. The weights have been strategically adjusted to prioritize **Voice** (differentiation) and **Clarity** (BLUF/Time-to-value).
+The agent evaluates content across 5 weighted parameters. The weights have been strategically adjusted to prioritize **Voice** (differentiation) and **Strategic Value** (substance equals style), with **Clarity** (BLUF/Time-to-value) as critical foundation.
 
 | Parameter | Weight | Sub-Parameters (The "Granular" Check) |
 | :--- | :--- | :--- |
 | **1. Challenger Tone & Voice** | **30%** | **1B Direct/Personality (10%)**, **1D Sharp Wit (10%)**, 1A Positive/Solution-Focused (5%), 1C Trustworthy (5%). <br>*Goal: The "Spiciness" factor. Penalizes robotic/corporate tone.* |
-| **2. Structural Integrity & Clarity** | **25%** | **3A BLUF (10%)**, **3C Conciseness (5%)**, **3E Human Language (5%)**, 3B Scannability (3%), 3D Specificity (2%). <br>*Goal: Ensures Bottom Line Up Front and fluff-free writing.* |
-| **3. Brand Hygiene & Compliance** | **20%** | **2B Contextual Terminology (10%)** (LLM), 2A Mechanical Compliance (5%) (Regex), 2C Persona/Lexicon (5%) (LLM). <br>*Goal: Non-negotiable style guide adherence (e.g., "Customer" not "User").* |
-| **4. Strategic Value & Depth** | **15%** | **4B Actionability (5%)**, **4D Originality/AI Detection (5%)**, 4A Audience Alignment (3%), 4C Evidence (2%). <br>*Goal: Combats generic AI output by demanding concrete takeaways.* |
-| **5. Engagement & Discoverability** | **10%** | **5A Headline & Hook (5%)**, 5B SEO Alignment (3%), 5C Shareability (2%). <br>*Goal: Immediate attention capture.* |
+| **2. Strategic Value & Depth** | **30%** | **4A Audience Alignment (10%)**, **4B Actionability (10%)**, 4C Evidence (5%), 4D Originality/AI Detection (5%). <br>*Goal: Doubled to ensure substance equals style. Combats generic AI output by demanding concrete takeaways for Sales Leaders.* |
+| **3. Structural Integrity & Clarity** | **25%** | **3A BLUF (10%)**, **3C Conciseness & Human Language (5%)**, 3B Scannability (5%), 3D Specificity (5%). <br>*Goal: Ensures Bottom Line Up Front and fluff-free writing with accessible language.* |
+| **4. Engagement & Discoverability** | **10%** | **5A Headline & Hook (5%)**, 5B SEO & Shareability (5%). <br>*Goal: Immediate attention capture and discoverability.* |
+| **5. Brand Hygiene & Compliance** | **5%** | 2A Mechanical Compliance (2%) (Regex), **2B Contextual Terminology (2%)** (LLM), 2C Persona/Lexicon (1%) (LLM). <br>*Goal: Minimal weight but absolute VETO power (Gate 3). Non-negotiable style guide adherence.* |
 
 ### 2.2 Scoring Scale (1-4 Forced Choice)
 
@@ -61,9 +61,9 @@ graph TD
     Layer2{Layer 2: Soft Gate};
     Layer2 -- Async Fan-Out --> Agent1[Agent 1A];
     Layer2 -- Async Fan-Out --> Agent2[Agent 1B];
-    Layer2 -- ... --> Agent18[Agent 5C];
-    
-    Agent1 & Agent2 & Agent18 --> Aggregator[Scorer Logic];
+    Layer2 -- ... --> Agent16[Agent 5B];
+
+    Agent1 & Agent2 & Agent16 --> Aggregator[Scorer Logic];
     Aggregator --> Decision{3-Gate Decision};
     Decision --> Output[JSON Report];
 ```
@@ -83,7 +83,7 @@ graph TD
   * **Technology:** `Asyncio` + Claude API
   * **Model:** Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`)
   * **Architecture:** Asynchronous Fan-Out with conservative rate limiting.
-  * **Operation:** The system triggers **18 simultaneous API calls** with the following configuration:
+  * **Operation:** The system triggers **16 simultaneous API calls** with the following configuration:
       * **Temperature:** 0 (deterministic evaluation; configurable for testing)
       * **Max Tokens:** 1000 (generous limit for detailed feedback and violations)
       * **Prompt Structure:** System prompt + User message + Assistant prefill (`{`)
@@ -103,12 +103,13 @@ graph TD
 
 #### A. The "Tool" Paradox (Agent 2B - Contextual Terminology)
 
-Simple regex cannot handle the rule "Don't call monday.com a tool."
+Simple regex cannot handle the rule "Don't call monday.com a tool" - this requires **referent analysis**.
 
-  * **Logic:** The LLM is prompted to identify every instance of the word "Tool" or "Hub."
+  * **Logic:** The LLM is prompted to identify every instance of restricted words ("Tool", "Hub", "Task", "To-do") and analyze the **referent** (what the word is describing).
   * **Decision Tree:**
-      * Is the subject monday.com? -\> **Violation (Critical)**.
-      * Is the subject a competitor or general concept? -\> **Pass**.
+      * **Tool/Hub:** Is the referent monday.com/monday CRM? -\> **Violation (Critical)**. Is it a competitor or general concept? -\> **Pass**.
+      * **Task/To-do:** Is it describing monday.com's architecture? -\> **Violation**. Is it describing general work concepts? -\> **Pass**.
+  * **Rationale:** Context-aware enforcement that permits industry terminology while protecting brand positioning.
 
 #### B. BLUF Validation (Agent 3A - Chain of Thought)
 
@@ -137,7 +138,7 @@ We define "Publish-Ready" using a **3-Gate System**. Content must pass **all thr
 
 1.  ✅ **Gate 1: Overall Weighted Score ≥ [TBD]** (Initial hypothesis: 3.2; ensures general high quality). Threshold determined after calibration.
 2.  ✅ **Gate 2: Tone Veto (P1 ≥ [TBD])** (Initial hypothesis: 3.0; The "Boredom Penalty" — if the tone is generic/robotic, the piece fails regardless of accuracy). Threshold determined after calibration.
-3.  ✅ **Gate 3: Brand Veto (Zero Critical Violations)** (Non-negotiable; content cannot be published if Layer 1 or Agent 2B flags a critical violation like "Monday.com" capitalized or "Tool" usage).
+3.  ✅ **Gate 3: Brand Veto (Zero Critical Violations)** (Non-negotiable; content cannot be published if ANY Brand Hygiene sub-parameter (2A Mechanical, 2B Contextual, or 2C Persona) flags a critical violation such as "Monday.com" capitalized, "Tool" usage for monday.com, or "User" instead of "Customer").
 
 **Note:** Gates 1 and 2 thresholds are data-driven and will be finalized through calibration analysis. Gate 3 is absolute (zero tolerance for critical violations).
 
@@ -147,5 +148,5 @@ The system generates a detailed JSON report (`report.json`) containing:
 
   * **Metadata:** Timestamp, Content ID.
   * **Executive Summary:** Final Score, Publish-Ready Status (Bool), Gate Status.
-  * **Granular Breakdown:** Nested scores for all 19 sub-parameters with specific feedback strings.
+  * **Granular Breakdown:** Nested scores for all 17 sub-parameters with specific feedback strings.
   * **Flags:** A list of specific text snippets (from Layer 1 and Layer 2) that require manual correction.

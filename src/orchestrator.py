@@ -26,7 +26,7 @@ def analyze_content(
 
     Pipeline:
     1. Layer 1: Regex checks (deterministic)
-    2. Layer 2: Parallel LLM agent execution (18 agents)
+    2. Layer 2: Parallel LLM agent execution (16 agents)
     3. Scorer: Two-level aggregation and 3-Gate evaluation
     4. Save JSON report
 
@@ -59,7 +59,7 @@ def analyze_content(
     # ========================================================================
     # LAYER 2: LLM AGENT EXECUTION (The Soft Gate)
     # ========================================================================
-    print("\n[LAYER 2] Executing 18 parallel LLM agents...")
+    print("\n[LAYER 2] Executing 16 parallel LLM agents...")
     print("  (This may take 30-60 seconds depending on API response times)")
 
     layer_2_results = run_layer_2_analysis(content)
@@ -77,7 +77,7 @@ def analyze_content(
             error = layer_2_results[agent_id].get("error", "Unknown error")
             print(f"    - {agent_id}: {error}")
     else:
-        print("  ✓ All 18 agents completed successfully")
+        print("  ✓ All 16 agents completed successfully")
 
     # ========================================================================
     # SCORER: AGGREGATION AND REPORT GENERATION

@@ -160,18 +160,24 @@ def evaluate_gates(
         # Threshold not set or tone score missing - cannot evaluate
         gate_2_pass = None
 
-    # Gate 3: Brand Veto (Zero critical violations)
-    # Check Layer 1 flags
+    # Gate 3: Brand Veto (Zero critical violations from ALL P2 sub-parameters)
+    # Any P2 violation triggers Gate 3 failure per parameters-spec.md v6.0
+
+    # Check Layer 1 flags (2A_Mechanical)
     layer_1_critical = [f for f in layer_1_flags if f["severity"] == "Critical"]
 
-    # Check Layer 2 Agent 2B (Contextual Terminology) for critical flags
-    agent_2b_result = parameter_scores.get("P2_Brand_Hygiene", {}).get(
-        "sub_parameters", {}
-    ).get("2B_Contextual", {})
-    agent_2b_flags = agent_2b_result.get("flags", [])
+    # Check Layer 2 P2 agents (2B_Contextual, 2C_Persona) for critical flags
+    p2_brand_hygiene = parameter_scores.get("P2_Brand_Hygiene", {}).get("sub_parameters", {})
+
+    # Check 2B_Contextual
+    agent_2b_flags = p2_brand_hygiene.get("2B_Contextual", {}).get("flags", [])
     agent_2b_critical = [f for f in agent_2b_flags if isinstance(f, dict) and f.get("severity") == "Critical"]
 
-    gate_3_pass = len(layer_1_critical) == 0 and len(agent_2b_critical) == 0
+    # Check 2C_Persona
+    agent_2c_flags = p2_brand_hygiene.get("2C_Persona", {}).get("flags", [])
+    agent_2c_critical = [f for f in agent_2c_flags if isinstance(f, dict) and f.get("severity") == "Critical"]
+
+    gate_3_pass = len(layer_1_critical) == 0 and len(agent_2b_critical) == 0 and len(agent_2c_critical) == 0
 
     # Determine publish-ready status
     # Can only be True if ALL gates pass
@@ -200,7 +206,7 @@ def evaluate_gates(
         "gate_3_brand_veto_passed": gate_3_pass,
         "publish_ready": publish_ready,
         "status": status,
-        "critical_violations_count": len(layer_1_critical) + len(agent_2b_critical),
+        "critical_violations_count": len(layer_1_critical) + len(agent_2b_critical) + len(agent_2c_critical),
     }
 
 

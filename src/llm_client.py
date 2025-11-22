@@ -1,5 +1,5 @@
 """
-LLM Client for Layer 2: Asynchronous parallel execution of 18 specialized agents.
+LLM Client for Layer 2: Asynchronous parallel execution of 16 specialized agents.
 Handles rate limiting, retries, JSON parsing, and error recovery.
 """
 
@@ -352,7 +352,7 @@ Provide your evaluation as a JSON object following the exact format specified in
 
 async def run_all_agents_parallel(content: str) -> Dict[str, Dict]:
     """
-    Execute all 18 LLM agents in parallel with rate limiting.
+    Execute all 16 LLM agents in parallel with rate limiting.
 
     Args:
         content: The draft content to analyze

@@ -7,7 +7,7 @@ AI Content Scoring Agent for monday.com challenger brand voice evaluation.
 - DO NOT edit more code than necessary - make targeted, minimal changes
 - DO NOT modify weights or thresholds without explicit approval - they are strategically calibrated
 - DO NOT waste tokens - be succinct and precise
-- SOURCES OF TRUTH: docs/design-specification.md, docs/PRD.md, docs/claude-api-docs
+- SOURCES OF TRUTH: docs/parameters-spec.md (v6.0), docs/design-specification.md, docs/PRD.md
 
 ## Tech Stack
 - Python 3.8+
@@ -31,9 +31,9 @@ AI Content Scoring Agent for monday.com challenger brand voice evaluation.
   - `orchestrator.py` - Pipeline coordination
   - `config.py` - Weights, thresholds, API configuration
   - `regex_checker.py` - Layer 1: Deterministic brand compliance
-  - `llm_client.py` - Layer 2: 18 async LLM agents
+  - `llm_client.py` - Layer 2: 16 async LLM agents
   - `scorer.py` - Two-level aggregation & 3-Gate decision logic
-- `prompts/` - 18 prompt templates (one per LLM agent)
+- `prompts/` - 16 prompt templates (one per LLM agent; 17 total sub-params with 2A regex)
 - `data/input/` - Content drafts to analyze
 - `data/reports/` - Generated JSON reports
 - `data/calibration/` - Golden/poison sets for threshold calibration
@@ -41,17 +41,19 @@ AI Content Scoring Agent for monday.com challenger brand voice evaluation.
 
 ## Architecture: Granular Parallel System
 - **Layer 1 (Regex)**: Synchronous deterministic checks (2A: Mechanical Compliance)
-- **Layer 2 (LLM)**: 18 parallel async agents (isolated sub-parameter evaluation)
+- **Layer 2 (LLM)**: 16 parallel async agents (isolated sub-parameter evaluation)
 - **Isolation Principle**: Each agent evaluates ONLY one sub-parameter to eliminate "Halo Effect"
 - **Rate Limiting**: Tier 1 (50 RPM, 30K ITPM, 8K OTPM) - batched at 10 concurrent requests, 1.2s delay
 - **Error Handling**: 3 retries with exponential backoff; failed agents marked in report (does not fail entire analysis)
 
-## The 19 Sub-Parameters (Strategic Weighting)
-1. **P1: Challenger Tone (30%)** - 1A, 1B*, 1C, 1D* (*=highest weight: 10% each)
-2. **P3: Structural Clarity (25%)** - 3A*, 3B, 3C*, 3D, 3E* (*=BLUF, Conciseness, Human Language)
-3. **P2: Brand Hygiene (20%)** - 2A (Regex), 2B*, 2C (*=Tool Paradox logic)
-4. **P4: Strategic Value (15%)** - 4A, 4B*, 4C, 4D* (*=Actionability, AI Detection)
-5. **P5: Engagement (10%)** - 5A*, 5B, 5C (*=Headline & Hook)
+## The 17 Sub-Parameters (Strategic Weighting - v6.0)
+1. **P1: Challenger Tone (30%)** - 1A (5%), 1B* (10%), 1C (5%), 1D* (10%)
+2. **P4: Strategic Value (30%)** - 4A* (10%), 4B* (10%), 4C (5%), 4D (5%) [DOUBLED]
+3. **P3: Structural Clarity (25%)** - 3A* (10%), 3B (5%), 3C* (5%), 3D (5%)
+4. **P5: Engagement (10%)** - 5A* (5%), 5B (5%)
+5. **P2: Brand Hygiene (5%)** - 2A (2%), 2B (2%), 2C (1%) [VETO GATE]
+
+(*=highest weights; removed 3E, 5C)
 
 ## 3-Gate Decision System
 Content is "Publish-Ready" ONLY if ALL three gates pass:
@@ -69,7 +71,7 @@ Content is "Publish-Ready" ONLY if ALL three gates pass:
 - Max tokens: 1000 (generous for detailed feedback)
 
 ## Critical Constraints
-- DO NOT modify the 19 sub-parameter weights without understanding the strategic rationale (see docs/PRD.md section 3.3)
+- DO NOT modify the 17 sub-parameter weights without understanding the strategic rationale (see docs/parameters-spec.md v6.0)
 - DO NOT change the scoring scale (1-4 forced choice is intentional)
 - DO NOT skip the two-level aggregation logic (sub-params → params → overall)
 - DO NOT call monday.com a "tool" or "hub" - this is a critical brand violation
@@ -79,7 +81,7 @@ Content is "Publish-Ready" ONLY if ALL three gates pass:
 ## Key Files & Their Purposes
 - `config.py:38-82` - Sub-parameter weights (strategically calibrated; see PRD 3.3)
 - `regex_checker.py` - Enforces lowercase "monday.com", Oxford comma, %, forbidden terms
-- `llm_client.py` - Handles 18 async API calls with rate limiting and retry logic
+- `llm_client.py` - Handles 16 async API calls with rate limiting and retry logic
 - `scorer.py` - Implements two-level weighted aggregation and 3-Gate decision
 - `orchestrator.py` - Coordinates Layer 1 → Layer 2 → Scoring pipeline
 - `prompts/2B_*.txt` - "Tool Paradox" logic (contextual terminology)
@@ -105,7 +107,7 @@ Content is "Publish-Ready" ONLY if ALL three gates pass:
 - Empty/incomplete prompt templates (leads to poor LLM feedback)
 - Missing API key in `.env` (leads to authentication errors)
 - Modifying weights without understanding two-level aggregation math
-- Expecting all 18 agents to succeed on first run (use `continue` for retries)
+- Expecting all 16 agents to succeed on first run (use `continue` for retries)
 
 ## Documentation References
 - Full product requirements: `docs/PRD.md`

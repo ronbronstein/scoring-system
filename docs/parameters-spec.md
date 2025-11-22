@@ -17,11 +17,41 @@
 
 ---
 
+## P1: Challenger Tone & Voice (30%)
+
+### 1B: Direct with Personality (10%)
+* **Core Question**: Is the writing direct ("fluff-free") while maintaining human warmth?
+* **Deep Dive Questions (Nuance)**:
+    * **The "Smart Colleague" Test**: Does this sound like a smart peer chatting over Slack, or a marketing brochure? (Penalty for "Brochure-speak").
+    * **Passive Aggressive Check**: Is the directness rude? (e.g., "You are failing because..." vs "Pipeline failure happens when...").
+    * **Qualifier Density**: Are there more than 2 instances of "really," "very," or "actually" per paragraph?
+
+### 1D: Sharp Wit & Confidence (10%)
+* **Core Question**: Is the tone "spicy" and opinionated?
+* **Deep Dive Questions (Nuance)**:
+    * **The "Vanilla" Test**: Could this have been written by a legacy competitor (e.g., Microsoft)? If yes, score low.
+    * **Cliché Detector**: Does it use tired business metaphors like "moving the needle," "low hanging fruit," or "game changer"? (Penalty for Clichés).
+    * **Active Ownership**: Does the writer claim the opinion, or hide behind "It is said that..."?
+
+### 1A: Positive & Solution-Focused (5%)
+* **Core Question**: Does the content empower the reader?
+* **Deep Dive Questions (Nuance)**:
+    * **The 80/20 Rule**: Is 80% of the content focused on the *solution* and only 20% on the *problem*? (If it dwells on the problem for >50%, score low).
+    * **The "Lazy Rep" Tropes**: Does the piece imply salespeople are lazy or disorganized? (Immediate Fail - "Don't Villainize").
+
+### 1C: Trustworthy & Authentic (5%)
+* **Core Question**: Is the confidence earned?
+* **Deep Dive Questions (Nuance)**:
+    * **The "Trust Me" Filter**: Does the writer make a claim (e.g., "This increases revenue") without a "Why" or "How"?
+    * **Vulnerability**: Does the writer admit where the software *isn't* a magic wand? (e.g., "Automation helps, but you still need a strategy"). High score for nuance.
+
+---
+
 ## P2: Brand Hygiene & Compliance (5% + GATE 3)
 *Goal: Context-aware enforcement of the Style Guide. Binary Veto Power.*
 
 ### 2A: Mechanical Compliance (Regex Layer)
-* **Source**: `src/regex_checker.py` (Deterministic)
+* **Source**: `src/regex_checker.py` (Deterministic). More info at `docs/layer-1-strategy.md`
 * **Impact**: **Critical Veto.** Any violation here triggers Gate 3 Failure.
 * **Checklist**:
     * **Brand Naming**: `monday.com` (lowercase), `monday CRM` (lowercase 'm'), `monday apps` (lowercase), `monday.com Work OS` (exact).
@@ -82,33 +112,31 @@
 
 ---
 
-## P1: Challenger Tone & Voice (30%)
+## P3: Structural Integrity & Clarity (25%)
 
-### 1B: Direct with Personality (10%)
-* **Core Question**: Is the writing direct ("fluff-free") while maintaining human warmth?
+### 3A: BLUF - Bottom Line Up Front (10%)
+* **Core Question**: Is the core value visible immediately?
 * **Deep Dive Questions (Nuance)**:
-    * **The "Smart Colleague" Test**: Does this sound like a smart peer chatting over Slack, or a marketing brochure? (Penalty for "Brochure-speak").
-    * **Passive Aggressive Check**: Is the directness rude? (e.g., "You are failing because..." vs "Pipeline failure happens when...").
-    * **Qualifier Density**: Are there more than 2 instances of "really," "very," or "actually" per paragraph?
+    * **The "Rhetorical Question" Trap**: Does the intro start with 3 rhetorical questions ("Do you want more sales? Do you hate admin?")? (Penalty - this is fluff/burying the lead).
+    * **Speed to Value**: Count the sentences until the first unique insight appears. If >5, score low.
 
-### 1D: Sharp Wit & Confidence (10%)
-* **Core Question**: Is the tone "spicy" and opinionated?
+### 3B: Scannability & Hierarchy (5%)
+* **Core Question**: Is it skimmable?
 * **Deep Dive Questions (Nuance)**:
-    * **The "Vanilla" Test**: Could this have been written by a legacy competitor (e.g., Microsoft)? If yes, score low.
-    * **Cliché Detector**: Does it use tired business metaphors like "moving the needle," "low hanging fruit," or "game changer"? (Penalty for Clichés).
-    * **Active Ownership**: Does the writer claim the opinion, or hide behind "It is said that..."?
+    * **Header Storytelling**: If you read *only* the H2s, do you get a complete summary of the article?
+    * **Wall of Text**: Is there any paragraph longer than 5 lines? (Penalty).
 
-### 1A: Positive & Solution-Focused (5%)
-* **Core Question**: Does the content empower the reader?
+### 3C: Conciseness & Human Languagem & No Jargon (5%)
+* **Core Question**: Is every word fighting for its life? Does the content use plain, accessible language that clearly communicates meaning? Is it free of jargon, buzzwords, and corporate-speak?
 * **Deep Dive Questions (Nuance)**:
-    * **The 80/20 Rule**: Is 80% of the content focused on the *solution* and only 20% on the *problem*? (If it dwells on the problem for >50%, score low).
-    * **The "Lazy Rep" Tropes**: Does the piece imply salespeople are lazy or disorganized? (Immediate Fail - "Don't Villainize").
+    * **Nominalization Check**: Is the writer turning verbs into nouns? (e.g., "Make a decision" instead of "Decide," "Give consideration" instead of "Consider").
+    * **Adverb Addiction**: Are there "ly" words padding the sentences? (e.g., "Carefully analyze," "Strategically plan").
 
-### 1C: Trustworthy & Authentic (5%)
-* **Core Question**: Is the confidence earned?
+### 3D: Specificity (5%)
+* **Core Question**: Is the language concrete?
 * **Deep Dive Questions (Nuance)**:
-    * **The "Trust Me" Filter**: Does the writer make a claim (e.g., "This increases revenue") without a "Why" or "How"?
-    * **Vulnerability**: Does the writer admit where the software *isn't* a magic wand? (e.g., "Automation helps, but you still need a strategy"). High score for nuance.
+    * **The "Thing" Counter**: Count instances of "things," "aspects," "factors." High count = Low score.
+    * **Quantification**: Are general claims quantified? (e.g., "Huge increase" vs "20% increase").
 
 ---
 
@@ -137,34 +165,6 @@
 * **Deep Dive Questions (Nuance)**:
     * **Predictability**: Can you predict the end of the sentence before reading it? (Sign of AI).
     * **Counter-Intuitive Insight**: Does the article challenge a commonly held belief? (High Score for Originality).
-
----
-
-## P3: Structural Integrity & Clarity (25%)
-
-### 3A: BLUF - Bottom Line Up Front (10%)
-* **Core Question**: Is the core value visible immediately?
-* **Deep Dive Questions (Nuance)**:
-    * **The "Rhetorical Question" Trap**: Does the intro start with 3 rhetorical questions ("Do you want more sales? Do you hate admin?")? (Penalty - this is fluff/burying the lead).
-    * **Speed to Value**: Count the sentences until the first unique insight appears. If >5, score low.
-
-### 3B: Scannability & Hierarchy (5%)
-* **Core Question**: Is it skimmable?
-* **Deep Dive Questions (Nuance)**:
-    * **Header Storytelling**: If you read *only* the H2s, do you get a complete summary of the article?
-    * **Wall of Text**: Is there any paragraph longer than 5 lines? (Penalty).
-
-### 3C: Conciseness & Human Language (5%)
-* **Core Question**: Is every word fighting for its life?
-* **Deep Dive Questions (Nuance)**:
-    * **Nominalization Check**: Is the writer turning verbs into nouns? (e.g., "Make a decision" instead of "Decide," "Give consideration" instead of "Consider").
-    * **Adverb Addiction**: Are there "ly" words padding the sentences? (e.g., "Carefully analyze," "Strategically plan").
-
-### 3D: Specificity (5%)
-* **Core Question**: Is the language concrete?
-* **Deep Dive Questions (Nuance)**:
-    * **The "Thing" Counter**: Count instances of "things," "aspects," "factors." High count = Low score.
-    * **Quantification**: Are general claims quantified? (e.g., "Huge increase" vs "20% increase").
 
 ---
 
