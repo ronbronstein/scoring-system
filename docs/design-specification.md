@@ -1,8 +1,4 @@
-Here is the updated **Design Specification**, revised to match the finalized PRD v6.0, the Granular Parallel Architecture (16 agents), and the specific Layer 1 Regex strategy.
-
------
-
-# AI Content Scoring Agent: Design Specification v2.0
+# AI Content Scoring Agent: Design Specification
 
 ## Executive Summary
 
@@ -23,11 +19,11 @@ When scaling content production using AI, the primary risk is mediocrity. AI mod
 We propose a locally hosted, **Hybrid Discriminative AI System** designed to act as an automated quality control layer. Unlike standard "evals" that use a single prompt, this system utilizes a **Granular Parallel Architecture**, breaking content evaluation down into **17 isolated sub-parameters** to ensure maximum objectivity.
 
 ### 1.3 Core Principles
+* **Objectivity by Isolation (The "Wisdom of Crowds"):** We leverage a "Granular Parallel Architecture" to maximize discriminative validity. Research confirms that while human raters struggle to separate variables (the "Halo Effect"), aggregated independent AI agents demonstrate superior capability in distinguishing specific "Style" dimensions from "Substance" scores.
+* **Determinism First (Layer 1):** We utilize a rigorous Python Regex layer to handle strict compliance (e.g., branding, localization) separately from the AI analysis. 
+* **The "Boredom Penalty":** The scoring system is weighted to heavily penalize generic, "safe" content to protect the Challenger Brand voice.
+* **Forced Choice Scoring:** We employ a 1-4 ordinal scale (`temperature=0`) to force the model into a "probabilistic determination," eliminating the "central tendency bias" (grading everything a safe 7/10) often observed in human and generic AI evaluators.
 
-  * **Objectivity by Isolation:** We eliminate the "Halo Effect" (where good grammar inflates strategy scores) by using 16 separate, asynchronous LLM calls. Each agent evaluates *only* one specific criteria (e.g., "Did this use passive voice?") without knowledge of the other scores.
-  * **Determinism First (Layer 1):** We do not waste tokens asking an LLM to check spelling or capitalization. A rigorous Python Regex layer handles strict compliance (e.g., `monday.com` lowercase) with 100% accuracy before the AI is ever invoked.
-  * **The "Boredom Penalty":** The scoring system is weighted to heavily penalize generic, "safe" content.
-  * **Forced Choice Scoring:** We employ a 1-4 ordinal scale (`temperature=0`) to force the model to make a clear decision, eliminating the noise of 1-10 scales.
 
 ## 2.0 Scoring Logic
 
@@ -92,6 +88,7 @@ graph TD
 
   * **Technology:** `Asyncio` + Claude API
   * **Model:** Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`)
+  * **Model:** We selected **Claude Sonnet 4.5** (`claude-sonnet-4-5-20250929`) over GPT-5 or Gemini based on recent comparative research regarding "Leniency Bias." Studies indicate that OpenAI models cluster as "liberal" graders (inflating scores for well-structured but shallow content), whereas Claude Sonnet falls into the "restrictive" cluster. For a Challenger brand that requires "spicy" and distinct content, we require the "strict professor" model rather than the "helpful assistant" to minimize false positives.
   * **Architecture:** Asynchronous Fan-Out with conservative rate limiting.
   * **Operation:** The system triggers **16 simultaneous API calls** with the following configuration:
       * **Temperature:** 0 (deterministic evaluation; configurable for testing)
@@ -131,16 +128,19 @@ To validate "Bottom Line Up Front," the agent must understand the conclusion fir
     3.  **Comparison:** Is the insight from Step 1 explicitly stated in Step 2?
     4.  **Score:** High if yes, Low if the intro is vague or "teasing."
 
-## 4.0 Training & Calibration
+## 4.0 Calibration & Threshold Definition (Data-Driven)
 
-To ensure the thresholds are meaningful and data-driven, we employ a comparative calibration strategy.
+**Note:** Unlike traditional "Training" (fine-tuning weights), we utilize **In-Context Calibration** via Golden/Poison sets. This allows for rapid iteration on brand voice changes without retraining costs.
 
-1.  **The Golden Set:** 5-10 human-verified, high-performing monday.com blog posts. (Target System Score: \> 3.5).
-2.  **The Poison Set:** 5-10 generic, AI-generated posts created with standard prompts. (Target System Score: \< 2.5).
-3.  **Threshold Determination:** Based on the score distributions of both sets, determine:
-      * **Gate 1 Threshold:** Set to ensure clear separation between golden and poison sets (initial hypothesis: 3.2)
-      * **Gate 2 Tone Minimum:** Set based on tone score analysis (initial hypothesis: 3.0)
-4.  **Tuning:** If the Poison Set scores too high, we tighten the prompt instructions for "Conciseness" and "Wit" until the scores drop. If the Golden Set scores too low, we refine prompts to better capture excellence.
+### 4.1 The Dataset
+To define the "Publish-Ready" threshold objectively, we executed a baseline analysis on a balanced dataset of 26 articles:
+* **The Golden Set ($n=13$):** High-performing, human-verified monday.com CRM blog posts.
+* **The Poison Set ($n=13$):** Synthetic, generic "safe" AI content designed to mimic "Gray Goo."
+
+### 4.2 The Threshold Methodology
+Rather than arbitrarily selecting a passing score, the **Gate 1 Threshold** is mathematically derived from this calibration run. We calculate the average scores of both sets and set the threshold at the point of maximum separation (Highest F1 Score). This ensures the system rejects the "Poison" content while retaining the "Golden" content with statistical significance.
+
+(NOTE) missing: brief training plan.
 
 ## 5.0 The "Publish-Ready" Definition
 
@@ -160,3 +160,42 @@ The system generates a detailed JSON report (`report.json`) containing:
   * **Executive Summary:** Final Score, Publish-Ready Status (Bool), Gate Status.
   * **Granular Breakdown:** Nested scores for all 17 sub-parameters with specific feedback strings and optional chain-of-thought reasoning ("thinking" field).
   * **Flags:** A list of specific text snippets (from Layer 1 and Layer 2) that require manual correction.
+
+## 7.0 Submission Deliverables
+This design specification is accompanied by a **Deployment Package** and live proof-of-concept:
+1.  **Live System Demo:** [Insert Vercel Link Here] (Full access to code, data logs, and prompt logic).
+2.  **Source Code (`monday_scoring_agent_mvp.zip`):**
+
+monday-scoring-system/
+├── src/
+│   ├── config.py
+│   ├── llm_client.py
+│   ├── main.py
+│   ├── orchestrator.py
+│   ├── regex_checker.py
+│   └── scorer.py
+├── prompts/
+│   ├── 1A_Positive.txt
+│   ├── 1B_Direct.txt
+│   ├── 1C_Trustworthy.txt
+│   ├── ...
+└── data/
+    ├── input/
+    │   └── ...
+    ├── reports/
+    │   ├── account-based-selling-how-to-target-and-close-high-value-customers_report.json
+    │   └── ...
+    └── calibration/
+        ├── golden_set/
+        │   ├── ai-lead-management.md
+        │   ├── crm_automation.md
+        │   └── ...
+        └── poison_set/
+            └── ...
+
+
+## 8.0 References
+
+**Li, N., Zhou, H., & Xu, M. (2024).** *From Text to Insight: Leveraging Large Language Models for Performance Evaluation in Management.* arXiv preprint arXiv:2408.05328. https://doi.org/10.48550/arXiv.2408.05328
+
+**Dataset for Model Selection:** *A systematic comparison of Large Language Models for automated assignment assessment in programming education.* arXiv preprint arXiv:2509.26483v1. (Validated via comparative analysis of "Liberal" vs. "Restrictive" grading clusters).
