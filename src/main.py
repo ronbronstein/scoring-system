@@ -43,9 +43,10 @@ def cmd_analyze(args):
 
     # Run analysis
     try:
-        report, report_path = analyze_content(content, content_id, save_report=True)
+        report, report_path = analyze_content(content, content_id, save_report=not args.no_save)
         print(f"\n✓ Analysis complete!")
-        print(f"Report saved to: {report_path}")
+        if report_path:
+            print(f"Report saved to: {report_path}")
 
         # Optionally display JSON output
         if args.json:
@@ -196,6 +197,9 @@ def main():
     parser_analyze.add_argument("file", help="Path to content file (.txt or .md)")
     parser_analyze.add_argument(
         "--json", action="store_true", help="Display full JSON report"
+    )
+    parser_analyze.add_argument(
+        "--no-save", action="store_true", help="Do not save report to file (live analysis mode)"
     )
     parser_analyze.set_defaults(func=cmd_analyze)
 

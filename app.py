@@ -17,7 +17,7 @@ import tempfile
 
 # Page configuration
 st.set_page_config(
-    page_title="monday.com Content Scorer",
+    page_title="AI Content Scoring Agent",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -386,7 +386,7 @@ def run_analysis(content_text):
 
         # Run analysis (timeout: 5 minutes for 16 LLM agents)
         result = subprocess.run(
-            [sys.executable, 'src/main.py', 'analyze', temp_path, '--json'],
+            [sys.executable, 'src/main.py', 'analyze', temp_path, '--json', '--no-save'],
             capture_output=True,
             text=True,
             timeout=300,
@@ -508,8 +508,10 @@ def main():
 
         # Load reports from main reports folder (excluding calibration)
         all_reports = load_reports("data/reports")
-        # Filter out golden_set and poison_set subfolders
-        real_reports = [r for r in all_reports if '/' not in r['_filename']]
+        # Filter out calibration subfolders and live analysis temp files
+        real_reports = [r for r in all_reports
+                       if '/' not in r['_filename']
+                       and not r['_filename'].startswith('tmp_')]
 
         if real_reports:
             metrics = calculate_metrics(real_reports)
