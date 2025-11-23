@@ -6,6 +6,7 @@ A Streamlit UI for showcasing the AI content scoring system
 import streamlit as st
 import json
 import os
+import sys
 from pathlib import Path
 import pandas as pd
 import plotly.express as px
@@ -384,10 +385,12 @@ def run_analysis(content_text):
 
         # Run analysis
         result = subprocess.run(
-            ['python', 'src/main.py', 'analyze', temp_path, '--json'],
+            [sys.executable, 'src/main.py', 'analyze', temp_path, '--json'],
             capture_output=True,
             text=True,
-            timeout=120
+            timeout=120,
+            cwd=os.path.dirname(os.path.abspath(__file__)) or '.',
+            env={**os.environ}
         )
 
         # Clean up temp file
