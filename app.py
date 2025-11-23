@@ -81,22 +81,66 @@ st.markdown("""
 
     /* Sidebar Buttons - Make them more clickable and inviting */
     [data-testid="stSidebar"] button {
-        background: white !important;
-        border: 1px solid #E6E9EF !important;
-        border-radius: 8px !important;
-        padding: 0.75rem 1rem !important;
+        background: linear-gradient(135deg, #FAFBFC 0%, #FFFFFF 100%) !important;
+        border: 1.5px solid #E6E9EF !important;
+        border-left: 3px solid #E6E9EF !important;
+        border-radius: 10px !important;
+        padding: 0.9rem 1rem 0.9rem 0.9rem !important;
         font-weight: 500 !important;
         color: #181B34 !important;
-        transition: all 0.2s ease !important;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+        transition: all 0.25s ease !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
         text-align: left !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
+
+    [data-testid="stSidebar"] button::before {
+        content: '→' !important;
+        position: absolute !important;
+        right: 1rem !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        opacity: 0 !important;
+        color: var(--monday-purple) !important;
+        font-weight: 700 !important;
+        font-size: 1.2rem !important;
+        transition: all 0.3s ease !important;
+    }
+
+    [data-testid="stSidebar"] button::after {
+        content: '' !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        height: 100% !important;
+        width: 0 !important;
+        background: linear-gradient(90deg, rgba(97, 97, 255, 0.05) 0%, transparent 100%) !important;
+        transition: width 0.3s ease !important;
+        border-radius: 10px !important;
     }
 
     [data-testid="stSidebar"] button:hover {
-        background: var(--monday-light) !important;
+        background: linear-gradient(135deg, #F5F7FF 0%, #FAFBFF 100%) !important;
+        border-left-color: var(--monday-purple) !important;
+        border-left-width: 4px !important;
         border-color: var(--monday-purple) !important;
-        transform: translateX(2px) !important;
-        box-shadow: 0 2px 4px rgba(97, 97, 255, 0.15) !important;
+        transform: translateX(4px) scale(1.02) !important;
+        box-shadow: 0 4px 12px rgba(97, 97, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+        padding-right: 2.5rem !important;
+    }
+
+    [data-testid="stSidebar"] button:hover::before {
+        opacity: 1 !important;
+        right: 0.8rem !important;
+    }
+
+    [data-testid="stSidebar"] button:hover::after {
+        width: 100% !important;
+    }
+
+    [data-testid="stSidebar"] button:active {
+        transform: translateX(2px) scale(0.98) !important;
     }
 
     [data-testid="stSidebar"] button[kind="primary"] {
