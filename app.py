@@ -20,8 +20,18 @@ st.set_page_config(
     page_title="monday.com AI Content Scoring",
     page_icon="✨",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
+    menu_items={
+        'About': "AI Content Scoring System by Ron Bronstein"
+    }
 )
+
+# Force light theme for monday.com brand colors
+st.markdown("""
+<script>
+    window.localStorage.setItem('theme', 'light');
+</script>
+""", unsafe_allow_html=True)
 
 # monday.com Brand Design System
 st.markdown("""
@@ -48,15 +58,22 @@ st.markdown("""
         --red-stuck: #FB275D;
     }
 
+    /* Main Content Area Background */
+    .main .block-container {
+        background: linear-gradient(180deg, #F0F3FF 0%, #FFFFFF 100%);
+        padding-top: 2rem;
+    }
+
     /* Hide Streamlit branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 
     /* Sidebar Styling */
     [data-testid="stSidebar"] {
-        background: var(--monday-white);
-        border-right: 2px solid var(--monday-light);
+        background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
+        border-right: 3px solid #E6E9EF;
         padding-top: 1rem;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.05);
     }
 
     [data-testid="stSidebar"] .sidebar-content {
@@ -116,18 +133,19 @@ st.markdown("""
 
     /* Hero Metrics Cards */
     .hero-metric-card {
-        background: linear-gradient(135deg, var(--monday-white) 0%, var(--monday-light) 100%);
+        background: var(--monday-white);
         padding: 2rem;
         border-radius: 16px;
-        border: 2px solid var(--monday-light);
-        box-shadow: 0 4px 6px rgba(97, 97, 255, 0.1);
+        border: 2px solid #E6E9EF;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         text-align: center;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: all 0.3s ease;
     }
 
     .hero-metric-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(97, 97, 255, 0.15);
+        box-shadow: 0 8px 20px rgba(97, 97, 255, 0.15);
+        border-color: var(--monday-purple);
     }
 
     .hero-metric-value {
@@ -150,8 +168,14 @@ st.markdown("""
         background: var(--monday-white);
         padding: 1.5rem;
         border-radius: 12px;
-        border: 2px solid var(--monday-light);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        border: 2px solid #E6E9EF;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        transition: all 0.2s ease;
+    }
+
+    .metric-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-color: #D1D5DB;
     }
 
     /* Score Colors (monday.com palette) */
@@ -238,12 +262,13 @@ st.markdown("""
 
     /* Content Display */
     .content-display {
-        background: var(--monday-white);
+        background: #FAFBFC;
         color: var(--monday-dark);
         padding: 1.5rem;
         border-radius: 12px;
-        border: 2px solid var(--monday-light);
+        border: 2px solid #E6E9EF;
         line-height: 1.8;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
     }
 
     /* Comparison Cards */
@@ -251,16 +276,24 @@ st.markdown("""
         background: var(--monday-white);
         padding: 2rem;
         border-radius: 16px;
-        border: 2px solid var(--monday-light);
+        border: 2px solid #E6E9EF;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+    }
+
+    .comparison-card:hover {
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        transform: translateY(-2px);
     }
 
     .comparison-card-golden {
-        border-top: 4px solid var(--green-done);
+        border-top: 5px solid var(--green-done);
+        background: linear-gradient(180deg, rgba(0, 202, 114, 0.02) 0%, #FFFFFF 50%);
     }
 
     .comparison-card-poison {
-        border-top: 4px solid var(--red-stuck);
+        border-top: 5px solid var(--red-stuck);
+        background: linear-gradient(180deg, rgba(251, 39, 93, 0.02) 0%, #FFFFFF 50%);
     }
 
     /* Footer */
@@ -687,78 +720,74 @@ def display_dashboard_insights(reports):
 def render_sidebar_navigation(all_reports):
     """Render sidebar navigation with content list"""
     with st.sidebar:
-        st.markdown("### 📁 Content Library")
+        st.markdown("### 📁 Navigation")
 
-        # Search bar
-        search = st.text_input("🔍 Search content...", key="sidebar_search")
+        # Dashboard button
+        if st.button("🏠 Dashboard", key="sidebar_dashboard", use_container_width=True, type="primary"):
+            st.session_state.selected_content = None
+            st.rerun()
 
-        # Group reports by category
-        home_reports = [r for r in all_reports if '/' not in r['_filename'] and not r['_filename'].startswith('tmp_')]
-        golden_reports = [r for r in all_reports if 'golden_set' in r['_filename']]
-        poison_reports = [r for r in all_reports if 'poison_set' in r['_filename']]
+        st.markdown("<br>", unsafe_allow_html=True)
 
-        # Filter by search
-        if search:
-            home_reports = [r for r in home_reports if search.lower() in r['metadata']['content_id'].lower()]
-            golden_reports = [r for r in golden_reports if search.lower() in r['metadata']['content_id'].lower()]
-            poison_reports = [r for r in poison_reports if search.lower() in r['metadata']['content_id'].lower()]
+        # Group reports by source
+        home_reports = [r for r in all_reports if r.get('_source') == 'home']
+        golden_reports = [r for r in all_reports if r.get('_source') == 'golden']
+        poison_reports = [r for r in all_reports if r.get('_source') == 'poison']
 
         selected_content = None
 
-        # Home Assignment section
+        # Home Assignment section with expander
         if home_reports:
-            st.markdown("**📊 Home Assignment**")
-            for report in home_reports:
-                score = report['results']['overall_score']
-                content_id = report['metadata']['content_id']
-                color = get_score_color_hex(score)
+            with st.expander("📊 Home Assignment", expanded=True):
+                for idx, report in enumerate(home_reports):
+                    score = report['results']['overall_score']
+                    content_id = report['metadata']['content_id']
+                    color = get_score_color_hex(score)
 
-                if st.button(
-                    f"{content_id}",
-                    key=f"sidebar_{content_id}",
-                    use_container_width=True
-                ):
-                    selected_content = (report, "data/input")
+                    if st.button(
+                        f"{content_id}",
+                        key=f"sidebar_home_{idx}_{content_id}",
+                        use_container_width=True
+                    ):
+                        selected_content = (report, "data/input")
 
-                # Show score inline
-                score_badge = get_score_badge(score)
-                st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+                    # Show score inline
+                    score_badge = get_score_badge(score)
+                    st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
 
-        # Golden Set section
+        # Golden Set section with expander
         if golden_reports:
-            st.markdown("---")
-            st.markdown("**🟢 Golden Set**")
-            for report in golden_reports[:5]:  # Limit to 5 for space
-                score = report['results']['overall_score']
-                content_id = report['metadata']['content_id']
+            with st.expander("🟢 Golden Set (Calibration)", expanded=False):
+                for idx, report in enumerate(golden_reports):
+                    score = report['results']['overall_score']
+                    content_id = report['metadata']['content_id']
 
-                if st.button(
-                    f"{content_id}",
-                    key=f"sidebar_golden_{content_id}",
-                    use_container_width=True
-                ):
-                    selected_content = (report, "data/calibration/golden_set")
+                    if st.button(
+                        f"{content_id}",
+                        key=f"sidebar_golden_{idx}_{content_id}",
+                        use_container_width=True
+                    ):
+                        selected_content = (report, "data/calibration/golden_set")
 
-                score_badge = get_score_badge(score)
-                st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+                    score_badge = get_score_badge(score)
+                    st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
 
-        # Poison Set section
+        # Poison Set section with expander
         if poison_reports:
-            st.markdown("---")
-            st.markdown("**🔴 Poison Set**")
-            for report in poison_reports[:5]:  # Limit to 5 for space
-                score = report['results']['overall_score']
-                content_id = report['metadata']['content_id']
+            with st.expander("🔴 Poison Set (Calibration)", expanded=False):
+                for idx, report in enumerate(poison_reports):
+                    score = report['results']['overall_score']
+                    content_id = report['metadata']['content_id']
 
-                if st.button(
-                    f"{content_id}",
-                    key=f"sidebar_poison_{content_id}",
-                    use_container_width=True
-                ):
-                    selected_content = (report, "data/calibration/poison_set")
+                    if st.button(
+                        f"{content_id}",
+                        key=f"sidebar_poison_{idx}_{content_id}",
+                        use_container_width=True
+                    ):
+                        selected_content = (report, "data/calibration/poison_set")
 
-                score_badge = get_score_badge(score)
-                st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+                    score_badge = get_score_badge(score)
+                    st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
 
         return selected_content
 
@@ -1033,12 +1062,21 @@ def render_file_tree(tree, current_path='', level=0):
 
 # Main app
 def main():
+    # Initialize session state for selected content
+    if 'selected_content' not in st.session_state:
+        st.session_state.selected_content = None
+
     # Load all reports for sidebar
-    all_reports_home = load_reports("data/reports")
+    all_reports_raw = load_reports("data/reports")
     all_reports_golden = load_reports("data/reports/golden_set")
     all_reports_poison = load_reports("data/reports/poison_set")
 
-    # Combine and mark source
+    # Filter home reports to exclude calibration subdirectories
+    all_reports_home = [r for r in all_reports_raw
+                        if '/' not in r['_filename']
+                        and not r['_filename'].startswith('tmp_')]
+
+    # Mark source for each report
     for r in all_reports_home:
         r['_source'] = 'home'
     for r in all_reports_golden:
@@ -1048,18 +1086,12 @@ def main():
 
     all_reports = all_reports_home + all_reports_golden + all_reports_poison
 
-    # Render sidebar and get selection
+    # Render sidebar and update session state
     selected_content = render_sidebar_navigation(all_reports)
-
-    # If content is selected from sidebar, show individual view
     if selected_content:
-        report, content_folder = selected_content
-        display_individual_report(report, content_folder)
-        st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
-        return
+        st.session_state.selected_content = selected_content
 
-    # Otherwise, show dashboard
-    # Main tabs for different views
+    # Always show tabs for navigation
     tab1, tab2, tab3 = st.tabs([
         "🏠 Dashboard",
         "🔬 Live Analysis",
@@ -1068,76 +1100,79 @@ def main():
 
     # Tab 1: Dashboard - Showcase AI capabilities
     with tab1:
-        # Filter home assignment reports
-        real_reports = [r for r in all_reports_home
-                       if '/' not in r['_filename']
-                       and not r['_filename'].startswith('tmp_')]
-
-        if real_reports:
-            metrics = calculate_metrics(real_reports)
-
-            # Hero section with key metrics
-            display_dashboard_hero(metrics)
-
-            # AI Calibration Proof Section
-            st.markdown("### 🎯 AI Calibration Validation")
-            st.markdown("Proving the AI's ability to distinguish quality content")
-
-            col1, col2 = st.columns(2)
-
-            with col1:
-                golden_metrics = calculate_metrics(all_reports_golden) if all_reports_golden else None
-                if golden_metrics:
-                    st.markdown(f"""
-                    <div class="comparison-card comparison-card-golden">
-                        <h4 style="color: #00CA72; font-family: Poppins, sans-serif;">🟢 Golden Set (Exemplary Content)</h4>
-                        <div class="hero-metric-value" style="color: #00CA72;">{golden_metrics['avg_overall']:.2f}</div>
-                        <div style="color: #666; margin-top: 0.5rem;">Average Score</div>
-                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E6E9EF;">
-                            <strong>{golden_metrics['pass_count']}/{golden_metrics['total_pieces']}</strong> pieces publish-ready
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-            with col2:
-                poison_metrics = calculate_metrics(all_reports_poison) if all_reports_poison else None
-                if poison_metrics:
-                    st.markdown(f"""
-                    <div class="comparison-card comparison-card-poison">
-                        <h4 style="color: #FB275D; font-family: Poppins, sans-serif;">🔴 Poison Set (Poor Content)</h4>
-                        <div class="hero-metric-value" style="color: #FB275D;">{poison_metrics['avg_overall']:.2f}</div>
-                        <div style="color: #666; margin-top: 0.5rem;">Average Score</div>
-                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E6E9EF;">
-                            <strong>{poison_metrics['pass_count']}/{poison_metrics['total_pieces']}</strong> pieces publish-ready
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-            st.markdown("<br>", unsafe_allow_html=True)
-
-            # Content Insights
-            display_dashboard_insights(real_reports)
-
-            # Visualizations
-            st.markdown("### 📊 Score Analytics")
-            col1, col2 = st.columns(2)
-
-            with col1:
-                st.plotly_chart(plot_parameter_scores(metrics), use_container_width=True)
-
-            with col2:
-                st.plotly_chart(plot_score_distribution(metrics), use_container_width=True)
-
-            # Call to action
-            st.markdown("---")
-            st.markdown("### 💡 Explore More")
-            st.markdown("👈 **Click any content in the sidebar** to see detailed AI analysis with parameter breakdowns, violations, and actionable feedback.")
-
+        # If content is selected, show individual view
+        if st.session_state.selected_content:
+            report, content_folder = st.session_state.selected_content
+            display_individual_report(report, content_folder)
         else:
-            st.info("No analyses yet. Add content to `data/input/` and run:\n\n`python src/main.py analyze data/input/<file.txt>`")
+            # Otherwise show dashboard
+            # Filter home assignment reports
+            real_reports = [r for r in all_reports_home
+                           if '/' not in r['_filename']
+                           and not r['_filename'].startswith('tmp_')]
 
-        # Footer
-        st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
+            if real_reports:
+                metrics = calculate_metrics(real_reports)
+
+                # Hero section with key metrics
+                display_dashboard_hero(metrics)
+
+                # AI Calibration Proof Section
+                st.markdown("### 🎯 AI Calibration Validation")
+                st.markdown("Proving the AI's ability to distinguish quality content")
+
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    golden_metrics = calculate_metrics(all_reports_golden) if all_reports_golden else None
+                    if golden_metrics:
+                        st.markdown(f"""
+                        <div class="comparison-card comparison-card-golden">
+                            <h4 style="color: #00CA72; font-family: Poppins, sans-serif;">🟢 Golden Set (Exemplary Content)</h4>
+                            <div class="hero-metric-value" style="color: #00CA72;">{golden_metrics['avg_overall']:.2f}</div>
+                            <div style="color: #666; margin-top: 0.5rem;">Average Score</div>
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E6E9EF;">
+                                <strong>{golden_metrics['pass_count']}/{golden_metrics['total_pieces']}</strong> pieces publish-ready
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                with col2:
+                    poison_metrics = calculate_metrics(all_reports_poison) if all_reports_poison else None
+                    if poison_metrics:
+                        st.markdown(f"""
+                        <div class="comparison-card comparison-card-poison">
+                            <h4 style="color: #FB275D; font-family: Poppins, sans-serif;">🔴 Poison Set (Poor Content)</h4>
+                            <div class="hero-metric-value" style="color: #FB275D;">{poison_metrics['avg_overall']:.2f}</div>
+                            <div style="color: #666; margin-top: 0.5rem;">Average Score</div>
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E6E9EF;">
+                                <strong>{poison_metrics['pass_count']}/{poison_metrics['total_pieces']}</strong> pieces publish-ready
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                st.markdown("<br>", unsafe_allow_html=True)
+
+                # Content Insights
+                display_dashboard_insights(real_reports)
+
+                # Visualizations
+                st.markdown("### 📊 Score Analytics")
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    st.plotly_chart(plot_parameter_scores(metrics), use_container_width=True)
+
+                with col2:
+                    st.plotly_chart(plot_score_distribution(metrics), use_container_width=True)
+
+                # Call to action
+                st.markdown("---")
+                st.markdown("### 💡 Explore More")
+                st.markdown("👈 **Click any content in the sidebar** to see detailed AI analysis with parameter breakdowns, violations, and actionable feedback.")
+
+            else:
+                st.info("No analyses yet. Add content to `data/input/` and run:\n\n`python src/main.py analyze data/input/<file.txt>`")
 
     # Tab 2: Live Analysis
     with tab2:
