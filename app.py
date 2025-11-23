@@ -70,10 +70,9 @@ st.markdown("""
 
     /* Sidebar Styling */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
-        border-right: 3px solid #E6E9EF;
+        background: #FFFFFF;
+        border-right: 1px solid #E6E9EF;
         padding-top: 1rem;
-        box-shadow: 2px 0 8px rgba(0,0,0,0.05);
     }
 
     [data-testid="stSidebar"] .sidebar-content {
@@ -82,40 +81,39 @@ st.markdown("""
 
     /* Sidebar Content Items */
     .sidebar-item {
-        padding: 0.75rem 1rem;
-        margin: 0.25rem 0.5rem;
-        border-radius: 8px;
+        padding: 0.6rem 0.75rem;
+        margin: 0.2rem 0.4rem;
+        border-radius: 6px;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.15s ease;
         display: flex;
         justify-content: space-between;
         align-items: center;
         background: var(--monday-white);
-        border: 1px solid #E6E9EF;
+        border: 1px solid #F0F0F0;
     }
 
     .sidebar-item:hover {
-        background: var(--monday-light);
-        transform: translateX(2px);
+        background: #F8F9FA;
     }
 
     .sidebar-item-active {
         background: var(--monday-light);
-        border-left: 4px solid var(--monday-purple);
+        border-left: 2px solid var(--monday-purple);
     }
 
     .sidebar-score-badge {
-        font-weight: 700;
+        font-weight: 600;
         padding: 0.25rem 0.5rem;
-        border-radius: 12px;
-        font-size: 0.85rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
     }
 
     /* Main Header */
     .main-header {
         font-family: 'Poppins', sans-serif;
-        font-size: 3rem;
-        font-weight: 700;
+        font-size: 2rem;
+        font-weight: 600;
         color: var(--monday-dark);
         margin-bottom: 0.5rem;
         background: linear-gradient(135deg, var(--monday-purple), var(--red-stuck));
@@ -125,56 +123,55 @@ st.markdown("""
     }
 
     .sub-header {
-        font-size: 1.3rem;
+        font-size: 1rem;
         color: #666;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         font-weight: 400;
     }
 
     /* Hero Metrics Cards */
     .hero-metric-card {
         background: var(--monday-white);
-        padding: 2rem;
-        border-radius: 16px;
-        border: 2px solid #E6E9EF;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid #E6E9EF;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         text-align: center;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
 
     .hero-metric-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(97, 97, 255, 0.15);
-        border-color: var(--monday-purple);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        border-color: #D1D5DB;
     }
 
     .hero-metric-value {
         font-family: 'Poppins', sans-serif;
-        font-size: 3.5rem;
-        font-weight: 700;
+        font-size: 2.5rem;
+        font-weight: 600;
         margin: 0.5rem 0;
     }
 
     .hero-metric-label {
-        font-size: 1rem;
+        font-size: 0.85rem;
         color: #666;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        font-weight: 600;
+        font-weight: 500;
     }
 
     /* Metric Cards (smaller) */
     .metric-card {
         background: var(--monday-white);
-        padding: 1.5rem;
-        border-radius: 12px;
-        border: 2px solid #E6E9EF;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 1.25rem;
+        border-radius: 8px;
+        border: 1px solid #E6E9EF;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         transition: all 0.2s ease;
     }
 
     .metric-card:hover {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.06);
         border-color: #D1D5DB;
     }
 
@@ -212,15 +209,15 @@ st.markdown("""
 
     .sub-param-header {
         font-family: 'Poppins', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 600;
+        font-size: 1rem;
+        font-weight: 500;
         margin-bottom: 0.5rem;
         color: var(--monday-dark);
     }
 
     .sub-param-score {
-        font-size: 1.4rem;
-        font-weight: 700;
+        font-size: 1.2rem;
+        font-weight: 600;
         margin-bottom: 0.5rem;
     }
 
@@ -274,26 +271,25 @@ st.markdown("""
     /* Comparison Cards */
     .comparison-card {
         background: var(--monday-white);
-        padding: 2rem;
-        border-radius: 16px;
-        border: 2px solid #E6E9EF;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        transition: all 0.3s ease;
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid #E6E9EF;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
     }
 
     .comparison-card:hover {
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
     .comparison-card-golden {
-        border-top: 5px solid var(--green-done);
-        background: linear-gradient(180deg, rgba(0, 202, 114, 0.02) 0%, #FFFFFF 50%);
+        border-top: 3px solid var(--green-done);
+        background: var(--monday-white);
     }
 
     .comparison-card-poison {
-        border-top: 5px solid var(--red-stuck);
-        background: linear-gradient(180deg, rgba(251, 39, 93, 0.02) 0%, #FFFFFF 50%);
+        border-top: 3px solid var(--red-stuck);
+        background: var(--monday-white);
     }
 
     /* Footer */
@@ -396,6 +392,27 @@ def load_content_file(content_folder, content_id):
             with open(file_path, 'r') as f:
                 return f.read()
     return None
+
+@st.cache_data
+def extract_title_from_content(content_folder, content_id):
+    """Extract the first H1 heading from a content file as the title"""
+    content = load_content_file(content_folder, content_id)
+    if not content:
+        return content_id  # Fallback to content_id if file not found
+
+    # Look for H1 heading (# Title or === underline style)
+    lines = content.split('\n')
+    for i, line in enumerate(lines):
+        line = line.strip()
+        # Markdown style: # Title
+        if line.startswith('# '):
+            return line[2:].strip()
+        # Alternative style: Title\n===
+        if i < len(lines) - 1 and lines[i + 1].strip().startswith('==='):
+            return line.strip()
+
+    # Fallback: use content_id with underscores replaced by spaces and title cased
+    return content_id.replace('_', ' ').title()
 
 def calculate_metrics(reports):
     """Calculate aggregated metrics from reports"""
@@ -549,8 +566,8 @@ def display_metrics_overview(metrics):
         score_class = get_score_color_class(metrics['avg_overall'])
         st.markdown(f"""
         <div class="metric-card">
-            <div style="font-size: 0.9rem; color: #666;">Average Overall Score (1-4 scale)</div>
-            <div class="{score_class}" style="font-size: 2rem;">{metrics['avg_overall']:.2f}/4.0</div>
+            <div style="font-size: 0.85rem; color: #666;">Average Overall Score (1-4 scale)</div>
+            <div class="{score_class}" style="font-size: 1.6rem;">{metrics['avg_overall']:.2f}/4.0</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -626,45 +643,28 @@ def plot_score_distribution(metrics):
 
     return fig
 
-def display_dashboard_hero(metrics):
-    """Display hero section with AI accuracy and calibration proof"""
-    st.markdown('<div class="main-header">AI Content Scoring System</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">Intelligent evaluation of brand voice, strategic value, and engagement</div>', unsafe_allow_html=True)
+def display_category_metrics(metrics, category_name, category_emoji):
+    """Display metrics for a specific category"""
+    avg_score = metrics['avg_overall']
+    score_color = get_score_color_hex(avg_score)
+    pass_rate = (metrics['pass_count'] / metrics['total_pieces']) * 100 if metrics['total_pieces'] > 0 else 0
 
-    # Hero metrics row
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        avg_score = metrics['avg_overall']
-        score_color = get_score_color_hex(avg_score)
-        st.markdown(f"""
-        <div class="hero-metric-card">
-            <div class="hero-metric-label">Average Content Score</div>
-            <div class="hero-metric-value" style="color: {score_color};">{avg_score:.2f}</div>
-            <div style="color: #888; font-size: 0.95rem;">out of 4.0</div>
+    st.markdown(f"""
+    <div class="hero-metric-card">
+        <div style="font-family: Poppins, sans-serif; font-size: 1.1rem; font-weight: 600; color: #181B34; margin-bottom: 1rem;">
+            {category_emoji} {category_name}
         </div>
-        """, unsafe_allow_html=True)
-
-    with col2:
-        pass_rate = (metrics['pass_count'] / metrics['total_pieces']) * 100 if metrics['total_pieces'] > 0 else 0
-        st.markdown(f"""
-        <div class="hero-metric-card">
-            <div class="hero-metric-label">Publish-Ready Rate</div>
-            <div class="hero-metric-value" style="color: #6161FF;">{pass_rate:.0f}%</div>
-            <div style="color: #888; font-size: 0.95rem;">{metrics['pass_count']} of {metrics['total_pieces']} pieces</div>
+        <div style="margin-bottom: 0.75rem;">
+            <div style="font-size: 0.75rem; color: #666; text-transform: uppercase;">Avg Score</div>
+            <div style="font-family: Poppins, sans-serif; font-size: 2rem; font-weight: 600; color: {score_color};">{avg_score:.2f}</div>
         </div>
-        """, unsafe_allow_html=True)
-
-    with col3:
-        st.markdown(f"""
-        <div class="hero-metric-card">
-            <div class="hero-metric-label">Violations Caught</div>
-            <div class="hero-metric-value" style="color: #FB275D;">{metrics['total_violations']}</div>
-            <div style="color: #888; font-size: 0.95rem;">critical issues identified</div>
+        <div style="padding-top: 0.75rem; border-top: 1px solid #F0F0F0;">
+            <div style="font-size: 0.75rem; color: #666;">Publish-Ready: <strong>{pass_rate:.0f}%</strong></div>
+            <div style="font-size: 0.75rem; color: #666;">Violations: <strong>{metrics['total_violations']}</strong></div>
+            <div style="font-size: 0.75rem; color: #999;">{metrics['total_pieces']} pieces</div>
         </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
+    </div>
+    """, unsafe_allow_html=True)
 
 def display_dashboard_insights(reports):
     """Display top performers and needs improvement"""
@@ -722,10 +722,10 @@ def render_sidebar_navigation(all_reports):
     with st.sidebar:
         st.markdown("### 📁 Navigation")
 
-        # Dashboard button
+        # Dashboard button (resets to overview)
         if st.button("🏠 Dashboard", key="sidebar_dashboard", use_container_width=True, type="primary"):
             st.session_state.selected_content = None
-            st.rerun()
+            # Note: No st.rerun() to avoid tab navigation issues
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -744,8 +744,11 @@ def render_sidebar_navigation(all_reports):
                     content_id = report['metadata']['content_id']
                     color = get_score_color_hex(score)
 
+                    # Extract human-readable title
+                    title = extract_title_from_content("data/input", content_id)
+
                     if st.button(
-                        f"{content_id}",
+                        f"{title}",
                         key=f"sidebar_home_{idx}_{content_id}",
                         use_container_width=True
                     ):
@@ -762,8 +765,11 @@ def render_sidebar_navigation(all_reports):
                     score = report['results']['overall_score']
                     content_id = report['metadata']['content_id']
 
+                    # Extract human-readable title
+                    title = extract_title_from_content("data/calibration/golden_set", content_id)
+
                     if st.button(
-                        f"{content_id}",
+                        f"{title}",
                         key=f"sidebar_golden_{idx}_{content_id}",
                         use_container_width=True
                     ):
@@ -779,8 +785,11 @@ def render_sidebar_navigation(all_reports):
                     score = report['results']['overall_score']
                     content_id = report['metadata']['content_id']
 
+                    # Extract human-readable title
+                    title = extract_title_from_content("data/calibration/poison_set", content_id)
+
                     if st.button(
-                        f"{content_id}",
+                        f"{title}",
                         key=f"sidebar_poison_{idx}_{content_id}",
                         use_container_width=True
                     ):
@@ -789,11 +798,37 @@ def render_sidebar_navigation(all_reports):
                     score_badge = get_score_badge(score)
                     st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
 
+        # GitHub icon at the bottom
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style="text-align: center; padding: 1rem 0; border-top: 1px solid #E6E9EF;">
+            <a href="https://github.com/ronbronstein/scoring-system" target="_blank" style="text-decoration: none;">
+                <div style="
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    background: #181B34;
+                    transition: all 0.2s ease;
+                    cursor: pointer;
+                ">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
+
         return selected_content
 
 def display_individual_report(report, content_folder):
     """Display detailed view of a single report (redesigned with 60/40 split)"""
-    st.markdown(f'<h2 style="font-family: Poppins, sans-serif; color: #181B34;">{report["metadata"]["content_id"]}</h2>', unsafe_allow_html=True)
+    content_id = report["metadata"]["content_id"]
+    title = extract_title_from_content(content_folder, content_id)
+    st.markdown(f'<h2 style="font-family: Poppins, sans-serif; color: #181B34; font-size: 1.6rem; font-weight: 600;">{title}</h2>', unsafe_allow_html=True)
 
     # Two columns: 60% content, 40% analysis
     col1, col2 = st.columns([3, 2])
@@ -818,8 +853,8 @@ def display_individual_report(report, content_folder):
         score_class = get_score_color_class(score)
         st.markdown(f"""
         <div class="metric-card">
-            <div style="color: #666;">Overall Score (1-4 scale)</div>
-            <div class="{score_class}" style="font-size: 2.5rem;">{score:.2f}/4.0</div>
+            <div style="color: #666; font-size: 0.85rem;">Overall Score (1-4 scale)</div>
+            <div class="{score_class}" style="font-size: 2rem;">{score:.2f}/4.0</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -1062,9 +1097,13 @@ def render_file_tree(tree, current_path='', level=0):
 
 # Main app
 def main():
-    # Initialize session state for selected content
+    # Initialize session state for selected content and active tab
     if 'selected_content' not in st.session_state:
         st.session_state.selected_content = None
+    if 'active_tab' not in st.session_state:
+        st.session_state.active_tab = 0  # Default to Dashboard
+    if 'preserve_tab' not in st.session_state:
+        st.session_state.preserve_tab = False
 
     # Load all reports for sidebar
     all_reports_raw = load_reports("data/reports")
@@ -1094,8 +1133,8 @@ def main():
     # Always show tabs for navigation
     tab1, tab2, tab3 = st.tabs([
         "🏠 Dashboard",
-        "🔬 Live Analysis",
-        "📁 Code Repository"
+        "📁 Code Repository",
+        "🔬 Live Analysis"
     ])
 
     # Tab 1: Dashboard - Showcase AI capabilities
@@ -1105,156 +1144,89 @@ def main():
             report, content_folder = st.session_state.selected_content
             display_individual_report(report, content_folder)
         else:
-            # Otherwise show dashboard
+            # Otherwise show dashboard with categories separated
+            st.markdown('<div class="main-header">AI Content Scoring System</div>', unsafe_allow_html=True)
+            st.markdown('<div class="sub-header">Intelligent evaluation of brand voice, strategic value, and engagement</div>', unsafe_allow_html=True)
+
             # Filter home assignment reports
             real_reports = [r for r in all_reports_home
                            if '/' not in r['_filename']
                            and not r['_filename'].startswith('tmp_')]
 
-            if real_reports:
-                metrics = calculate_metrics(real_reports)
+            # Calculate metrics for each category
+            home_metrics = calculate_metrics(real_reports) if real_reports else None
+            golden_metrics = calculate_metrics(all_reports_golden) if all_reports_golden else None
+            poison_metrics = calculate_metrics(all_reports_poison) if all_reports_poison else None
 
-                # Hero section with key metrics
-                display_dashboard_hero(metrics)
+            # Hero Metrics by Category
+            st.markdown("### 📊 Performance Metrics by Category")
+            col1, col2, col3 = st.columns(3)
 
-                # AI Calibration Proof Section
-                st.markdown("### 🎯 AI Calibration Validation")
-                st.markdown("Proving the AI's ability to distinguish quality content")
+            with col1:
+                if home_metrics:
+                    display_category_metrics(home_metrics, "Home Assignment", "📊")
+                else:
+                    st.info("No home assignment reports yet")
 
-                col1, col2 = st.columns(2)
+            with col2:
+                if golden_metrics:
+                    display_category_metrics(golden_metrics, "Golden Set", "🟢")
+                else:
+                    st.info("No golden set reports yet")
 
-                with col1:
-                    golden_metrics = calculate_metrics(all_reports_golden) if all_reports_golden else None
-                    if golden_metrics:
-                        st.markdown(f"""
-                        <div class="comparison-card comparison-card-golden">
-                            <h4 style="color: #00CA72; font-family: Poppins, sans-serif;">🟢 Golden Set (Exemplary Content)</h4>
-                            <div class="hero-metric-value" style="color: #00CA72;">{golden_metrics['avg_overall']:.2f}</div>
-                            <div style="color: #666; margin-top: 0.5rem;">Average Score</div>
-                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E6E9EF;">
-                                <strong>{golden_metrics['pass_count']}/{golden_metrics['total_pieces']}</strong> pieces publish-ready
-                            </div>
-                        </div>
-                        """, unsafe_allow_html=True)
+            with col3:
+                if poison_metrics:
+                    display_category_metrics(poison_metrics, "Poison Set", "🔴")
+                else:
+                    st.info("No poison set reports yet")
 
-                with col2:
-                    poison_metrics = calculate_metrics(all_reports_poison) if all_reports_poison else None
-                    if poison_metrics:
-                        st.markdown(f"""
-                        <div class="comparison-card comparison-card-poison">
-                            <h4 style="color: #FB275D; font-family: Poppins, sans-serif;">🔴 Poison Set (Poor Content)</h4>
-                            <div class="hero-metric-value" style="color: #FB275D;">{poison_metrics['avg_overall']:.2f}</div>
-                            <div style="color: #666; margin-top: 0.5rem;">Average Score</div>
-                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E6E9EF;">
-                                <strong>{poison_metrics['pass_count']}/{poison_metrics['total_pieces']}</strong> pieces publish-ready
-                            </div>
-                        </div>
-                        """, unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
 
-                st.markdown("<br>", unsafe_allow_html=True)
+            # Analytics Charts by Category
+            st.markdown("### 📈 Score Analytics by Category")
 
-                # Content Insights
-                display_dashboard_insights(real_reports)
+            # Row 1: Parameter Scores
+            col1, col2, col3 = st.columns(3)
 
-                # Visualizations
-                st.markdown("### 📊 Score Analytics")
-                col1, col2 = st.columns(2)
+            with col1:
+                if home_metrics:
+                    st.markdown("**📊 Home Assignment**")
+                    st.plotly_chart(plot_parameter_scores(home_metrics), use_container_width=True)
 
-                with col1:
-                    st.plotly_chart(plot_parameter_scores(metrics), use_container_width=True)
+            with col2:
+                if golden_metrics:
+                    st.markdown("**🟢 Golden Set**")
+                    st.plotly_chart(plot_parameter_scores(golden_metrics), use_container_width=True)
 
-                with col2:
-                    st.plotly_chart(plot_score_distribution(metrics), use_container_width=True)
+            with col3:
+                if poison_metrics:
+                    st.markdown("**🔴 Poison Set**")
+                    st.plotly_chart(plot_parameter_scores(poison_metrics), use_container_width=True)
 
-                # Call to action
-                st.markdown("---")
-                st.markdown("### 💡 Explore More")
-                st.markdown("👈 **Click any content in the sidebar** to see detailed AI analysis with parameter breakdowns, violations, and actionable feedback.")
+            st.markdown("<br>", unsafe_allow_html=True)
 
-            else:
-                st.info("No analyses yet. Add content to `data/input/` and run:\n\n`python src/main.py analyze data/input/<file.txt>`")
+            # Row 2: Score Distributions
+            col1, col2, col3 = st.columns(3)
 
-    # Tab 2: Live Analysis
+            with col1:
+                if home_metrics:
+                    st.plotly_chart(plot_score_distribution(home_metrics), use_container_width=True)
+
+            with col2:
+                if golden_metrics:
+                    st.plotly_chart(plot_score_distribution(golden_metrics), use_container_width=True)
+
+            with col3:
+                if poison_metrics:
+                    st.plotly_chart(plot_score_distribution(poison_metrics), use_container_width=True)
+
+            # Call to action
+            st.markdown("---")
+            st.markdown("### 💡 Explore More")
+            st.markdown("👈 **Click any content in the sidebar** to see detailed AI analysis with parameter breakdowns, violations, and actionable feedback.")
+
+    # Tab 2: Repository
     with tab2:
-        st.markdown("## Live Content Analysis")
-
-        st.warning("⚠️ **Disclaimer**: Content entered here is used for temporary analysis only. "
-                  "It will not be saved and will be deleted when you leave this page.")
-
-        content_input = st.text_area(
-            "Paste your content here:",
-            height=300,
-            placeholder="Paste your blog post, article, or marketing copy here..."
-        )
-
-        col1, col2, col3 = st.columns([1, 1, 3])
-
-        with col1:
-            analyze_button = st.button("🔬 Analyze Content", type="primary")
-
-        if analyze_button and content_input.strip():
-            with st.spinner("Running analysis... This may take 30-60 seconds."):
-                result = run_analysis(content_input)
-
-            if 'error' in result:
-                st.error(f"Analysis failed: {result['error']}")
-                if 'raw' in result:
-                    with st.expander("View raw output"):
-                        st.code(result['raw'])
-            else:
-                st.success("✅ Analysis complete!")
-
-                # Display results
-                score = result['results']['overall_score']
-                score_class = get_score_color_class(score)
-
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    st.markdown(f"""
-                    <div class="metric-card">
-                        <div style="color: #666;">Overall Score (1-4 scale)</div>
-                        <div class="{score_class}" style="font-size: 3rem;">{score:.2f}/4.0</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                with col2:
-                    publish_status = result['results'].get('publish_ready', 'TBD')
-                    if publish_status == True:
-                        st.success("✅ Publish-Ready")
-                    elif publish_status == False:
-                        st.error("❌ Needs Revision")
-                    else:
-                        st.info("⏸️ Status TBD")
-
-                with col3:
-                    violations = result['gates_status']['critical_violations_count']
-                    if violations == 0:
-                        st.success(f"✅ {violations} Violations")
-                    else:
-                        st.error(f"❌ {violations} Violations")
-
-                # Full report in expander
-                with st.expander("📄 View Full Report", expanded=True):
-                    st.json(result)
-
-                # Download button
-                with col2:
-                    report_json = json.dumps(result, indent=2)
-                    st.download_button(
-                        label="⬇️ Download Report (JSON)",
-                        data=report_json,
-                        file_name=f"analysis_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-                        mime="application/json"
-                    )
-
-        elif analyze_button:
-            st.warning("Please enter some content to analyze.")
-
-        # Footer
-        st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
-
-    # Tab 3: Repository
-    with tab3:
         st.markdown("## Repository Explorer")
         st.markdown("Browse the codebase, prompts, and data (docs folder excluded)")
 
@@ -1305,6 +1277,85 @@ def main():
                     st.error(f"File not found: {selected_file}")
             else:
                 st.info("👈 Select a file from the left to view its contents")
+
+        # Footer
+        st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
+
+    # Tab 3: Live Analysis
+    with tab3:
+        st.markdown("## Live Content Analysis")
+
+        st.warning("⚠️ **Disclaimer**: Content entered here is used for temporary analysis only. "
+                  "It will not be saved and will be deleted when you leave this page.")
+
+        content_input = st.text_area(
+            "Paste your content here:",
+            height=300,
+            placeholder="Paste your blog post, article, or marketing copy here..."
+        )
+
+        col1, col2, col3 = st.columns([1, 1, 3])
+
+        with col1:
+            analyze_button = st.button("🔬 Analyze Content", type="primary")
+
+        if analyze_button and content_input.strip():
+            with st.spinner("Running analysis... This may take 30-60 seconds."):
+                result = run_analysis(content_input)
+
+            if 'error' in result:
+                st.error(f"Analysis failed: {result['error']}")
+                if 'raw' in result:
+                    with st.expander("View raw output"):
+                        st.code(result['raw'])
+            else:
+                st.success("✅ Analysis complete!")
+
+                # Display results
+                score = result['results']['overall_score']
+                score_class = get_score_color_class(score)
+
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.markdown(f"""
+                    <div class="metric-card">
+                        <div style="color: #666; font-size: 0.85rem;">Overall Score (1-4 scale)</div>
+                        <div class="{score_class}" style="font-size: 2.2rem;">{score:.2f}/4.0</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                with col2:
+                    publish_status = result['results'].get('publish_ready', 'TBD')
+                    if publish_status == True:
+                        st.success("✅ Publish-Ready")
+                    elif publish_status == False:
+                        st.error("❌ Needs Revision")
+                    else:
+                        st.info("⏸️ Status TBD")
+
+                with col3:
+                    violations = result['gates_status']['critical_violations_count']
+                    if violations == 0:
+                        st.success(f"✅ {violations} Violations")
+                    else:
+                        st.error(f"❌ {violations} Violations")
+
+                # Full report in expander
+                with st.expander("📄 View Full Report", expanded=True):
+                    st.json(result)
+
+                # Download button
+                with col2:
+                    report_json = json.dumps(result, indent=2)
+                    st.download_button(
+                        label="⬇️ Download Report (JSON)",
+                        data=report_json,
+                        file_name=f"analysis_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                        mime="application/json"
+                    )
+
+        elif analyze_button:
+            st.warning("Please enter some content to analyze.")
 
         # Footer
         st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
