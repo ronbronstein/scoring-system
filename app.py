@@ -841,7 +841,7 @@ def plot_score_distribution(metrics):
     return fig
 
 def display_category_metrics(metrics, category_name, category_emoji):
-    """Display metrics for a specific category with animated numbers"""
+    """Display metrics for a specific category with animated numbers and tooltips"""
     avg_score = metrics['avg_overall']
     score_color = get_score_color_hex(avg_score)
     pass_rate = (metrics['pass_count'] / metrics['total_pieces']) * 100 if metrics['total_pieces'] > 0 else 0
@@ -852,14 +852,33 @@ def display_category_metrics(metrics, category_name, category_emoji):
             {category_emoji} {category_name}
         </div>
         <div style="margin-bottom: 0.75rem;">
-            <div style="font-size: 0.75rem; color: #666; text-transform: uppercase;">Avg Score</div>
+            <div class="tooltip-trigger" style="font-size: 0.75rem; color: #666; text-transform: uppercase; display: inline-block;">
+                Avg Score
+                <div class="tooltip-content">
+                    Weighted average across all 5 parameters (Tone 30%, Value 30%, Structure 25%, Engagement 10%, Brand 5%). Scale is 1-4, where 4 = Exemplary, 3 = Publishable, 2 = Generic, 1 = Critical Fail.
+                </div>
+            </div>
             <div style="font-family: Poppins, sans-serif; font-size: 2rem; font-weight: 600; color: {score_color};">
                 <span class="animate-number" data-value="{avg_score}">{avg_score:.2f}</span>
             </div>
         </div>
         <div style="padding-top: 0.75rem; border-top: 1px solid #F0F0F0;">
-            <div style="font-size: 0.75rem; color: #666;">Publish-Ready: <strong><span class="animate-number" data-value="{pass_rate}">{pass_rate:.0f}</span>%</strong></div>
-            <div style="font-size: 0.75rem; color: #666;">Violations: <strong>{metrics['total_violations']}</strong></div>
+            <div style="font-size: 0.75rem; color: #666;">
+                <span class="tooltip-trigger" style="border-bottom: 1px dotted #666;">
+                    Publish-Ready
+                    <div class="tooltip-content">
+                        Percentage that passed all 3 gates: Overall Score ≥ 2.36, Tone ≥ 2.51, and Zero Critical Brand Violations.
+                    </div>
+                </span>: <strong><span class="animate-number" data-value="{pass_rate}">{pass_rate:.0f}</span>%</strong>
+            </div>
+            <div style="font-size: 0.75rem; color: #666;">
+                <span class="tooltip-trigger" style="border-bottom: 1px dotted #666;">
+                    Violations
+                    <div class="tooltip-content">
+                        Critical brand hygiene violations like "Monday.com" (wrong capitalization), "Tool" (for monday.com), or "User" (should be "Customer"). Any violation auto-fails Gate 3.
+                    </div>
+                </span>: <strong>{metrics['total_violations']}</strong>
+            </div>
             <div style="font-size: 0.75rem; color: #999;">{metrics['total_pieces']} pieces</div>
         </div>
     </div>
@@ -1386,7 +1405,16 @@ def main():
             poison_metrics = calculate_metrics(all_reports_poison) if all_reports_poison else None
 
             # Hero Metrics by Category
-            st.markdown("### 📊 Performance Metrics by Category")
+            st.markdown("""
+            <h3>
+                <span class="tooltip-trigger">
+                    📊 Performance Metrics by Category
+                    <span class="tooltip-content">
+                        Three separate scorecards: Home Assignment (your actual content), Golden Set (exemplary monday.com posts scoring 3+), and Poison Set (poor examples scoring <2). Proves the AI can distinguish quality.
+                    </span>
+                </span>
+            </h3>
+            """, unsafe_allow_html=True)
             col1, col2, col3 = st.columns(3, gap="large")
 
             with col1:
@@ -1410,7 +1438,16 @@ def main():
             st.markdown("<br>", unsafe_allow_html=True)
 
             # Analytics Charts by Category
-            st.markdown("### 📈 Score Analytics by Category")
+            st.markdown("""
+            <h3>
+                <span class="tooltip-trigger">
+                    📈 Score Analytics by Category
+                    <span class="tooltip-content">
+                        Visual breakdown showing how each category scored across the 5 parameters (Tone, Brand, Structure, Value, Engagement). Compare performance patterns to understand strengths and gaps.
+                    </span>
+                </span>
+            </h3>
+            """, unsafe_allow_html=True)
 
             # Row 1: Parameter Scores
             col1, col2, col3 = st.columns(3)
