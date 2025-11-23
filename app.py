@@ -269,7 +269,8 @@ def plot_parameter_scores(metrics):
                  title='Average Scores by Parameter',
                  color='Average Score',
                  color_continuous_scale=['#e44258', '#fdab3d', '#9acd32', '#66bb6a', '#00c875'],
-                 range_color=[1, 4])
+                 range_color=[1, 4],
+                 range_y=[1, 4])
 
     fig.update_layout(height=400, showlegend=False)
     fig.add_hline(y=2.36, line_dash="dash", line_color="gray",
