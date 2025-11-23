@@ -384,12 +384,12 @@ def run_analysis(content_text):
             f.write(content_text)
             temp_path = f.name
 
-        # Run analysis
+        # Run analysis (timeout: 5 minutes for 16 LLM agents)
         result = subprocess.run(
             [sys.executable, 'src/main.py', 'analyze', temp_path, '--json'],
             capture_output=True,
             text=True,
-            timeout=120,
+            timeout=300,
             cwd=os.path.dirname(os.path.abspath(__file__)) or '.',
             env={**os.environ}
         )
