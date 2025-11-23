@@ -1250,45 +1250,88 @@ def display_individual_report(report, content_folder):
                                         </div>
                                         """, unsafe_allow_html=True)
 
-def run_analysis(content_text):
-    """Run analysis on provided content text"""
+def run_analysis_with_progress(content_text):
+    """
+    Run analysis on provided content text with real-time progress updates.
+    Yields progress messages, then final result.
+    """
+    temp_path = None
     try:
         # Save to temp file
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
             f.write(content_text)
             temp_path = f.name
 
-        # Run analysis (timeout: 5 minutes for 16 LLM agents)
-        result = subprocess.run(
+        # Run analysis with streaming output
+        process = subprocess.Popen(
             [sys.executable, 'src/main.py', 'analyze', temp_path, '--json', '--no-save'],
-            capture_output=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
             text=True,
-            timeout=300,
+            bufsize=1,
             cwd=os.path.dirname(os.path.abspath(__file__)) or '.',
             env={**os.environ}
         )
 
-        # Clean up temp file
-        os.unlink(temp_path)
+        # Stream output line by line
+        output_lines = []
+        for line in iter(process.stdout.readline, ''):
+            if not line:
+                break
+            output_lines.append(line)
 
-        if result.returncode == 0:
-            # Parse JSON from output
-            output_lines = result.stdout.strip().split('\n')
+            # Yield progress updates based on output
+            line_stripped = line.strip()
+            if '[LAYER 1]' in line_stripped:
+                yield {'type': 'progress', 'message': '🔍 Running Layer 1: Brand compliance checks...'}
+            elif '[LAYER 2]' in line_stripped:
+                yield {'type': 'progress', 'message': '📝 Executing Layer 2: 16 AI agents evaluating content...'}
+            elif 'Calling' in line_stripped and '/' in line_stripped:
+                # Extract agent number from lines like "[1/16] Calling agent_name..."
+                yield {'type': 'progress', 'message': f'📝 {line_stripped.split("] ")[0].replace("[", "Agent ")}...'}
+            elif '[SCORER]' in line_stripped:
+                yield {'type': 'progress', 'message': '✨ Aggregating scores and generating report...'}
+
+        process.wait()
+
+        # Clean up temp file
+        if temp_path and os.path.exists(temp_path):
+            os.unlink(temp_path)
+
+        # Parse final result
+        if process.returncode == 0:
+            full_output = ''.join(output_lines)
+            output_text = full_output.strip().split('\n')
             json_output = None
-            for i, line in enumerate(output_lines):
+            for i, line in enumerate(output_text):
                 if line.strip().startswith('{'):
-                    json_output = '\n'.join(output_lines[i:])
+                    json_output = '\n'.join(output_text[i:])
                     break
 
             if json_output:
-                return json.loads(json_output)
+                yield {'type': 'result', 'data': json.loads(json_output)}
             else:
-                return {'error': 'Could not parse JSON output', 'raw': result.stdout}
+                yield {'type': 'result', 'data': {'error': 'Could not parse JSON output', 'raw': full_output}}
         else:
-            return {'error': result.stderr or result.stdout}
+            full_output = ''.join(output_lines)
+            yield {'type': 'result', 'data': {'error': full_output}}
 
     except Exception as e:
-        return {'error': str(e)}
+        if temp_path and os.path.exists(temp_path):
+            os.unlink(temp_path)
+        yield {'type': 'result', 'data': {'error': str(e)}}
+
+
+def run_analysis(content_text):
+    """
+    Run analysis on provided content text (legacy wrapper for compatibility).
+    For progress updates, use run_analysis_with_progress() instead.
+    """
+    result = None
+    for update in run_analysis_with_progress(content_text):
+        if update['type'] == 'result':
+            result = update['data']
+    return result if result else {'error': 'Analysis did not complete'}
 
 def build_file_tree(root_path='.'):
     """Build a hierarchical file tree structure from the filesystem"""
@@ -1578,13 +1621,19 @@ def main():
 
         if analyze_button and content_input.strip():
             with st.status("Analyzing content...", expanded=True) as status:
-                st.write("🔍 Running Layer 1: Brand compliance checks...")
-                result = run_analysis(content_input)
+                result = None
+                progress_placeholder = st.empty()
 
-                if 'error' not in result:
-                    st.write("📝 Executing Layer 2: 16 AI agents evaluating tone, structure, value...")
-                    st.write("✨ Aggregating scores and generating report...")
-                    status.update(label="✅ Analysis complete!", state="complete", expanded=False)
+                # Stream progress updates in real-time
+                for update in run_analysis_with_progress(content_input):
+                    if update['type'] == 'progress':
+                        progress_placeholder.write(update['message'])
+                    elif update['type'] == 'result':
+                        result = update['data']
+                        if 'error' not in result:
+                            status.update(label="✅ Analysis complete!", state="complete", expanded=False)
+                        else:
+                            status.update(label="❌ Analysis failed", state="error", expanded=True)
 
             if 'error' in result:
                 st.error(f"⚠️ Oops! Analysis hit a snag: {result['error']}")
