@@ -273,8 +273,9 @@ def plot_parameter_scores(metrics):
                  range_y=[1, 4])
 
     fig.update_layout(height=400, showlegend=False)
-    fig.add_hline(y=2.36, line_dash="dash", line_color="gray",
-                  annotation_text="Publish-Ready Threshold (2.36)")
+    fig.add_hline(y=2.36, line_dash="solid", line_color="#5034ff", line_width=3,
+                  annotation_text="Publish-Ready Threshold (2.36)",
+                  annotation_font_color="#5034ff")
 
     return fig
 
@@ -561,38 +562,48 @@ def main():
             # Sub-Parameter Average Scores
             st.markdown("### Sub-Parameter Average Scores (1-4 scale)")
 
-            sub_param_names = {
-                '1A_Positive': '1A: Positive',
-                '1B_Direct': '1B: Direct',
-                '1C_Trustworthy': '1C: Trustworthy',
-                '1D_Sharp_Wit': '1D: Sharp Wit',
-                '2A_Mechanical': '2A: Mechanical',
-                '2B_Contextual': '2B: Contextual',
-                '2C_Persona': '2C: Persona',
-                '3A_BLUF': '3A: BLUF',
-                '3B_Scannability': '3B: Scannability',
-                '3C_Conciseness': '3C: Conciseness',
-                '3D_Specificity': '3D: Specificity',
-                '4A_Audience': '4A: Audience',
-                '4B_Actionability': '4B: Actionability',
-                '4C_Evidence': '4C: Evidence',
-                '4D_Originality': '4D: Originality',
-                '5A_Headline': '5A: Headline',
-                '5B_SEO': '5B: SEO'
+            # Group sub-parameters by main parameter (P1-P5)
+            sub_param_groups = {
+                'P1': [
+                    ('1A_Positive', '1A: Positive'),
+                    ('1B_Direct', '1B: Direct'),
+                    ('1C_Trustworthy', '1C: Trustworthy'),
+                    ('1D_Sharp_Wit', '1D: Sharp Wit')
+                ],
+                'P2': [
+                    ('2A_Mechanical', '2A: Mechanical'),
+                    ('2B_Contextual', '2B: Contextual'),
+                    ('2C_Persona', '2C: Persona')
+                ],
+                'P3': [
+                    ('3A_BLUF', '3A: BLUF'),
+                    ('3B_Scannability', '3B: Scannability'),
+                    ('3C_Conciseness', '3C: Conciseness'),
+                    ('3D_Specificity', '3D: Specificity')
+                ],
+                'P4': [
+                    ('4A_Audience', '4A: Audience'),
+                    ('4B_Actionability', '4B: Actionability'),
+                    ('4C_Evidence', '4C: Evidence'),
+                    ('4D_Originality', '4D: Originality')
+                ],
+                'P5': [
+                    ('5A_Headline', '5A: Headline'),
+                    ('5B_SEO', '5B: SEO')
+                ]
             }
 
-            # Display in rows of 4
-            sub_param_items = list(sub_param_names.items())
-            for i in range(0, len(sub_param_items), 4):
-                cols = st.columns(4)
-                for idx, (sub_key, sub_name) in enumerate(sub_param_items[i:i+4]):
-                    if sub_key in metrics['avg_sub_params']:
-                        avg_score = metrics['avg_sub_params'][sub_key]
-                        score_class = get_score_color_class(avg_score)
-                        with cols[idx]:
+            # Display in 5 columns (one per main parameter)
+            cols = st.columns(5)
+            for idx, (param_key, sub_params) in enumerate(sub_param_groups.items()):
+                with cols[idx]:
+                    for sub_key, sub_name in sub_params:
+                        if sub_key in metrics['avg_sub_params']:
+                            avg_score = metrics['avg_sub_params'][sub_key]
+                            score_class = get_score_color_class(avg_score)
                             st.markdown(f"""
-                            <div class="metric-card" style="text-align: center; padding: 1rem;">
-                                <div style="font-size: 0.8rem; color: #666; margin-bottom: 0.3rem;">{sub_name}</div>
+                            <div class="metric-card" style="text-align: center; padding: 1rem; margin-bottom: 1.2rem;">
+                                <div style="font-size: 0.95rem; font-weight: bold; color: #666; margin-bottom: 0.8rem;">{sub_name}</div>
                                 <div class="{score_class}" style="font-size: 1.5rem;">{avg_score:.2f}/4</div>
                             </div>
                             """, unsafe_allow_html=True)
@@ -683,38 +694,48 @@ def main():
             # Sub-Parameter Average Scores
             st.markdown("### Sub-Parameter Average Scores (1-4 scale)")
 
-            sub_param_names = {
-                '1A_Positive': '1A: Positive',
-                '1B_Direct': '1B: Direct',
-                '1C_Trustworthy': '1C: Trustworthy',
-                '1D_Sharp_Wit': '1D: Sharp Wit',
-                '2A_Mechanical': '2A: Mechanical',
-                '2B_Contextual': '2B: Contextual',
-                '2C_Persona': '2C: Persona',
-                '3A_BLUF': '3A: BLUF',
-                '3B_Scannability': '3B: Scannability',
-                '3C_Conciseness': '3C: Conciseness',
-                '3D_Specificity': '3D: Specificity',
-                '4A_Audience': '4A: Audience',
-                '4B_Actionability': '4B: Actionability',
-                '4C_Evidence': '4C: Evidence',
-                '4D_Originality': '4D: Originality',
-                '5A_Headline': '5A: Headline',
-                '5B_SEO': '5B: SEO'
+            # Group sub-parameters by main parameter (P1-P5)
+            sub_param_groups = {
+                'P1': [
+                    ('1A_Positive', '1A: Positive'),
+                    ('1B_Direct', '1B: Direct'),
+                    ('1C_Trustworthy', '1C: Trustworthy'),
+                    ('1D_Sharp_Wit', '1D: Sharp Wit')
+                ],
+                'P2': [
+                    ('2A_Mechanical', '2A: Mechanical'),
+                    ('2B_Contextual', '2B: Contextual'),
+                    ('2C_Persona', '2C: Persona')
+                ],
+                'P3': [
+                    ('3A_BLUF', '3A: BLUF'),
+                    ('3B_Scannability', '3B: Scannability'),
+                    ('3C_Conciseness', '3C: Conciseness'),
+                    ('3D_Specificity', '3D: Specificity')
+                ],
+                'P4': [
+                    ('4A_Audience', '4A: Audience'),
+                    ('4B_Actionability', '4B: Actionability'),
+                    ('4C_Evidence', '4C: Evidence'),
+                    ('4D_Originality', '4D: Originality')
+                ],
+                'P5': [
+                    ('5A_Headline', '5A: Headline'),
+                    ('5B_SEO', '5B: SEO')
+                ]
             }
 
-            # Display in rows of 4
-            sub_param_items = list(sub_param_names.items())
-            for i in range(0, len(sub_param_items), 4):
-                cols = st.columns(4)
-                for idx, (sub_key, sub_name) in enumerate(sub_param_items[i:i+4]):
-                    if sub_key in metrics['avg_sub_params']:
-                        avg_score = metrics['avg_sub_params'][sub_key]
-                        score_class = get_score_color_class(avg_score)
-                        with cols[idx]:
+            # Display in 5 columns (one per main parameter)
+            cols = st.columns(5)
+            for idx, (param_key, sub_params) in enumerate(sub_param_groups.items()):
+                with cols[idx]:
+                    for sub_key, sub_name in sub_params:
+                        if sub_key in metrics['avg_sub_params']:
+                            avg_score = metrics['avg_sub_params'][sub_key]
+                            score_class = get_score_color_class(avg_score)
                             st.markdown(f"""
-                            <div class="metric-card" style="text-align: center; padding: 1rem;">
-                                <div style="font-size: 0.8rem; color: #666; margin-bottom: 0.3rem;">{sub_name}</div>
+                            <div class="metric-card" style="text-align: center; padding: 1rem; margin-bottom: 1.2rem;">
+                                <div style="font-size: 0.95rem; font-weight: bold; color: #666; margin-bottom: 0.8rem;">{sub_name}</div>
                                 <div class="{score_class}" style="font-size: 1.5rem;">{avg_score:.2f}/4</div>
                             </div>
                             """, unsafe_allow_html=True)
