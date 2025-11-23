@@ -79,6 +79,40 @@ st.markdown("""
         padding: 0;
     }
 
+    /* Sidebar Buttons - Make them more clickable and inviting */
+    [data-testid="stSidebar"] button {
+        background: white !important;
+        border: 1px solid #E6E9EF !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1rem !important;
+        font-weight: 500 !important;
+        color: #181B34 !important;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+        text-align: left !important;
+    }
+
+    [data-testid="stSidebar"] button:hover {
+        background: var(--monday-light) !important;
+        border-color: var(--monday-purple) !important;
+        transform: translateX(2px) !important;
+        box-shadow: 0 2px 4px rgba(97, 97, 255, 0.15) !important;
+    }
+
+    [data-testid="stSidebar"] button[kind="primary"] {
+        background: linear-gradient(135deg, var(--monday-purple), #7B7BFF) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 600 !important;
+        box-shadow: 0 2px 6px rgba(97, 97, 255, 0.25) !important;
+    }
+
+    [data-testid="stSidebar"] button[kind="primary"]:hover {
+        background: linear-gradient(135deg, #5555FF, #6B6BFF) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 3px 8px rgba(97, 97, 255, 0.35) !important;
+    }
+
     /* Sidebar Content Items */
     .sidebar-item {
         padding: 0.6rem 0.75rem;
@@ -340,25 +374,25 @@ st.markdown("""
     /* Badge */
     .badge {
         display: inline-block;
-        padding: 0.4rem 1rem;
-        border-radius: 20px;
+        padding: 0.3rem 0.75rem;
+        border-radius: 12px;
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
     .badge-success {
-        background: rgba(0, 202, 114, 0.2);
-        color: var(--green-done);
+        background: var(--green-done);
+        color: white;
     }
 
     .badge-warning {
-        background: rgba(255, 204, 0, 0.2);
-        color: #CC9900;
+        background: var(--yellow-working);
+        color: #181B34;
     }
 
     .badge-error {
-        background: rgba(251, 39, 93, 0.2);
-        color: var(--red-stuck);
+        background: var(--red-stuck);
+        color: white;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -754,9 +788,9 @@ def render_sidebar_navigation(all_reports):
                     ):
                         selected_content = (report, "data/input")
 
-                    # Show score inline
+                    # Show score badge positioned below button
                     score_badge = get_score_badge(score)
-                    st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='text-align: right; margin-top: -2.3rem; margin-bottom: 0.8rem;'>{score_badge}</div>", unsafe_allow_html=True)
 
         # Golden Set section with expander
         if golden_reports:
@@ -776,7 +810,7 @@ def render_sidebar_navigation(all_reports):
                         selected_content = (report, "data/calibration/golden_set")
 
                     score_badge = get_score_badge(score)
-                    st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='text-align: right; margin-top: -2.3rem; margin-bottom: 0.8rem;'>{score_badge}</div>", unsafe_allow_html=True)
 
         # Poison Set section with expander
         if poison_reports:
@@ -796,7 +830,7 @@ def render_sidebar_navigation(all_reports):
                         selected_content = (report, "data/calibration/poison_set")
 
                     score_badge = get_score_badge(score)
-                    st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='text-align: right; margin-top: -2.3rem; margin-bottom: 0.8rem;'>{score_badge}</div>", unsafe_allow_html=True)
 
         # GitHub icon at the bottom
         st.markdown("<br><br>", unsafe_allow_html=True)
