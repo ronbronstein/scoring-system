@@ -43,7 +43,8 @@ st.markdown("""
         border-left: 4px solid #5034ff;
     }
     .score-excellent { color: #00c875; font-weight: bold; }
-    .score-good { color: #9acd32; font-weight: bold; }
+    .score-good { color: #66bb6a; font-weight: bold; }
+    .score-pass { color: #9acd32; font-weight: bold; }
     .score-warning { color: #fdab3d; font-weight: bold; }
     .score-poor { color: #e44258; font-weight: bold; }
     .violation-critical { background: #ffe5e5; padding: 0.5rem; border-radius: 4px; }
@@ -211,13 +212,15 @@ def calculate_metrics(reports):
 def get_score_color_class(score):
     """Return CSS class based on score"""
     if score >= 3.5:
-        return "score-excellent"
+        return "score-excellent"  # Vibrant green
     elif score >= 3.0:
-        return "score-good"
+        return "score-good"  # Medium green
+    elif score >= 2.36:
+        return "score-pass"  # Yellow-green (at threshold)
     elif score >= 2.0:
-        return "score-warning"
+        return "score-warning"  # Orange (approaching threshold)
     else:
-        return "score-poor"
+        return "score-poor"  # Red
 
 def display_metrics_overview(metrics):
     """Display overview metrics in cards"""
@@ -264,12 +267,12 @@ def plot_parameter_scores(metrics):
     fig = px.bar(df, x='Parameter', y='Average Score',
                  title='Average Scores by Parameter',
                  color='Average Score',
-                 color_continuous_scale=['#e44258', '#fdab3d', '#9acd32', '#00c875'],
+                 color_continuous_scale=['#e44258', '#fdab3d', '#9acd32', '#66bb6a', '#00c875'],
                  range_color=[1, 4])
 
     fig.update_layout(height=400, showlegend=False)
-    fig.add_hline(y=3.0, line_dash="dash", line_color="gray",
-                  annotation_text="Hypothetical Threshold (3.0)")
+    fig.add_hline(y=2.36, line_dash="dash", line_color="gray",
+                  annotation_text="Publish-Ready Threshold (2.36)")
 
     return fig
 
