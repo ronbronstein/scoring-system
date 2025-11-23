@@ -1155,7 +1155,7 @@ def main():
 
             # Hero Metrics by Category
             st.markdown("### 📊 Performance Metrics by Category")
-            col1, col2, col3 = st.columns(3)
+            col1, col2, col3 = st.columns(3, gap="large")
 
             with col1:
                 if home_metrics:
