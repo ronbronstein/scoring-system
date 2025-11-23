@@ -1106,7 +1106,7 @@ def display_individual_report(report, content_folder):
         param_tooltips = {
             'P1_Challenger_Tone': 'The spiciness factor (30% weight). Are you fluff-free while sounding human? This checks if you write like a smart colleague, not a brochure.',
             'P2_Brand_Hygiene': 'Brand hygiene (5% weight + veto power). Non-negotiable rules like lowercase monday.com, "customers" not "users", and "sub-items" not "sub-tasks".',
-            'P3_Structural_Clarity': 'Get to the point (25% weight). Sales leaders don't have time for rhetorical questions or dictionary definitions—deliver value in paragraph 1.',
+            'P3_Structural_Clarity': 'Get to the point (25% weight). Sales leaders don\'t have time for rhetorical questions or dictionary definitions - deliver value in paragraph 1.',
             'P4_Strategic_Value': 'Substance equals style (30% weight). Does this piece give Sales Leaders actionable insight they can use Monday morning?',
             'P5_Engagement': 'Stop the scroll (10% weight). Does your headline promise a benefit, not just announce a topic?'
         }
