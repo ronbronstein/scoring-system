@@ -495,15 +495,15 @@ def main():
 
     # Main tabs
     tab1, tab2, tab3, tab4 = st.tabs([
-        "📊 Task Content Analysis",
+        "📊 Home Assignment Analysis",
         "📈 Calibration Data",
         "🔬 Live Analysis",
         "📁 Repository"
     ])
 
-    # Tab 1: Task Content Analysis (Real Files)
+    # Tab 1: Home Assignment Analysis (Real Files)
     with tab1:
-        st.markdown("## Task Content Analysis")
+        st.markdown("## Home Assignment Analysis")
         st.markdown("Analysis of production content (files in `data/input/`)")
 
         # Load reports from main reports folder (excluding calibration)
