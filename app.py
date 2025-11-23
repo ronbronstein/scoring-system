@@ -70,6 +70,58 @@ st.markdown("""
     .stTabs [data-baseweb="tab-list"] {
         gap: 2rem;
     }
+    .strength-box {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        border-left: 4px solid #28a745;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    .improvement-box {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        border-left: 4px solid #dc3545;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    .neutral-box {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
+        border-left: 4px solid #ffc107;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    .sub-param-header {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #000000;
+    }
+    .sub-param-score {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    .sub-param-feedback {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #2c3e50;
+    }
+    .flags-container {
+        background: #fff5f5;
+        border: 2px solid #e53e3e;
+        padding: 1rem;
+        border-radius: 6px;
+        margin-top: 1rem;
+    }
+    .flag-item {
+        background: white;
+        padding: 0.75rem;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+        border-left: 3px solid #e53e3e;
+        color: #1a1a1a;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -368,14 +420,96 @@ def display_individual_report(report, content_folder):
                        unsafe_allow_html=True)
 
             # Show sub-parameters in expander
-            with st.expander(f"View {param_key} Details"):
-                for sub_key, sub_data in param_data['sub_parameters'].items():
-                    st.markdown(f"**{sub_data['name']}**: {sub_data['score']}/4")
-                    st.markdown(f'<div class="feedback-text">{sub_data["feedback"]}</div>',
-                              unsafe_allow_html=True)
+            with st.expander(f"View {param_key} Details", expanded=False):
+                # Separate sub-parameters into strengths and areas for improvement
+                strengths = []
+                improvements = []
+                neutral = []
 
-                    if 'flags' in sub_data and sub_data['flags']:
-                        st.warning(f"Flags: {len(sub_data['flags'])} issues found")
+                for sub_key, sub_data in param_data['sub_parameters'].items():
+                    score = sub_data['score']
+                    if score >= 3:
+                        strengths.append((sub_key, sub_data))
+                    elif score >= 2:
+                        neutral.append((sub_key, sub_data))
+                    else:
+                        improvements.append((sub_key, sub_data))
+
+                # Display strengths first
+                if strengths:
+                    st.markdown("### ✅ Strengths")
+                    for sub_key, sub_data in strengths:
+                        st.markdown(f"""
+                        <div class="strength-box">
+                            <div class="sub-param-header">{sub_data['name']}</div>
+                            <div class="sub-param-score" style="color: #28a745;">{sub_data['score']}/4</div>
+                            <div class="sub-param-feedback">{sub_data['feedback']}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                # Display neutral scores
+                if neutral:
+                    st.markdown("### ⚠️ Moderate Performance")
+                    for sub_key, sub_data in neutral:
+                        flags_count = len(sub_data.get('flags', []))
+                        st.markdown(f"""
+                        <div class="neutral-box">
+                            <div class="sub-param-header">{sub_data['name']}</div>
+                            <div class="sub-param-score" style="color: #d97706;">{sub_data['score']}/4</div>
+                            <div class="sub-param-feedback">{sub_data['feedback']}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        if 'flags' in sub_data and sub_data['flags']:
+                            with st.expander(f"⚠️ {flags_count} Issue{'s' if flags_count != 1 else ''} Found", expanded=False):
+                                for i, flag in enumerate(sub_data['flags'], 1):
+                                    # Handle both string flags and dict flags
+                                    if isinstance(flag, str):
+                                        st.markdown(f"""
+                                        <div class="flag-item">
+                                            <strong>Issue {i}:</strong> {flag}
+                                        </div>
+                                        """, unsafe_allow_html=True)
+                                    elif isinstance(flag, dict):
+                                        st.markdown(f"""
+                                        <div class="flag-item">
+                                            <strong>Issue {i}:</strong> {flag.get('message', flag.get('issue', 'N/A'))}<br>
+                                            <strong>Violation:</strong> {flag.get('violation', flag.get('quote', 'N/A'))}<br>
+                                            <strong>Context:</strong> {flag.get('context', flag.get('fix_suggestion', 'N/A'))}
+                                        </div>
+                                        """, unsafe_allow_html=True)
+
+                # Display areas for improvement
+                if improvements:
+                    st.markdown("### ❌ Areas for Improvement")
+                    for sub_key, sub_data in improvements:
+                        flags_count = len(sub_data.get('flags', []))
+                        st.markdown(f"""
+                        <div class="improvement-box">
+                            <div class="sub-param-header">{sub_data['name']}</div>
+                            <div class="sub-param-score" style="color: #dc3545;">{sub_data['score']}/4</div>
+                            <div class="sub-param-feedback">{sub_data['feedback']}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        if 'flags' in sub_data and sub_data['flags']:
+                            with st.expander(f"🚨 {flags_count} Critical Issue{'s' if flags_count != 1 else ''} Found", expanded=True):
+                                for i, flag in enumerate(sub_data['flags'], 1):
+                                    # Handle both string flags and dict flags
+                                    if isinstance(flag, str):
+                                        st.markdown(f"""
+                                        <div class="flag-item">
+                                            <strong>Issue {i}:</strong> {flag}
+                                        </div>
+                                        """, unsafe_allow_html=True)
+                                    elif isinstance(flag, dict):
+                                        st.markdown(f"""
+                                        <div class="flag-item">
+                                            <strong>Issue {i}:</strong> {flag.get('message', flag.get('issue', 'N/A'))}<br>
+                                            <strong>Violation:</strong> {flag.get('violation', flag.get('quote', 'N/A'))}<br>
+                                            <strong>Context:</strong> {flag.get('context', flag.get('fix_suggestion', 'N/A'))}
+                                        </div>
+                                        """, unsafe_allow_html=True)
 
 def run_analysis(content_text):
     """Run analysis on provided content text"""
