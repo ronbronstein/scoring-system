@@ -4,10 +4,11 @@ Executes Layer 1 → Layer 2 → Scorer and manages state/retries.
 """
 
 import json
+import time
 from pathlib import Path
 from typing import Dict, Optional, Tuple
 
-from config import REPORTS_DIR
+from config import REPORTS_DIR, DELAY_BETWEEN_FILES
 from regex_checker import run_layer_1_checks
 from llm_client import run_layer_2_analysis, retry_failed
 from scorer import generate_report
@@ -19,7 +20,7 @@ from scorer import generate_report
 
 
 def analyze_content(
-    content: str, content_id: str, save_report: bool = True
+    content: str, content_id: str, save_report: bool = True, subfolder: str = None
 ) -> Tuple[Dict, str]:
     """
     Execute the complete content analysis pipeline.
@@ -34,6 +35,7 @@ def analyze_content(
         content: The draft content to analyze
         content_id: Identifier for the content (used in report filename)
         save_report: Whether to save the report to disk
+        subfolder: Optional subfolder within reports directory (e.g., "golden_set", "poison_set")
 
     Returns:
         Tuple of (report_dict, report_path)
@@ -102,7 +104,7 @@ def analyze_content(
     # SAVE REPORT
     # ========================================================================
     if save_report:
-        report_path = save_report_to_file(report, content_id)
+        report_path = save_report_to_file(report, content_id, subfolder=subfolder)
         print(f"Report saved to: {report_path}")
     else:
         report_path = None
@@ -110,13 +112,14 @@ def analyze_content(
     return report, report_path
 
 
-def save_report_to_file(report: Dict, content_id: str) -> str:
+def save_report_to_file(report: Dict, content_id: str, subfolder: str = None) -> str:
     """
     Save the analysis report as a JSON file.
 
     Args:
         report: The complete report dictionary
         content_id: Content identifier for filename
+        subfolder: Optional subfolder within reports directory (e.g., "golden_set", "poison_set")
 
     Returns:
         Path to saved report file
@@ -124,10 +127,17 @@ def save_report_to_file(report: Dict, content_id: str) -> str:
     # Create safe filename from content_id
     safe_filename = "".join(c if c.isalnum() or c in ("-", "_") else "_" for c in content_id)
     filename = f"{safe_filename}_report.json"
-    filepath = REPORTS_DIR / filename
 
-    # Ensure reports directory exists
-    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    # Determine target directory
+    if subfolder:
+        target_dir = REPORTS_DIR / subfolder
+    else:
+        target_dir = REPORTS_DIR
+
+    filepath = target_dir / filename
+
+    # Ensure target directory exists
+    target_dir.mkdir(parents=True, exist_ok=True)
 
     # Save with pretty formatting
     with open(filepath, "w", encoding="utf-8") as f:
@@ -275,8 +285,18 @@ def analyze_batch(content_dir: Path) -> Dict[str, str]:
         print(f"No content files found in {content_dir}")
         return {}
 
+    # Detect subfolder from source directory name
+    subfolder = None
+    dir_name = content_dir.name
+    if "golden" in dir_name.lower():
+        subfolder = "golden_set"
+    elif "poison" in dir_name.lower():
+        subfolder = "poison_set"
+
     print(f"\n{'=' * 70}")
     print(f"BATCH ANALYSIS: {len(files)} file(s)")
+    if subfolder:
+        print(f"Reports will be saved to: reports/{subfolder}/")
     print(f"{'=' * 70}\n")
 
     results = {}
@@ -290,13 +310,23 @@ def analyze_batch(content_dir: Path) -> Dict[str, str]:
             with open(filepath, "r", encoding="utf-8") as f:
                 content = f.read()
 
-            # Analyze
-            report, report_path = analyze_content(content, content_id, save_report=True)
+            # Analyze with subfolder parameter
+            report, report_path = analyze_content(content, content_id, save_report=True, subfolder=subfolder)
             results[content_id] = report_path
+
+            # Add delay between files (except after last file)
+            if i < len(files):
+                print(f"\n  Waiting {DELAY_BETWEEN_FILES}s before next file...")
+                time.sleep(DELAY_BETWEEN_FILES)
 
         except Exception as e:
             print(f"  ✗ Error processing {content_id}: {e}")
             results[content_id] = None
+
+            # Still add delay even after errors (for rate limit safety)
+            if i < len(files):
+                print(f"\n  Waiting {DELAY_BETWEEN_FILES}s before next file...")
+                time.sleep(DELAY_BETWEEN_FILES)
 
     print(f"\n{'=' * 70}")
     print(f"BATCH COMPLETE: {len(results)} file(s) processed")

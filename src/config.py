@@ -48,7 +48,7 @@ MAX_RETRIES = 3  # Number of retry attempts for failed API calls
 RETRY_DELAY = 2  # Initial delay in seconds (exponential backoff)
 
 # ============================================================================
-# RATE LIMITING CONFIGURATION (Tier 1)
+# RATE LIMITING CONFIGURATION (Sequential Execution)
 # ============================================================================
 
 # Tier 1 Rate Limits (as per Claude API docs)
@@ -56,10 +56,10 @@ RPM_LIMIT = 50  # Requests per minute
 ITPM_LIMIT = 30000  # Input tokens per minute
 OTPM_LIMIT = 8000  # Output tokens per minute
 
-# Conservative rate limiting for parallel execution
-# We're making 16 parallel LLM calls (17 total sub-parameters - 1 regex), so we limit to batches
-MAX_CONCURRENT_REQUESTS = 10  # Process in batches to avoid hitting RPM
-REQUEST_DELAY = 1.2  # Delay between batches in seconds (conservative)
+# Sequential execution settings (safer for rate limits)
+DELAY_BETWEEN_AGENT_CALLS = 2.0  # 2 seconds between each of 16 agent API calls
+DELAY_BETWEEN_FILES = 5.0        # 5 seconds between each file in batch processing
+RATE_LIMIT_BACKOFF = 60.0        # 60 seconds wait if rate limit error detected
 
 # ============================================================================
 # SCORING WEIGHTS: 17 SUB-PARAMETERS (v6.0)
@@ -265,14 +265,13 @@ SUB_PARAMETERS = {
 # ============================================================================
 # SCORING THRESHOLDS (3-GATE SYSTEM)
 # ============================================================================
-# NOTE: These thresholds will be determined after calibration with golden/poison sets
-# Placeholder values provided for initial testing
+# NOTE: These thresholds are calibrated based on scoring good content
 
 # Gate 1: Overall weighted score threshold
-GATE_1_THRESHOLD = None  # TBD after calibration (initial hypothesis: 3.2)
+GATE_1_THRESHOLD = 2.36  # Calibrated based on scoring good content
 
 # Gate 2: Tone minimum threshold (The "Boredom Veto")
-GATE_2_TONE_MINIMUM = None  # TBD after calibration (initial hypothesis: 3.0)
+GATE_2_TONE_MINIMUM = 2.51  # Calibrated based on scoring good content
 
 # Gate 3: Zero critical violations (enforced programmatically, no threshold)
 # Any critical violation from Layer 1 or Agent 2B = automatic failure

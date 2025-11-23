@@ -1,9 +1,8 @@
 """
-LLM Client for Layer 2: Asynchronous parallel execution of 16 specialized agents.
+LLM Client for Layer 2: Sequential execution of 16 specialized agents.
 Handles rate limiting, retries, JSON parsing, and error recovery.
 """
 
-import asyncio
 import json
 import os
 import time
@@ -19,8 +18,8 @@ from config import (
     MAX_TOKENS,
     MAX_RETRIES,
     RETRY_DELAY,
-    MAX_CONCURRENT_REQUESTS,
-    REQUEST_DELAY,
+    DELAY_BETWEEN_AGENT_CALLS,
+    RATE_LIMIT_BACKOFF,
     PROMPTS_DIR,
     get_llm_agents,
     get_agent_metadata,
@@ -28,44 +27,6 @@ from config import (
 
 # Load environment variables
 load_dotenv()
-
-# ============================================================================
-# RATE LIMITER
-# ============================================================================
-
-
-class RateLimiter:
-    """
-    Simple rate limiter for managing API request timing.
-    Implements delay between batches to avoid hitting Tier 1 rate limits.
-    """
-
-    def __init__(self, max_concurrent: int, delay_between_batches: float):
-        self.max_concurrent = max_concurrent
-        self.delay_between_batches = delay_between_batches
-        self.semaphore = asyncio.Semaphore(max_concurrent)
-        self.last_batch_time = 0
-
-    async def acquire(self):
-        """Acquire permission to make a request."""
-        await self.semaphore.acquire()
-
-        # If this is a new batch, enforce delay
-        current_time = time.time()
-        time_since_last_batch = current_time - self.last_batch_time
-        if time_since_last_batch < self.delay_between_batches:
-            await asyncio.sleep(self.delay_between_batches - time_since_last_batch)
-        self.last_batch_time = time.time()
-
-    def release(self):
-        """Release the semaphore."""
-        self.semaphore.release()
-
-
-# Global rate limiter instance
-rate_limiter = RateLimiter(
-    max_concurrent=MAX_CONCURRENT_REQUESTS, delay_between_batches=REQUEST_DELAY
-)
 
 # ============================================================================
 # PROMPT LOADING
@@ -107,7 +68,7 @@ def load_prompt(agent_id: str) -> Optional[str]:
 
 class LLMClient:
     """
-    Async client for Claude API with retry logic and JSON enforcement.
+    Synchronous client for Claude API with retry logic and JSON enforcement.
     """
 
     def __init__(self):
@@ -119,11 +80,11 @@ class LLMClient:
             )
         self.client = anthropic.Anthropic(api_key=api_key)
 
-    async def call_agent(
+    def call_agent(
         self, agent_id: str, content: str, retry_count: int = 0
     ) -> Dict:
         """
-        Make an async API call for a single agent with retry logic.
+        Make a synchronous API call for a single agent with retry logic.
 
         Args:
             agent_id: The agent identifier
@@ -160,43 +121,45 @@ class LLMClient:
         assistant_prefill = "{"
 
         try:
-            # Acquire rate limit permission
-            await rate_limiter.acquire()
+            # Add delay before API call for rate limiting (sequential execution)
+            time.sleep(DELAY_BETWEEN_AGENT_CALLS)
 
-            # Make API call using asyncio to_thread for sync anthropic client
-            loop = asyncio.get_event_loop()
-            response = await loop.run_in_executor(
-                None,
-                lambda: self.client.messages.create(
-                    model=MODEL_NAME,
-                    max_tokens=MAX_TOKENS,
-                    temperature=TEMPERATURE,
-                    system=system_prompt,
-                    messages=[
-                        {"role": "user", "content": user_message},
-                        {"role": "assistant", "content": assistant_prefill},
-                    ],
-                ),
+            # Make API call (synchronous)
+            response = self.client.messages.create(
+                model=MODEL_NAME,
+                max_tokens=MAX_TOKENS,
+                temperature=TEMPERATURE,
+                system=system_prompt,
+                messages=[
+                    {"role": "user", "content": user_message},
+                    {"role": "assistant", "content": assistant_prefill},
+                ],
             )
-
-            # Release rate limit permission
-            rate_limiter.release()
 
             # Parse response
             return self._parse_response(agent_id, response, assistant_prefill)
 
         except anthropic.APIError as e:
-            rate_limiter.release()
-
             # Retry logic
             if retry_count < MAX_RETRIES:
-                wait_time = RETRY_DELAY * (2**retry_count)  # Exponential backoff
-                print(
-                    f"API error for {agent_id} (attempt {retry_count + 1}/{MAX_RETRIES}): {e}. "
-                    f"Retrying in {wait_time}s..."
-                )
-                await asyncio.sleep(wait_time)
-                return await self.call_agent(agent_id, content, retry_count + 1)
+                error_str = str(e)
+
+                # Smart backoff: Detect rate limit errors and wait longer
+                if "rate_limit" in error_str.lower():
+                    wait_time = RATE_LIMIT_BACKOFF
+                    print(
+                        f"⚠️  Rate limit hit for {agent_id} (attempt {retry_count + 1}/{MAX_RETRIES}). "
+                        f"Waiting {wait_time}s for rate limit reset..."
+                    )
+                else:
+                    wait_time = RETRY_DELAY * (2**retry_count)  # Exponential backoff
+                    print(
+                        f"API error for {agent_id} (attempt {retry_count + 1}/{MAX_RETRIES}): {e}. "
+                        f"Retrying in {wait_time}s..."
+                    )
+
+                time.sleep(wait_time)
+                return self.call_agent(agent_id, content, retry_count + 1)
             else:
                 return {
                     "agent_id": agent_id,
@@ -205,7 +168,6 @@ class LLMClient:
                 }
 
         except Exception as e:
-            rate_limiter.release()
             return {
                 "agent_id": agent_id,
                 "success": False,
@@ -334,13 +296,13 @@ class LLMClient:
 
 
 # ============================================================================
-# PARALLEL EXECUTION ORCHESTRATION
+# SEQUENTIAL EXECUTION ORCHESTRATION
 # ============================================================================
 
 
-async def run_all_agents_parallel(content: str) -> Dict[str, Dict]:
+def run_all_agents_sequential(content: str) -> Dict[str, Dict]:
     """
-    Execute all 16 LLM agents in parallel with rate limiting.
+    Execute all 16 LLM agents sequentially with smart rate limiting.
 
     Args:
         content: The draft content to analyze
@@ -351,13 +313,20 @@ async def run_all_agents_parallel(content: str) -> Dict[str, Dict]:
     client = LLMClient()
     agent_ids = get_llm_agents()
 
-    print(f"Starting parallel execution of {len(agent_ids)} agents...")
+    print(f"Starting sequential execution of {len(agent_ids)} agents...")
 
-    # Create tasks for all agents
-    tasks = [client.call_agent(agent_id, content) for agent_id in agent_ids]
+    # Execute agents one by one
+    results = []
+    for i, agent_id in enumerate(agent_ids, 1):
+        print(f"  [{i}/{len(agent_ids)}] Calling {agent_id}...", end=" ")
+        result = client.call_agent(agent_id, content)
 
-    # Execute all tasks concurrently
-    results = await asyncio.gather(*tasks)
+        if result["success"]:
+            print(f"✓ Score: {result['score']}")
+        else:
+            print(f"✗ Error: {result.get('error', 'Unknown')[:50]}...")
+
+        results.append(result)
 
     # Convert list to dictionary
     results_dict = {result["agent_id"]: result for result in results}
@@ -377,7 +346,7 @@ async def run_all_agents_parallel(content: str) -> Dict[str, Dict]:
     return results_dict
 
 
-async def retry_failed_agents(content: str, previous_results: Dict[str, Dict]) -> Dict[str, Dict]:
+def retry_failed_agents(content: str, previous_results: Dict[str, Dict]) -> Dict[str, Dict]:
     """
     Retry only the agents that failed in the previous run.
     This implements the "continue/resume" functionality.
@@ -402,11 +371,11 @@ async def retry_failed_agents(content: str, previous_results: Dict[str, Dict]) -
 
     print(f"\nRetrying {len(failed_agents)} failed agents...")
 
-    # Create tasks for failed agents
-    tasks = [client.call_agent(agent_id, content) for agent_id in failed_agents]
-
-    # Execute retries
-    results = await asyncio.gather(*tasks)
+    # Execute retries sequentially
+    results = []
+    for agent_id in failed_agents:
+        result = client.call_agent(agent_id, content)
+        results.append(result)
 
     # Convert to dictionary
     retry_results = {result["agent_id"]: result for result in results}
@@ -421,14 +390,13 @@ async def retry_failed_agents(content: str, previous_results: Dict[str, Dict]) -
 
 
 # ============================================================================
-# CONVENIENCE FUNCTION FOR SYNC CALLERS
+# PUBLIC API
 # ============================================================================
 
 
 def run_layer_2_analysis(content: str) -> Dict[str, Dict]:
     """
-    Synchronous wrapper for async agent execution.
-    Runs all agents in parallel and returns results.
+    Run all 16 LLM agents sequentially and return results.
 
     Args:
         content: Draft content to analyze
@@ -436,12 +404,12 @@ def run_layer_2_analysis(content: str) -> Dict[str, Dict]:
     Returns:
         Dictionary of results by agent_id
     """
-    return asyncio.run(run_all_agents_parallel(content))
+    return run_all_agents_sequential(content)
 
 
 def retry_failed(content: str, previous_results: Dict[str, Dict]) -> Dict[str, Dict]:
     """
-    Synchronous wrapper for retry functionality.
+    Retry only failed agents from a previous run.
 
     Args:
         content: Draft content to analyze
@@ -450,4 +418,4 @@ def retry_failed(content: str, previous_results: Dict[str, Dict]) -> Dict[str, D
     Returns:
         Dictionary of retry results by agent_id
     """
-    return asyncio.run(retry_failed_agents(content, previous_results))
+    return retry_failed_agents(content, previous_results)

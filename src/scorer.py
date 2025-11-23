@@ -149,7 +149,7 @@ def evaluate_gates(
     if GATE_1_THRESHOLD is not None and overall_score is not None:
         gate_1_pass = overall_score >= GATE_1_THRESHOLD
     else:
-        # Threshold not set (TBD after calibration) - cannot evaluate
+        # Threshold or overall score not available - cannot evaluate
         gate_1_pass = None
 
     # Gate 2: Tone minimum (Boredom Veto)
@@ -157,7 +157,7 @@ def evaluate_gates(
     if GATE_2_TONE_MINIMUM is not None and tone_score is not None:
         gate_2_pass = tone_score >= GATE_2_TONE_MINIMUM
     else:
-        # Threshold not set or tone score missing - cannot evaluate
+        # Threshold or tone score not available - cannot evaluate
         gate_2_pass = None
 
     # Gate 3: Brand Veto (Zero critical violations from ALL P2 sub-parameters)
