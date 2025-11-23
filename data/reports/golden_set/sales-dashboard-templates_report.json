@@ -1,0 +1,245 @@
+{
+  "metadata": {
+    "content_id": "sales-dashboard-templates",
+    "timestamp": "2025-11-23T02:02:58.805248",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "threshold_gate_1": null,
+    "threshold_gate_2_tone": null
+  },
+  "results": {
+    "overall_score": 3.16,
+    "publish_ready": null,
+    "status": "Cannot Determine (Thresholds TBD)"
+  },
+  "gates_status": {
+    "gate_1_overall_threshold_met": null,
+    "gate_2_tone_veto_passed": null,
+    "gate_3_brand_veto_passed": true,
+    "critical_violations_count": 0
+  },
+  "parameters": {
+    "P1_Challenger_Tone": {
+      "parameter_score": 3.333333333333333,
+      "weight": 0.3,
+      "contribution": 0.9999999999999999,
+      "sub_parameters": {
+        "1A_Positive": {
+          "name": "Positive & Solution-Focused",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: The content heavily focuses on solutions (>85% of text) and consistently frames outdated processes/systems as the villain, never the sales reps or managers. Language is empowering throughout ('transform,' 'empower salespeople,' 'make smart decisions'). The reader is positioned as the hero who needs better tools, not as someone who is failing or incompetent."
+        },
+        "1B_Direct": {
+          "name": "Direct with Personality",
+          "score": 4,
+          "weight": 0.1,
+          "feedback": "Exemplary: The writing is direct, conversational, and fluff-free. It consistently 'just says the thing' without hedging or corporate jargon. Phrases like 'Stop wrestling with spreadsheets' and 'No more waiting for end-of-day reports' are punchy and human. Qualifier density is minimal (4 instances across 2,500+ words). The tone perfectly balances professional expertise with approachable clarity—exactly like a smart colleague explaining over coffee."
+        },
+        "1C_Trustworthy": {
+          "name": "Trustworthy & Authentic",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: High trust established through sourced claims, logical explanations of 'how' and 'why,' and explicit acknowledgment of limitations ('Activity alone doesn't guarantee success,' 'correlation doesn't equal causation'). The content demonstrates the 'Realist' mental model by admitting that dashboards require human judgment and strategy to be effective."
+        },
+        "1D_Sharp_Wit": {
+          "name": "Sharp Wit & Confidence",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Generic/Weak: This content relies heavily on business clichés ('single source of truth', 'double down on winners', 'move revenue forward') and makes safe observations that any CRM vendor could claim. It lacks a distinct, spicy point of view. To improve: Replace clichés with specific outcomes, add witty observations about the 'old way' of sales reporting (e.g., 'Most sales reports are autopsies, not X-rays'), and challenge conventional wisdom with confidence.",
+          "flags": [
+            "single source of truth",
+            "move revenue forward",
+            "double down on winners",
+            "turn guesswork into data-driven planning",
+            "Effective sales teams run on accurate, real-time information"
+          ]
+        }
+      }
+    },
+    "P2_Brand_Hygiene": {
+      "parameter_score": 2.1999999999999997,
+      "weight": 0.05,
+      "contribution": 0.10999999999999999,
+      "sub_parameters": {
+        "2A_Mechanical": {
+          "name": "Mechanical Compliance",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Found 6 mechanical violation(s).",
+          "flags": [
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "KANBAN_CASE",
+              "severity": "High",
+              "message": "'Kanban' (methodology) should be capitalized.",
+              "violation": "kanban",
+              "context": "...l tools like funnel charts or kanban boards make complex data simp..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...to Free Trial/Product Page)]  ---  ## 🔑 Key Takeaways  * **Real..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...s that move revenue forward.  ---  ## What Makes an Effective S..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...g them with irrelevant data.  ---  ## 11 Best Sales Dashboard T..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...e on emerging opportunities.  ---  ## 🛠️ Build Custom Sales Das..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...ss all your sales processes.  ---  ## Transform Your Sales Repo..."
+            }
+          ]
+        },
+        "2B_Contextual": {
+          "name": "Contextual Terminology",
+          "score": 4,
+          "weight": 0.02,
+          "feedback": "Pass: The restricted word 'tools' appears once but correctly refers to generic reporting software, not the monday.com platform. No other trigger words present. Contextual terminology is properly maintained throughout."
+        },
+        "2C_Persona": {
+          "name": "Persona & Lexicon",
+          "score": 1,
+          "weight": 0.01,
+          "feedback": "Critical Fail: The content refers to monday.com customers as 'users' in the phrase 'Heavy users who might need more capacity.' This violates the Style Guide's persona requirements. Replace 'users' with 'customers' or 'team members' when referring to people using monday.com.",
+          "flags": [
+            "Heavy users who might need more capacity"
+          ]
+        }
+      }
+    },
+    "P3_Structural_Clarity": {
+      "parameter_score": 3.4000000000000004,
+      "weight": 0.25,
+      "contribution": 0.8500000000000001,
+      "sub_parameters": {
+        "3A_BLUF": {
+          "name": "Bottom Line Up Front",
+          "score": 3,
+          "weight": 0.1,
+          "feedback": "Publishable BLUF. The problem is identified in Para 1, the solution in Para 2, and the specific deliverable (11 templates) in Para 3. No fluff or rhetorical questions. To reach a 4, consider condensing Para 1-2 into a single opening that immediately states: 'Static spreadsheets are killing your pipeline visibility. Here are 11 proven dashboard templates that give you real-time control.' The current intro is good but slightly slow."
+        },
+        "3B_Scannability": {
+          "name": "Scannability & Hierarchy",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable with strong header hierarchy. Headers tell a clear story from problem to solution to implementation. However, several paragraphs exceed the 5-sentence/80-word threshold, creating visual bulk. Break longer paragraphs (especially in template descriptions) into 2-3 sentence chunks. The formatting with bullets and bold text is strong, but tighter paragraphs would improve scannability.",
+          "flags": [
+            "Wall of Text (Opening paragraph - ~85 words)",
+            "Wall of Text (Para under 'What Makes an Effective Sales Dashboard Template?' - ~90 words)",
+            "Wall of Text (Multiple template description paragraphs exceed 5 sentences)"
+          ]
+        },
+        "3C_Conciseness": {
+          "name": "Conciseness & Human Language",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary conciseness. Clean, active language throughout with zero jargon or corporate fluff. Strong verbs dominate ('shows', 'tracks', 'reveals', 'guides'). Minimal adverbs, and those present serve technical accuracy. Every word earns its place."
+        },
+        "3D_Specificity": {
+          "name": "Specificity",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary specificity. The content quantifies all major claims (29% sales increase, 65% vs 22% mobile CRM success rates, 51% AI adoption), uses zero vague nouns like 'things' or 'aspects', and employs concrete terminology throughout (specific dashboard types, named metrics like MRR/CLV, precise features like 'drag-and-drop'). Every section names specific capabilities rather than hand-waving at 'improvements' or 'factors'."
+        }
+      }
+    },
+    "P4_Strategic_Value": {
+      "parameter_score": 3.0000000000000004,
+      "weight": 0.3,
+      "contribution": 0.9000000000000001,
+      "sub_parameters": {
+        "4A_Audience": {
+          "name": "Audience Alignment",
+          "score": 4,
+          "weight": 0.1,
+          "feedback": "Exemplary alignment. This content explicitly targets Sales/Revenue professionals across all levels—from executives needing strategic visibility to CRM admins building dashboards to reps tracking personal performance. It passes the HR Swap test with Revenue-specific terminology (MRR, quota attainment, pipeline velocity, win rate, commission tracking, upsell opportunities). Most importantly, it serves the dual audience: strategic framing for leaders (executive dashboards, revenue forecasting, market share analytics) paired with tactical implementation guidance (no-code builder, drag-and-drop setup, 11 specific templates). The content consistently uses domain-specific language and addresses real Revenue team challenges."
+        },
+        "4B_Actionability": {
+          "name": "Actionability",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Weak actionability. The content explains WHAT dashboards to create ('Pipeline Dashboard,' 'Performance Dashboard') and WHY they're valuable, but fails to provide the tactical HOW. A reader cannot implement any of these dashboards without additional resources. To reach a 4, add step-by-step instructions: 'Open your Sales board → Click Dashboard → Add a Chart widget → Select Funnel view → Group by Deal Stage.' Currently, this is a conceptual overview, not an implementation guide.",
+          "flags": [
+            "Create professional dashboards using simple drag-and-drop tools",
+            "Add AI capabilities to any dashboard",
+            "Track pipeline velocity",
+            "Bottleneck identification",
+            "Individual rep scorecards",
+            "Activity-to-outcome correlation",
+            "AI-driven pipeline predictions",
+            "Lead scoring analytics",
+            "Automated insight generation",
+            "No-code dashboard builder"
+          ]
+        },
+        "4C_Evidence": {
+          "name": "Evidence & Examples",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable. The content avoids weak 'Imagine if' scenarios and uses some specific industry contexts ('subscription business', 'enterprises'). However, the data interpretation is weak. Stats like '29% increase in sales' and '51% of sales professionals using AI' are cited but not clearly tied to specific outcomes for the reader (e.g., 'This 29% means an extra $290K on a $1M quota, directly impacting your bonus'). The monday CRM feature mentions lack empirical grounding (e.g., 'Our data shows X% improvement'). Strengthen by interpreting stats through the lens of specific reader impact and tying monday features to measurable outcomes.",
+          "flags": [
+            "29% in sales [no clear impact interpretation]",
+            "65% vs 22% [better but still generic]",
+            "51% of sales professionals [stat dumping, no 'so what']",
+            "organizations using mobile CRM [vague subject]"
+          ]
+        },
+        "4D_Originality": {
+          "name": "Originality & AI Detection",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable. The content avoids all major AI tropes and reads with a clear, human voice. However, it's predictable and safe—a conventional template roundup without counter-intuitive insights or surprising perspectives. To reach a 4, consider adding a contrarian take (e.g., 'Most sales dashboards fail because teams track vanity metrics instead of leading indicators') or a memorable analogy that challenges standard thinking."
+        }
+      }
+    },
+    "P5_Engagement": {
+      "parameter_score": 3.0000000000000004,
+      "weight": 0.1,
+      "contribution": 0.30000000000000004,
+      "sub_parameters": {
+        "5A_Headline": {
+          "name": "Headline & Hook",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable, but the headline is weak. '11 Proven Examples' is a topic description, not a benefit promise. The intro is strong—it identifies pain (static spreadsheets, delayed reports), agitates (gap between doing and seeing, hard to forecast), and solves (modern dashboard closes the gap). To reach Exemplary (4), rewrite the headline to promise a specific outcome, e.g., 'Cut Forecasting Errors by 40% with These 11 Dashboard Templates' or 'Stop Guessing Your Pipeline Health: 11 Dashboards That Give You Real Answers.'",
+          "flags": [
+            "Headline: Sales Dashboard Templates: 11 Proven Examples for 2025"
+          ]
+        },
+        "5B_SEO": {
+          "name": "SEO & Shareability",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable Utility Share. A sales manager would share this with their team to solve a specific problem ('Team, use these templates for our new dashboards'). However, it lacks the 'Status Signal' of a thought leadership piece. The predicted caption is 'Useful resource' rather than 'Finally someone said it!' Keywords flow naturally with no critical stuffing."
+        }
+      }
+    }
+  }
+}

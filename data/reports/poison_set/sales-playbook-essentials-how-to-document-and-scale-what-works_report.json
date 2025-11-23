@@ -1,0 +1,599 @@
+{
+  "metadata": {
+    "content_id": "sales-playbook-essentials-how-to-document-and-scale-what-works",
+    "timestamp": "2025-11-23T02:48:32.948313",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "threshold_gate_1": null,
+    "threshold_gate_2_tone": null
+  },
+  "results": {
+    "overall_score": 1.28,
+    "publish_ready": false,
+    "status": "Critical Violations (Brand Veto)"
+  },
+  "gates_status": {
+    "gate_1_overall_threshold_met": null,
+    "gate_2_tone_veto_passed": null,
+    "gate_3_brand_veto_passed": false,
+    "critical_violations_count": 16
+  },
+  "parameters": {
+    "P1_Challenger_Tone": {
+      "parameter_score": 1.0,
+      "weight": 0.3,
+      "contribution": 0.3,
+      "sub_parameters": {
+        "1A_Positive": {
+          "name": "Positive & Solution-Focused",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: The content explicitly villainizes sales reps ('lack the discipline,' 'too busy to think strategically') and sales leaders ('your lack of documentation,' 'fail to recognise'). The problem-to-solution ratio is inverted (~60-70% problem focus). The tone is accusatory and discouraging rather than empowering. Reframe to blame manual processes, legacy systems, and lack of tools—not the people.",
+          "flags": [
+            "your sales team is probably making the same mistakes over and over again",
+            "most salespeople really lack the discipline to document",
+            "They're too busy chasing deals to actually think strategically",
+            "Of course not. They're already moving on to the next thing",
+            "your lack of documentation",
+            "many sales leaders fail to recognise",
+            "Your lack of documentation is actually creating multiple problems"
+          ]
+        },
+        "1B_Direct": {
+          "name": "Direct with Personality",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: This is robotic brochure-speak with extreme qualifier density. The text uses 'really' 25+ times, 'actually' 15+ times, and is packed with corporate jargon ('paradigm shift', 'synergy', 'game changer', 'innovative solution'). Vague padding phrases like 'various aspects', 'multiple dimensions', and 'numerous components' appear constantly instead of specific examples. Remove all hedging ('It is said that', 'The reality is that'), cut 90% of qualifiers, and eliminate buzzwords. Just say the thing directly.",
+          "flags": [
+            "really (25+ instances)",
+            "actually (15+ instances)",
+            "very (10+ instances)",
+            "various/numerous/multiple/different (30+ instances)",
+            "paradigm shift",
+            "synergy",
+            "game changer",
+            "innovative solution",
+            "disruptive approach",
+            "streamline operations",
+            "enhance your approach",
+            "optimise your strategy",
+            "uplevel your game",
+            "move the needle",
+            "low hanging fruit",
+            "It is said that",
+            "The reality is that",
+            "The truth is that",
+            "Let's be honest",
+            "The bottom line is"
+          ]
+        },
+        "1C_Trustworthy": {
+          "name": "Trustworthy & Authentic",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: Multiple absolute promises without supporting logic ('will increase revenue significantly', 'will substantially improve performance'). No acknowledgment that software requires strategy and execution to work. Remove guaranteed outcome language and explain *how* the tool supports (not replaces) human effort.",
+          "flags": [
+            "will increase revenue significantly",
+            "drives growth in ways that traditional documentation simply cannot match",
+            "will substantially improve your team's performance",
+            "streamline operations automatically",
+            "will move the needle significantly on your revenue numbers",
+            "you'll see huge increases in consistency"
+          ]
+        },
+        "1D_Sharp_Wit": {
+          "name": "Sharp Wit & Confidence",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: This is a masterclass in what NOT to write. Contains 10+ business clichés ('game changer', 'paradigm shift', 'low hanging fruit', 'move the needle', 'synergy'). Fails the Vanilla Test completely—Microsoft could have written this verbatim. Overuse of weak qualifiers ('actually', 'really', 'various', 'numerous') destroys any confidence. Crosses into arrogance with unsubstantiated claims ('Monday.com changes everything'). Zero wit, zero spice, zero distinct point of view. This needs a complete rewrite from scratch.",
+          "flags": [
+            "paradigm shift",
+            "low hanging fruit",
+            "game changer",
+            "move the needle",
+            "uplevel your game",
+            "touch base",
+            "circle back",
+            "take it offline",
+            "win-win solution",
+            "streamline operations",
+            "synergy",
+            "disruptive approach",
+            "innovative solution",
+            "Monday.com changes everything",
+            "will increase revenue significantly",
+            "actually (overused)",
+            "really (overused)",
+            "various (overused)",
+            "numerous (overused)"
+          ]
+        }
+      }
+    },
+    "P2_Brand_Hygiene": {
+      "parameter_score": 1.5999999999999999,
+      "weight": 0.05,
+      "contribution": 0.08,
+      "sub_parameters": {
+        "2A_Mechanical": {
+          "name": "Mechanical Compliance",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Found 30 mechanical violation(s).",
+          "flags": [
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_COM_CASE",
+              "severity": "Critical",
+              "message": "'monday.com' must always be lowercase, even at the start of a sentence.",
+              "violation": "Monday.com",
+              "context": "...the right messaging.  ## Why Monday.com Changes Everything  This is w..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_COM_CASE",
+              "severity": "Critical",
+              "message": "'monday.com' must always be lowercase, even at the start of a sentence.",
+              "violation": "Monday.com",
+              "context": "...ges Everything  This is where Monday.com becomes a game changer. Using..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_COM_CASE",
+              "severity": "Critical",
+              "message": "'monday.com' must always be lowercase, even at the start of a sentence.",
+              "violation": "Monday.com",
+              "context": "...on simply cannot match.  With Monday.com, you can actually create boar..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_COM_CASE",
+              "severity": "Critical",
+              "message": "'monday.com' must always be lowercase, even at the start of a sentence.",
+              "violation": "Monday.com",
+              "context": "...rate.  Using sub-tasks within Monday.com, you can actually break down..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_COM_CASE",
+              "severity": "Critical",
+              "message": "'monday.com' must always be lowercase, even at the start of a sentence.",
+              "violation": "Monday.com",
+              "context": "...your playbook. This is where Monday.com's flexibility becomes a huge..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_COM_CASE",
+              "severity": "Critical",
+              "message": "'monday.com' must always be lowercase, even at the start of a sentence.",
+              "violation": "Monday.com",
+              "context": "...nts that need documentation.  Monday.com provides an innovative soluti..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...the right messaging.  ## Why Monday.com Changes Everything  This..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...ges Everything  This is where Monday.com becomes a game changer. U..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...becomes a game changer. Using Monday CRM to build your sales playb..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...on simply cannot match.  With Monday.com, you can actually create..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...formance.  The automations in Monday CRM streamline operations aut..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...rate.  Using sub-tasks within Monday.com, you can actually break d..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...your playbook. This is where Monday.com's flexibility becomes a h..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...nts that need documentation.  Monday.com provides an innovative so..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MONDAY_SOLO_CASE",
+              "severity": "Critical",
+              "message": "'monday' (when used without the .com) must always be lowercase.",
+              "violation": "Monday",
+              "context": "...antial growth.  By leveraging Monday CRM to centre your playbook s..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "SUB_ITEMS_USAGE",
+              "severity": "Critical",
+              "message": "Use 'Sub-items', not 'sub-tasks' or variations.",
+              "violation": "sub-tasks",
+              "context": "...w sales teams operate.  Using sub-tasks within Monday.com, you can ac..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_JARGON_BUZZWORDS",
+              "severity": "High",
+              "message": "Avoid jargon/buzzwords like 'disruptive', 'innovation', 'synergy', 'uplevel', or 'technologist'.",
+              "violation": "disruptive",
+              "context": "...rous components at once. This disruptive approach to playbook manageme..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_JARGON_BUZZWORDS",
+              "severity": "High",
+              "message": "Avoid jargon/buzzwords like 'disruptive', 'innovation', 'synergy', 'uplevel', or 'technologist'.",
+              "violation": "synergy",
+              "context": "...ractices for that phase. This synergy between documentation and wor..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_JARGON_BUZZWORDS",
+              "severity": "High",
+              "message": "Avoid jargon/buzzwords like 'disruptive', 'innovation', 'synergy', 'uplevel', or 'technologist'.",
+              "violation": "uplevel",
+              "context": "...ive solution that will really uplevel your game.  ## Building Your..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_JARGON_BUZZWORDS",
+              "severity": "High",
+              "message": "Avoid jargon/buzzwords like 'disruptive', 'innovation', 'synergy', 'uplevel', or 'technologist'.",
+              "violation": "synergy",
+              "context": "...flows, and automations create synergy across all the different aspe..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_JARGON_BUZZWORDS",
+              "severity": "High",
+              "message": "Avoid jargon/buzzwords like 'disruptive', 'innovation', 'synergy', 'uplevel', or 'technologist'.",
+              "violation": "uplevel",
+              "context": "...imise your process and really uplevel your game. The low hanging fr..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_LEARNINGS",
+              "severity": "High",
+              "message": "Avoid the word 'learnings'. Use 'lessons', 'takeaways', or 'insights'.",
+              "violation": "learnings",
+              "context": "...members can contribute their learnings. This creates substantial buy..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "AMERICAN_ENGLISH_IZE_ISE",
+              "severity": "High",
+              "message": "Use American English spelling (e.g., 'organize' not 'organise'; 'analyze' not 'analyse').",
+              "violation": "organise",
+              "context": "...know what to include, how to organise it, or how to actually get th..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "AMERICAN_ENGLISH_IZE_ISE",
+              "severity": "High",
+              "message": "Use American English spelling (e.g., 'organize' not 'organise'; 'analyze' not 'analyse').",
+              "violation": "optimise",
+              "context": "...documented, you can't really optimise your strategy. You don't know..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "AMERICAN_ENGLISH_IZE_ISE",
+              "severity": "High",
+              "message": "Use American English spelling (e.g., 'organize' not 'organise'; 'analyze' not 'analyse').",
+              "violation": "optimise",
+              "context": "...ting performance, helping you optimise your strategy in real-time. I..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "AMERICAN_ENGLISH_IZE_ISE",
+              "severity": "High",
+              "message": "Use American English spelling (e.g., 'organize' not 'organise'; 'analyze' not 'analyse').",
+              "violation": "analyse",
+              "context": "...nts of their strategy. Really analyse multiple dimensions of their..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "AMERICAN_ENGLISH_IZE_ISE",
+              "severity": "High",
+              "message": "Use American English spelling (e.g., 'organize' not 'organise'; 'analyze' not 'analyse').",
+              "violation": "optimise",
+              "context": "...'s very important to actually optimise your process continuously. As..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "AMERICAN_ENGLISH_IZE_ISE",
+              "severity": "High",
+              "message": "Use American English spelling (e.g., 'organize' not 'organise'; 'analyze' not 'analyse').",
+              "violation": "optimise",
+              "context": "...various factors. It's time to optimise your process and really uplev..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "AMERICAN_ENGLISH_RE_ER",
+              "severity": "High",
+              "message": "Use American English spelling (e.g., 'center' not 'centre').",
+              "violation": "centre",
+              "context": "...rectly, it really becomes the centre of your sales enablement effo..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "AMERICAN_ENGLISH_RE_ER",
+              "severity": "High",
+              "message": "Use American English spelling (e.g., 'center' not 'centre').",
+              "violation": "centre",
+              "context": "...By leveraging Monday CRM to centre your playbook strategy, you'l..."
+            }
+          ]
+        },
+        "2B_Contextual": {
+          "name": "Contextual Terminology",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Critical Fail: Do not use 'sub-tasks' to describe monday.com features. The correct term is 'subitems' when referring to hierarchical items within the platform.",
+          "flags": [
+            "Using sub-tasks within Monday.com"
+          ]
+        },
+        "2C_Persona": {
+          "name": "Persona & Lexicon",
+          "score": 4,
+          "weight": 0.01,
+          "feedback": "Pass: No persona violations detected. The content correctly avoids using 'users' to refer to monday.com customers, does not use 'boss', and does not apply ad hominem descriptors to people."
+        }
+      }
+    },
+    "P3_Structural_Clarity": {
+      "parameter_score": 1.4,
+      "weight": 0.25,
+      "contribution": 0.35,
+      "sub_parameters": {
+        "3A_BLUF": {
+          "name": "Bottom Line Up Front",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: Buries the lead completely. The headline promises 'How to Document and Scale,' but Paragraphs 1-3 are pure problem description with no solution. The actual answer (use Monday.com boards to structure your playbook) is hidden until the 4th major section. Delete the entire 'Problem' section and start with: 'Build your sales playbook in Monday.com using boards to capture each process step—here's how.' The current intro wastes 500+ words before delivering value.",
+          "flags": [
+            "If you're like most sales leaders, you've probably noticed...",
+            "Let's be honest—your sales team is probably...",
+            "It is said that companies without...",
+            "The reality is that...",
+            "The truth is that..."
+          ]
+        },
+        "3B_Scannability": {
+          "name": "Scannability & Hierarchy",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable structure with descriptive headers that tell a clear story (Problem → Solution → Action). However, the intro paragraph is a Wall of Text (~85 words), and the entire piece lacks visual breaks—no bullets, no bold text. Break the intro into 2-3 shorter paragraphs and add bullets under sections like 'What a Sales Playbook Actually Is' to improve scannability.",
+          "flags": [
+            "Wall of Text (Intro paragraph)",
+            "No bullet points",
+            "No bold text"
+          ]
+        },
+        "3C_Conciseness": {
+          "name": "Conciseness & Human Language",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: Contains forbidden words ('Synergy', 'Learnings', 'Uplevel') and is drowning in filler words. The word 'really' appears 30+ times, 'actually' 20+ times, and 'various aspects/elements/components' 40+ times. Corporate fluff includes 'Leverage'. Every sentence is padded with unnecessary intensifiers. This needs a complete rewrite with 50% of words cut. Example fix: 'Your lack of documentation is actually creating multiple problems across different factors' → 'Poor documentation creates problems.'",
+          "flags": [
+            "Synergy",
+            "Learnings",
+            "Uplevel",
+            "Leverage",
+            "really (30+ instances)",
+            "actually (20+ instances)",
+            "various aspects/elements/components/factors/dimensions (40+ instances)",
+            "very",
+            "substantially",
+            "significantly",
+            "It is said that",
+            "The reality is that",
+            "The truth is that"
+          ]
+        },
+        "3D_Specificity": {
+          "name": "Specificity",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: This content is drowning in vagueness. It uses 'thing/things' repeatedly, relies heavily on 'various aspects/numerous components/multiple dimensions' as filler, and makes sweeping claims ('huge increases', 'significant revenue', 'substantial growth') without a single quantified metric. Replace all vague nouns with specific examples (e.g., 'various aspects of your sales process' → 'prospecting cadence, discovery questions, and closing scripts'). Quantify every claim (e.g., 'huge increases' → '30% increase in win rate' or 'saves 15 hours per week'). This reads like a first draft that needs a complete specificity overhaul.",
+          "flags": [
+            "thing",
+            "things",
+            "various aspects",
+            "numerous components",
+            "multiple dimensions",
+            "different elements",
+            "different factors",
+            "huge problem",
+            "significant revenue",
+            "substantial inefficiencies",
+            "really inconsistent",
+            "huge increases",
+            "much better",
+            "significant improvement",
+            "substantially improve",
+            "months to ramp up"
+          ]
+        }
+      }
+    },
+    "P4_Strategic_Value": {
+      "parameter_score": 1.3333333333333335,
+      "weight": 0.3,
+      "contribution": 0.4,
+      "sub_parameters": {
+        "4A_Audience": {
+          "name": "Audience Alignment",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Generic business advice that fails the HR Swap test. 'Document best practices and standardize processes' applies equally to HR, Marketing, or Operations. The Sales-specific terminology ('quotas,' 'deals') is superficial—the underlying logic is universal process documentation. The content lacks both strategic depth (no revenue impact metrics, no executive decision frameworks) and tactical specificity (no CRM implementation details, no specific workflows). The excessive filler language ('various aspects,' 'numerous elements,' 'really,' 'actually') further weakens credibility. To reach Score 3, provide Sales-specific advice that doesn't translate to other departments (e.g., 'Document your discovery question framework for different buyer personas' or 'Map playbook stages to deal velocity metrics'). To reach Score 4, add strategic ROI framing AND specific monday.com CRM implementation steps.",
+          "flags": [
+            "various aspects",
+            "numerous elements",
+            "different factors",
+            "multiple dimensions",
+            "really",
+            "actually",
+            "very much",
+            "game changer",
+            "paradigm shift",
+            "low hanging fruit",
+            "move the needle",
+            "circle back",
+            "touch base",
+            "take it offline",
+            "uplevel your game",
+            "document what works",
+            "standardize your approach",
+            "reduce ramp time",
+            "best practices"
+          ]
+        },
+        "4B_Actionability": {
+          "name": "Actionability",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: This is pure philosophy masquerading as a guide. Every sentence tells readers that monday.com 'changes everything' and will 'drive growth,' but provides ZERO tactical instruction. Not a single column name, automation recipe, or specific workflow is described. The reader cannot implement anything from this content. Replace vague commands ('create boards', 'use automations') with specific blueprints ('Create a board called Sales Playbook. Add columns: Stage, Best Practice, Owner. Set automation: When Status = Won, notify team').",
+          "flags": [
+            "create boards that capture various aspects",
+            "use sub-tasks to break down complex sales motions",
+            "set automations to trigger reminders",
+            "optimise your strategy",
+            "enhance your approach",
+            "streamline operations",
+            "uplevel your game",
+            "improve your strategy",
+            "various elements",
+            "numerous components",
+            "different aspects",
+            "multiple dimensions",
+            "think about various aspects",
+            "consider the different elements",
+            "analyse multiple dimensions"
+          ]
+        },
+        "4C_Evidence": {
+          "name": "Evidence & Examples",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: This content relies entirely on weak hypotheticals ('If you're like most sales leaders', 'When your top performer lands a major account') and vague generalizations ('Some reps are crushing quotas'). There is zero hard data—no specific industry contexts, no interpreted statistics, no measurable outcomes tied to Monday.com workflows. The claim that 'Using Monday CRM will increase revenue significantly' is pure assertion without evidence. Replace 'Imagine if' scenarios with specific examples (e.g., 'A B2B SaaS company at $10M ARR') and tie Monday.com features to concrete outcomes (e.g., 'Automations reduced follow-up delays by 22%, recovering $180K in pipeline').",
+          "flags": [
+            "If you're like most sales leaders",
+            "Some reps are crushing their quotas while others are struggling",
+            "It is said that companies without documented sales playbooks",
+            "Let's be honest—your sales team is probably",
+            "When your top performer lands a major account",
+            "Think of it as",
+            "It is said that consistency is the key",
+            "will increase revenue significantly",
+            "will substantially improve your team's performance",
+            "you'll see huge increases"
+          ]
+        },
+        "4D_Originality": {
+          "name": "Originality & AI Detection",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: This is textbook 'Gray Goo.' The piece is saturated with corporate buzzwords ('game changer', 'paradigm shift', 'low hanging fruit', 'move the needle', 'circle back', 'touch base', 'uplevel your game') and uses filler phrases obsessively ('various aspects', 'numerous elements', 'different factors', 'multiple dimensions' - 40+ times). The hedging words 'actually' and 'really' appear in nearly every paragraph, creating a robotic rhythm. Zero original insights—every point is predictable sales advice. Rewrite with a human voice, eliminate all buzzwords, and offer one counter-intuitive perspective on sales playbooks.",
+          "flags": [
+            "It is said that",
+            "game changer",
+            "paradigm shift",
+            "low hanging fruit",
+            "move the needle",
+            "circle back",
+            "touch base",
+            "uplevel your game",
+            "streamline operations",
+            "enhance your approach",
+            "innovative solution",
+            "various aspects/elements/factors/dimensions/components (40+ instances)",
+            "actually (15+ instances)",
+            "really (20+ instances)"
+          ]
+        }
+      }
+    },
+    "P5_Engagement": {
+      "parameter_score": 1.5000000000000002,
+      "weight": 0.1,
+      "contribution": 0.15000000000000002,
+      "sub_parameters": {
+        "5A_Headline": {
+          "name": "Headline & Hook",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak hook. The headline is a Topic Label ('Sales Playbook Essentials') that describes the subject, not a specific benefit. The intro identifies a problem (inconsistent performance) but the agitation is generic ('leave money on the table'). Make the headline promise a measurable outcome (e.g., 'Cut New Rep Ramp Time from 6 Months to 6 Weeks'). Sharpen the agitation with a specific, painful cost (e.g., 'That inconsistency just cost you $2M in Q4').",
+          "flags": [
+            "Headline: Sales Playbook Essentials (Topic Label, not Benefit Promise)",
+            "companies without documented sales playbooks leave money on the table (Generic agitation)"
+          ]
+        },
+        "5B_SEO": {
+          "name": "SEO & Shareability",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: Severe keyword stuffing and buzzword overload. Phrases like 'various aspects', 'numerous elements', 'really', 'actually', 'game changer', 'paradigm shift', 'innovative solution' are forced throughout, making the text robotic and unreadable. Additionally, the content is too generic ('document what works') to generate a high-status share. A Sales Director would not share this—it signals basic knowledge and lacks a bold stance. Rewrite for natural flow and add a contrarian insight.",
+          "flags": [
+            "really",
+            "actually",
+            "various aspects",
+            "numerous elements",
+            "different factors",
+            "game changer",
+            "paradigm shift",
+            "innovative solution",
+            "streamline operations",
+            "enhance your approach",
+            "uplevel your game",
+            "low hanging fruit",
+            "substantial",
+            "very much",
+            "circle back",
+            "touch base",
+            "move the needle",
+            "take it offline"
+          ]
+        }
+      }
+    }
+  }
+}

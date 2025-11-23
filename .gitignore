@@ -53,6 +53,7 @@ output/
 *.json
 !package.json
 !package-lock.json
+!data/reports/**/*.json
 
 # Temporary files
 *.tmp

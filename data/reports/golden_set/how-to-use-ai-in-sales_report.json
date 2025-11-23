@@ -1,0 +1,261 @@
+{
+  "metadata": {
+    "content_id": "how-to-use-ai-in-sales",
+    "timestamp": "2025-11-23T01:30:29.398737",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "threshold_gate_1": null,
+    "threshold_gate_2_tone": null
+  },
+  "results": {
+    "overall_score": 2.8,
+    "publish_ready": null,
+    "status": "Cannot Determine (Thresholds TBD)"
+  },
+  "gates_status": {
+    "gate_1_overall_threshold_met": null,
+    "gate_2_tone_veto_passed": null,
+    "gate_3_brand_veto_passed": true,
+    "critical_violations_count": 0
+  },
+  "parameters": {
+    "P1_Challenger_Tone": {
+      "parameter_score": 3.166666666666667,
+      "weight": 0.3,
+      "contribution": 0.9500000000000001,
+      "sub_parameters": {
+        "1A_Positive": {
+          "name": "Positive & Solution-Focused",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: This content is heavily solution-focused (>85% of text). It consistently frames manual processes, spreadsheets, and fragmented systems as the villain—never the sales reps or managers. The tone is empowering and optimistic, positioning AI as a tool that gives teams a 'competitive edge' and helps them 'work smarter.' The 12 use cases are all framed around enabling success, not fixing broken people. High energy and aspirational throughout."
+        },
+        "1B_Direct": {
+          "name": "Direct with Personality",
+          "score": 4,
+          "weight": 0.1,
+          "feedback": "Exemplary: This content is punchy, direct, and conversational throughout. It avoids corporate jargon entirely and uses clear Subject-Verb-Object structure ('AI can generate tailored emails,' 'reps can quickly review'). The tone sounds like a smart industry peer explaining practical solutions, not a marketing brochure. Minimal hedging, low qualifier density, and strong human warmth make this a standout example of direct writing with personality."
+        },
+        "1C_Trustworthy": {
+          "name": "Trustworthy & Authentic",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable: Claims are credible and generally supported by research citations (McKinsey) or specific functionality explanations. Avoids wild absolutes and magic promises. However, lacks the vulnerability that builds highest trust—no acknowledgment of what AI cannot do or that results depend on human strategy and implementation."
+        },
+        "1D_Sharp_Wit": {
+          "name": "Sharp Wit & Confidence",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Generic/Weak: This content relies heavily on clichés ('competitive edge,' 'powerhouse,' 'work smarter,' 'reinventing the wheel') and fails the Vanilla Test. The writing is safe, explanatory, and could appear in any competitor's marketing materials. There's no distinct point of view, no witty observations, and no challenge to conventional sales thinking. Replace clichés with specific, concrete outcomes and add a sharper perspective on what's broken in traditional sales processes.",
+          "flags": [
+            "competitive edge",
+            "powerhouse",
+            "without reinventing the wheel",
+            "Not all leads are created equal",
+            "work smarter"
+          ]
+        }
+      }
+    },
+    "P2_Brand_Hygiene": {
+      "parameter_score": 1.0,
+      "weight": 0.05,
+      "contribution": 0.05,
+      "sub_parameters": {
+        "2A_Mechanical": {
+          "name": "Mechanical Compliance",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Found 3 mechanical violation(s).",
+          "flags": [
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...ss | AI-assisted process | | :--- | :--- | :--- | | **Lead gene..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...-assisted process | | :--- | :--- | :--- | | **Lead generation*..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...ed process | | :--- | :--- | :--- | | **Lead generation** | Res..."
+            }
+          ]
+        },
+        "2B_Contextual": {
+          "name": "Contextual Terminology",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Critical Fail: 1. Do not refer to monday.com features as 'tools' (found in 'built-in AI tools'). Use 'features' or 'capabilities' instead. 2. Do not refer to items within monday.com as 'tasks' (found in 'create tasks like' and 'assign tasks automatically'). Use 'items' instead.",
+          "flags": [
+            "built-in AI tools",
+            "create tasks like",
+            "assign tasks automatically"
+          ]
+        },
+        "2C_Persona": {
+          "name": "Persona & Lexicon",
+          "score": 1,
+          "weight": 0.01,
+          "feedback": "Critical Fail: The content refers to monday.com customers as 'users' in multiple instances (e.g., 'With monday CRM, users can integrate'). Per the Style Guide, people using monday.com products must be referred to as 'Customers', 'Team Members', or 'Employees', not 'users'. The term 'user' implies casual/free use, while 'customer' implies value and commitment.",
+          "flags": [
+            "users can integrate",
+            "With monday CRM, users can"
+          ]
+        }
+      }
+    },
+    "P3_Structural_Clarity": {
+      "parameter_score": 2.6,
+      "weight": 0.25,
+      "contribution": 0.65,
+      "sub_parameters": {
+        "3A_BLUF": {
+          "name": "Bottom Line Up Front",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Slow start with 'teasing' language. The headline promises '12 real-world use cases,' but the intro spends 3 paragraphs + a comparison table before delivering Use Case #1. Cut Paragraph 3 ('In this article, we'll explore...') entirely. Consider starting with: 'AI can draft personalized emails in seconds, auto-summarize meetings, and route leads intelligently. Here are 12 ways to use it.' The table is useful but delays the core promise.",
+          "flags": [
+            "In this article, we'll explore",
+            "we're not just talking about using ChatGPT"
+          ]
+        },
+        "3B_Scannability": {
+          "name": "Scannability & Hierarchy",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable with strong header storytelling. The 12 numbered headers are descriptive and actionable, making the piece highly skimmable. However, several paragraphs exceed the 5-sentence/80-word threshold, creating visual bulk. Break longer paragraphs (especially under points 1, 4, 6, 7, 10) into 2-3 sentence chunks. Add bold text to key phrases within body paragraphs to enhance scannability.",
+          "flags": [
+            "Wall of Text (Intro paragraph - 5 sentences)",
+            "Wall of Text (Section 1 - 6 sentences)",
+            "Wall of Text (Section 4 - ~85 words)",
+            "Wall of Text (Section 6 - 5 sentences)",
+            "Wall of Text (Section 7 - ~90 words)",
+            "Wall of Text (Section 10 - 5 sentences)",
+            "Limited bold text in body paragraphs"
+          ]
+        },
+        "3C_Conciseness": {
+          "name": "Conciseness & Human Language",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable with minor edits. Replace 'leverage' with 'use'. Cut adverbs like 'drastically', 'instantly', 'quickly' where they pad weak verbs. Change 'make a big difference' to 'help' and 'make a big impact' to 'impact sales'.",
+          "flags": [
+            "leverage",
+            "drastically improve",
+            "make a big difference",
+            "make a big impact",
+            "instantly analyze",
+            "quickly review",
+            "easily"
+          ]
+        },
+        "3D_Specificity": {
+          "name": "Specificity",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable specificity. Strong quantification in research-backed claims (20% capacity freed, 15-30% revenue improvement, 75% forecasting accuracy). Most use cases are concrete with specific actions. However, the heading 'How have things changed?' uses the vague word 'things'. Replace with 'How have sales processes evolved?' Also, avoid vague quantifiers like 'dozens or hundreds' (be specific: '50-200 messages') and 'make a big difference/impact' (quantify the difference).",
+          "flags": [
+            "things changed",
+            "dozens or even hundreds",
+            "10 or more days",
+            "dozens of emails",
+            "make a big difference",
+            "make a big impact",
+            "a lot easier"
+          ]
+        }
+      }
+    },
+    "P4_Strategic_Value": {
+      "parameter_score": 2.833333333333334,
+      "weight": 0.3,
+      "contribution": 0.8500000000000002,
+      "sub_parameters": {
+        "4A_Audience": {
+          "name": "Audience Alignment",
+          "score": 4,
+          "weight": 0.1,
+          "feedback": "Exemplary alignment. This content explicitly targets Sales/Revenue professionals with domain-specific use cases (sales quotes, pipeline forecasting, BDR→AE handoffs, quota attainment). It serves both audiences: strategic framing for leaders ('75% increase in forecasting accuracy,' '92% revenue increase,' 'free up 20% of capacity') and tactical implementation for practitioners ('auto-route leads based on territory,' 'generate timeline summaries in deal board,' 'create custom scoring rules'). Minor weakness: Some use cases (meeting summaries, email drafting, task automation) are generic AI productivity features that could apply to any department, but the core Sales-specific elements (quotes/invoices, deal management, forecasting) dominate the content."
+        },
+        "4B_Actionability": {
+          "name": "Actionability",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Weak actionability. This content is a feature tour, not a blueprint. Every use case describes WHAT AI can do ('generate emails,' 'score leads,' 'summarize meetings') but omits the HOW (which buttons to click, where features live, how to configure rules). A reader cannot implement any of these 12 use cases on Monday morning without guessing. To reach Score 4, add step-by-step instructions: 'Open Deal view → Click AI Assistant → Select Generate Email → Choose tone → Send.' Right now, it's pure capability marketing.",
+          "flags": [
+            "AI can generate tailored emails",
+            "AI can instantly analyze call transcripts",
+            "AI can automatically create professional sales documents",
+            "AI can make lead management easier",
+            "AI can analyze historical deal patterns",
+            "AI makes it easier to generate or repurpose assets",
+            "AI can assess historical conversion rates",
+            "AI can deliver a clean, structured meeting recap",
+            "AI can break down a conversation",
+            "AI-generated summaries can provide the full picture"
+          ]
+        },
+        "4C_Evidence": {
+          "name": "Evidence & Examples",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable. The content avoids weak 'Imagine if' scenarios and includes strong monday.com-specific data (75% forecasting accuracy, 92% revenue increase). However, most examples are functional ('a rep', 'a deal') rather than industry-specific ('SaaS scaling to $10M ARR', 'Real Estate managing 200+ listings'). McKinsey stats are cited but not deeply interpreted for Sales Director impact (e.g., '20% capacity freed = 8 extra hours/week to close the deals that hit your $500K bonus threshold'). To reach Score 4, add more industry-specific scenarios and interpret stats through the lens of quota attainment or margin protection.",
+          "flags": [
+            "a rep following up on a lead",
+            "if a deal record includes",
+            "If a new contact completes a web form",
+            "McKinsey stat cited without deep Sales Director impact interpretation"
+          ]
+        },
+        "4D_Originality": {
+          "name": "Originality & AI Detection",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak originality. The content is professional and avoids major AI tropes, but it's predictable and safe. Every point reinforces conventional wisdom ('AI saves time,' 'personalization improves results') without challenging assumptions or offering a counter-intuitive insight. To elevate this, add a contrarian angle—e.g., 'Why most AI sales tools actually slow teams down' or 'The hidden cost of over-automating your pipeline.' The listicle format and corporate tone make it feel algorithmic despite being well-written.",
+          "flags": [
+            "AI has found its way into every part of the sales process",
+            "work smarter",
+            "Elevate sales performance",
+            "empowering sales teams to work smarter",
+            "personalization is key"
+          ]
+        }
+      }
+    },
+    "P5_Engagement": {
+      "parameter_score": 3.0000000000000004,
+      "weight": 0.1,
+      "contribution": 0.30000000000000004,
+      "sub_parameters": {
+        "5A_Headline": {
+          "name": "Headline & Hook",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Good headline with a clear benefit promise ('close more deals'). The intro avoids the dictionary trap and sets up the value proposition, but it lacks the sharp Pain-Agitate-Solve formula. The opening is more informational ('AI has found its way...') than empathetic. To reach a 4, start with a visceral pain point (e.g., 'Your sales team is drowning in admin work while competitors close deals faster')."
+        },
+        "5B_SEO": {
+          "name": "SEO & Shareability",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable Utility Share. This is a solid, practical guide that a sales manager would share with their team ('Team, read this guide on AI tools'). However, it lacks the 'Status Signal' for a Score 4. The content is helpful but not opinionated or contrarian enough to make a senior leader look like a thought leader. The heavy product placement (15+ mentions of 'monday CRM') also weakens public shareability—it reads more like a product guide than a thought leadership piece. To elevate: Add a stronger POV or contrarian angle (e.g., 'Most sales teams are using AI wrong—here's the one thing they miss').",
+          "flags": [
+            "monday CRM (15+ mentions)",
+            "Try monday CRM (repeated CTAs)"
+          ]
+        }
+      }
+    }
+  }
+}

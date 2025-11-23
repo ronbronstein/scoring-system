@@ -1,0 +1,329 @@
+{
+  "metadata": {
+    "content_id": "crm_strategy",
+    "timestamp": "2025-11-23T04:26:59.602328",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "threshold_gate_1": 2.36,
+    "threshold_gate_2_tone": 2.51
+  },
+  "results": {
+    "overall_score": 2.56,
+    "publish_ready": false,
+    "status": "Tone Too Generic (Boredom Veto)"
+  },
+  "gates_status": {
+    "gate_1_overall_threshold_met": true,
+    "gate_2_tone_veto_passed": false,
+    "gate_3_brand_veto_passed": true,
+    "critical_violations_count": 0
+  },
+  "parameters": {
+    "P1_Challenger_Tone": {
+      "parameter_score": 2.333333333333333,
+      "weight": 0.3,
+      "contribution": 0.6999999999999998,
+      "sub_parameters": {
+        "1A_Positive": {
+          "name": "Positive & Solution-Focused",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: This content is heavily solution-focused (>85%). It consistently blames broken processes and legacy systems (spreadsheets, silos, lack of strategy) rather than people. The tone is empowering throughout, positioning readers as capable of transformation. Real-world case studies reinforce positive outcomes. The content spends minimal time on problems and maximum time on actionable solutions."
+        },
+        "1B_Direct": {
+          "name": "Direct with Personality",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Generic/Weak: The writing is clear but cluttered with hedging phrases ('It's important to note,' 'It's essential to understand,' 'You may wish to'). These throat-clearing phrases delay the point and weaken directness. Cut the hedging and just state facts. Example: Replace 'It's essential to understand who your customers are' with 'Understand who your customers are.' Also reduce qualifiers like 'actually' (appears 4 times). The content is publishable but needs more confidence and punch.",
+          "flags": [
+            "It's important to note the difference",
+            "It's essential to understand",
+            "It's also important to measure",
+            "You may wish to measure",
+            "You could use",
+            "You might ask",
+            "actually (4 instances)",
+            "just (3 instances)",
+            "Facilitating communication"
+          ]
+        },
+        "1C_Trustworthy": {
+          "name": "Trustworthy & Authentic",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: This content builds high trust by repeatedly acknowledging that CRM software alone isn't enough ('the platform is only part of the picture,' 'software is just a tool with no direction'). It emphasizes that strategy must come first and that different businesses need different approaches. Claims are consistently backed by logical explanations, and case studies provide realistic metrics rather than impossible promises."
+        },
+        "1D_Sharp_Wit": {
+          "name": "Sharp Wit & Confidence",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: This is 'vanilla' content that could appear in any legacy CRM vendor's guide. It relies on multiple clichés ('working in silos,' 'source of truth,' 'work smarter, not harder') and states obvious truths without challenging conventional thinking. Replace safe observations with spicy takes on why most CRM strategies fail or what companies get wrong.",
+          "flags": [
+            "working in silos",
+            "source of truth",
+            "work smarter, not harder",
+            "bottom line",
+            "completely different beast",
+            "jumping in without a clear plan is a mistake",
+            "software is just a tool with no direction"
+          ]
+        }
+      }
+    },
+    "P2_Brand_Hygiene": {
+      "parameter_score": 2.1999999999999997,
+      "weight": 0.05,
+      "contribution": 0.10999999999999999,
+      "sub_parameters": {
+        "2A_Mechanical": {
+          "name": "Mechanical Compliance",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Found 11 mechanical violation(s).",
+          "flags": [
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "LIFECYCLE_SPELLING",
+              "severity": "Medium",
+              "message": "Use 'life cycle'.",
+              "violation": "lifecycle",
+              "context": "...e customers across the entire lifecycle, from first contact to long-t..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "LIFECYCLE_SPELLING",
+              "severity": "Medium",
+              "message": "Use 'life cycle'.",
+              "violation": "lifecycle",
+              "context": "...or every step of the customer lifecycle   * Summarize call transcript..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...er:  | Step | What to do | | :--- | :--- | | **1. Define CRM st..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Step | What to do | | :--- | :--- | | **1. Define CRM strategy..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "-----",
+              "context": "...refine strategy over time. |  -----  ### Step 1: Define your CRM..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "-----",
+              "context": "...needs using natural language  -----  ## B2B vs. B2C: Tailoring yo..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...ategy | B2C CRM strategy | | :--- | :--- | :--- | | **Relations..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...B2C CRM strategy | | :--- | :--- | :--- | | **Relationship len..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...M strategy | | :--- | :--- | :--- | | **Relationship length** |..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_JARGON_BUZZWORDS",
+              "severity": "High",
+              "message": "Avoid jargon/buzzwords like 'disruptive', 'innovation', 'synergy', 'uplevel', or 'technologist'.",
+              "violation": "Innovation",
+              "context": "...As Trevor Rumble, Product & Innovation Director, says:  > “If it’s n..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_JARGON_BUZZWORDS",
+              "severity": "High",
+              "message": "Avoid jargon/buzzwords like 'disruptive', 'innovation', 'synergy', 'uplevel', or 'technologist'.",
+              "violation": "innovation",
+              "context": "...The future of CRM: AI-driven innovation  CRMs are quickly evolving fr..."
+            }
+          ]
+        },
+        "2B_Contextual": {
+          "name": "Contextual Terminology",
+          "score": 4,
+          "weight": 0.02,
+          "feedback": "Pass: All restricted terminology is used correctly. The word 'tool' refers to generic software, and 'tasks' refers to human work activities being automated, not to monday.com platform features or items."
+        },
+        "2C_Persona": {
+          "name": "Persona & Lexicon",
+          "score": 1,
+          "weight": 0.01,
+          "feedback": "Critical Fail: Do not refer to monday.com customers as 'users'. In the 'Automated lead management' section, the phrase 'users can use AI and automation' should be changed to 'teams can use AI' or 'customers can use AI'.",
+          "flags": [
+            "users can use AI and automation"
+          ]
+        }
+      }
+    },
+    "P3_Structural_Clarity": {
+      "parameter_score": 3.0,
+      "weight": 0.25,
+      "contribution": 0.75,
+      "sub_parameters": {
+        "3A_BLUF": {
+          "name": "Bottom Line Up Front",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Slow start with classic 'teaser' structure. Paragraph 1 is generic setup ('jumping in without a plan is a mistake'), and Paragraph 2 is pure meta-commentary ('In this guide, we'll break down...'). The promised '10 steps' don't appear until mid-article, forcing readers to scroll through definitions and benefits first. To fix: Cut Paragraphs 1-2 entirely. Start immediately with 'Step 1 of building a CRM strategy is defining your goals—here's how.' Alternatively, front-load one high-value insight from the framework (e.g., 'Most CRM strategies fail because teams skip Step 6: centralizing data. Here's the 10-step framework that prevents that.').",
+          "flags": [
+            "In this guide, we'll break down",
+            "jumping in without a clear plan is a mistake"
+          ]
+        },
+        "3B_Scannability": {
+          "name": "Scannability & Hierarchy",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary scannability. Headers are descriptive and tell a complete story from definition through implementation to real-world examples. A reader can understand the entire CRM strategy framework just by reading the headers. Paragraphs are consistently short (1-3 sentences), with heavy use of bullets, numbered lists, and tables. No walls of text detected. Strategic bolding enhances readability. This is a masterclass in skimmable content structure."
+        },
+        "3C_Conciseness": {
+          "name": "Conciseness & Human Language",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable with minor edits. Replace 'Leverage data' with 'Use data' in Step 6. Consider changing 'make decisions' to 'decide', 'make it easier' to 'simplify' or 'ease', and 'make sure' to 'ensure' where appropriate. Overall, the content is clear and accessible with minimal jargon.",
+          "flags": [
+            "Leverage",
+            "make decisions",
+            "make it easier",
+            "make sure"
+          ]
+        },
+        "3D_Specificity": {
+          "name": "Specificity",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary specificity. The content consistently uses concrete nouns ('sales cycle', 'lead routing', 'buyer persona'), quantifies key claims ('81% of respondents', '25 hours a month saved', '900+ live projects'), and provides specific, actionable steps throughout the framework. Zero instances of vague 'thing/aspect/factor' language. The few general benefit descriptors ('stronger collaboration', 'faster sales cycles') are acceptable as category labels and are supported by concrete examples and metrics elsewhere in the piece."
+        }
+      }
+    },
+    "P4_Strategic_Value": {
+      "parameter_score": 2.5,
+      "weight": 0.3,
+      "contribution": 0.75,
+      "sub_parameters": {
+        "4A_Audience": {
+          "name": "Audience Alignment",
+          "score": 3,
+          "weight": 0.1,
+          "feedback": "Publishable. This content is Revenue-specific with strong tactical guidance (pipeline management, lead scoring, deal stages, sales cycle metrics) and serves both practitioners and leaders. However, it's diluted by generic business advice that fails the HR Swap test: 'stronger collaboration,' 'improved customer experience,' 'data-driven insights,' and 'map the customer journey' apply to any department. To reach Score 4, replace generic framing with Revenue-specific metrics (e.g., 'reduce CAC by 15%,' 'increase win rate from 22% to 28%,' 'shorten sales cycle from 45 to 32 days') and tie tactical steps directly to revenue impact.",
+          "flags": [
+            "Stronger collaboration",
+            "Improved customer experience",
+            "More data-driven insights",
+            "Map the customer journey",
+            "Plan your 360-degree customer experience",
+            "Deliver personalized customer experiences",
+            "Break down communication and workflow silos"
+          ]
+        },
+        "4B_Actionability": {
+          "name": "Actionability",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Weak actionability. This is a strategic roadmap that tells readers *what* to do ('Define goals,' 'Map customer journey,' 'Leverage data') but rarely explains *how* to do it. For example, 'Leverage data to improve productivity' mentions 'employee training' and 'data audits' but doesn't define what those processes look like or how to implement them. The 10-step framework is a high-level checklist, not a tactical blueprint. To improve: Add specific mechanics—e.g., 'Create a Status column for deal stage,' 'Set an automation: When lead score > 80, assign to Senior Rep,' or 'Build a dashboard with these 5 widgets.' The reader should know exactly what buttons to click on Monday morning.",
+          "flags": [
+            "Define CRM strategy goals",
+            "Define your target customer",
+            "Map the customer journey",
+            "Plan a 360° customer experience",
+            "Leverage data",
+            "Integrate existing tools",
+            "Deliver personalized experiences",
+            "Reduce costs with automation",
+            "Track performance",
+            "build processes",
+            "regular data audits",
+            "make a list of all the software platforms",
+            "find areas where the tools integrate",
+            "set up your lead capture forms",
+            "Automate your sales processes"
+          ]
+        },
+        "4C_Evidence": {
+          "name": "Evidence & Examples",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable. The KC Petroleum and BioPak case studies are exemplary—specific companies, quantified outcomes (25+ hours saved), and direct monday CRM ties. The 81% CRM replacement stat is well-interpreted ('wasted budget, need strategy first'). However, the middle sections (Steps 1-10) rely on generic advice ('For example, perhaps you want to...') without industry-specific contexts. To reach score 4, replace hypothetical framing with concrete scenarios (e.g., 'For a SaaS company at $5M ARR...').",
+          "flags": [
+            "For example, perhaps you want to",
+            "you could",
+            "Some examples of goals"
+          ]
+        },
+        "4D_Originality": {
+          "name": "Originality & AI Detection",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Generic/Weak originality. The content avoids major AI tropes but is predictable and safe. Phrases like 'A CRM strategy is about more than organizing contacts' and 'stronger collaboration' are standard business filler. The 'Unlock your potential' heading is a cliché. Add a counter-intuitive insight or challenge a common CRM belief to elevate originality.",
+          "flags": [
+            "It's important to note",
+            "Unlock your CRM strategy's potential",
+            "A CRM strategy is about more than organizing contacts",
+            "stronger collaboration",
+            "improved customer experience"
+          ]
+        }
+      }
+    },
+    "P5_Engagement": {
+      "parameter_score": 2.5,
+      "weight": 0.1,
+      "contribution": 0.25,
+      "sub_parameters": {
+        "5A_Headline": {
+          "name": "Headline & Hook",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak hook. The headline is a Topic Label ('Building a CRM strategy') that describes the subject, not a benefit. The intro identifies a problem ('jumping in without a plan') but immediately pivots to a procedural explanation ('In this guide, we'll break down...'). This is a syllabus, not a scroll stopper. Rewrite the headline to promise a specific outcome (e.g., 'How to Build a CRM Strategy that Doubles Revenue in 6 Months'). Rewrite the intro to use Pain-Agitate-Solve: 'Your CRM is full of data, but your pipeline is still leaking. That's because software without strategy is just expensive clutter. Here is how to turn your CRM into a revenue engine.'",
+          "flags": [
+            "Headline: Building a CRM strategy",
+            "In this guide, we'll break down"
+          ]
+        },
+        "5B_SEO": {
+          "name": "SEO & Shareability",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable Utility Share. A manager would share this with their team ('Team, read this guide on building a CRM strategy'), but it lacks the 'Status Signal' for a senior leader to share publicly. The predicted caption is 'Helpful resource' (mid-tier). Keyword usage is mostly natural, though 'CRM strategy' is repeated heavily in the intro. Heavy product placement for monday CRM lowers perceived objectivity.",
+          "flags": [
+            "CRM strategy (40+ mentions)",
+            "monday CRM (15+ product placements)",
+            "A CRM strategy is... The purpose of a CRM strategy... A CRM strategy outlines (3x in intro)"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "metadata": {
+    "content_id": "customer-feedback-analysis",
+    "timestamp": "2025-11-23T01:16:38.510307",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "threshold_gate_1": null,
+    "threshold_gate_2_tone": null
+  },
+  "results": {
+    "overall_score": 2.21,
+    "publish_ready": null,
+    "status": "Cannot Determine (Thresholds TBD)"
+  },
+  "gates_status": {
+    "gate_1_overall_threshold_met": null,
+    "gate_2_tone_veto_passed": null,
+    "gate_3_brand_veto_passed": true,
+    "critical_violations_count": 0
+  },
+  "parameters": {
+    "P1_Challenger_Tone": {
+      "parameter_score": 2.1666666666666665,
+      "weight": 0.3,
+      "contribution": 0.6499999999999999,
+      "sub_parameters": {
+        "1A_Positive": {
+          "name": "Positive & Solution-Focused",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: The content is heavily solution-focused (>80% of text). It consistently frames fragmented processes and manual tools as the villain, never the people. The tone is empowering and optimistic ('Unlock the potential', 'lift a weight off your shoulders'). The reader is positioned as the hero who can achieve measurable results (20% increase in satisfaction, 12% retention boost) with the right system."
+        },
+        "1B_Direct": {
+          "name": "Direct with Personality",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Generic/Weak: The content is conversational but cluttered with hedging phrases ('Put simply', 'The simple answer is this', 'To help you get started') and excessive qualifiers ('immensely powerful', 'really important', 'so many', 'so much'). Remove throat-clearing setups and just state the point. Replace 'Unlock the potential' with something direct like 'How to analyze customer feedback.' Cut qualifiers—'powerful' doesn't need 'immensely.'",
+          "flags": [
+            "Unlock the potential",
+            "immensely powerful",
+            "leverage this data",
+            "Put simply",
+            "really important bit",
+            "so many ways",
+            "so much easier",
+            "Thankfully",
+            "Let's talk you through",
+            "To help you get started",
+            "The simple answer is this",
+            "really good CRM",
+            "And the real exciting bit is",
+            "Of course",
+            "just a few ways",
+            "Take your customer feedback analysis up a notch",
+            "Unlock the power"
+          ]
+        },
+        "1C_Trustworthy": {
+          "name": "Trustworthy & Authentic",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable: The content is credible and grounded. Claims are supported by research citations and logical explanations of 'how' the CRM helps. However, it lacks vulnerability—there's no acknowledgment of what the CRM cannot do or that technology requires human strategy to work effectively. Adding realistic caveats (e.g., 'A CRM organizes feedback, but your team still needs to interpret it and make strategic decisions') would elevate trust."
+        },
+        "1D_Sharp_Wit": {
+          "name": "Sharp Wit & Confidence",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: This is 'vanilla' corporate content saturated with clichés ('unlock the potential,' 'bottom line,' 'make or break,' 'competitive edge'). Every statement is safe and obvious ('customer feedback is powerful'). Zero spice, zero wit, zero challenge to the status quo. This could appear in any legacy CRM's marketing materials.",
+          "flags": [
+            "Unlock the potential",
+            "immensely powerful tool",
+            "what makes customers tick",
+            "lift a weight off your shoulders",
+            "make or break a business",
+            "bottom line",
+            "nice to have",
+            "on the same page",
+            "competitive edge",
+            "data-driven decisions",
+            "gut-feel"
+          ]
+        }
+      }
+    },
+    "P2_Brand_Hygiene": {
+      "parameter_score": 2.1999999999999997,
+      "weight": 0.05,
+      "contribution": 0.10999999999999999,
+      "sub_parameters": {
+        "2A_Mechanical": {
+          "name": "Mechanical Compliance",
+          "score": 4,
+          "weight": 0.02,
+          "feedback": "No mechanical violations found."
+        },
+        "2B_Contextual": {
+          "name": "Contextual Terminology",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Critical Fail: 1. Do not call monday sales CRM a 'tool' (use 'Platform', 'Work OS', or 'Product'). 2. Do not call items 'tasks' when describing objects within monday.com (use 'items' or 'item name'). Found violations in Step 4 section and bullet points.",
+          "flags": [
+            "With a tool like monday sales CRM",
+            "automatically being assigned a task to follow up",
+            "you can assign a task to a team member"
+          ]
+        },
+        "2C_Persona": {
+          "name": "Persona & Lexicon",
+          "score": 1,
+          "weight": 0.01,
+          "feedback": "Critical Fail: The FAQ section uses 'user feedback analysis' when referring to monday.com customers. This violates the persona rule. Replace 'user feedback' with 'customer feedback' throughout. The term 'user' should only refer to generic software users or competitors' customers, not monday.com's paying customers.",
+          "flags": [
+            "What is user feedback analysis?",
+            "User feedback is another term for customer feedback"
+          ]
+        }
+      }
+    },
+    "P3_Structural_Clarity": {
+      "parameter_score": 2.6,
+      "weight": 0.25,
+      "contribution": 0.65,
+      "sub_parameters": {
+        "3A_BLUF": {
+          "name": "Bottom Line Up Front",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Slow start with teasing language. Paragraph 2 says 'we'll cover how to capture' instead of immediately stating the solution. The actual tactical advice (use CRM to categorize/automate feedback) is buried in Step 1, far below the fold. Cut the generic opener ('immensely powerful tool') and the 'we will discuss' framing. Start with: 'The fastest way to unlock customer feedback is using a CRM to automatically categorize, segment, and analyze responses in one central location.' Deliver the promise in Paragraph 1.",
+          "flags": [
+            "we'll cover how to",
+            "In this blog, we'll cover"
+          ]
+        },
+        "3B_Scannability": {
+          "name": "Scannability & Hierarchy",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary scannability. Headers are descriptive and tell a clear story from problem to solution. All paragraphs are short (1-3 sentences), making the content highly digestible. Heavy use of bullet points and strategic bolding enhances readability. A reader can skim headers and bullets to understand the full narrative."
+        },
+        "3C_Conciseness": {
+          "name": "Conciseness & Human Language",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Too wordy with corporate fluff and weak constructions. Replace 'Leverage' with 'Use'. Cut filler phrases ('Put simply', 'In fact', 'Of course', 'After all'). Fix nominalizations: 'make tweaks' → 'tweak', 'have an open dialogue' → 'talk openly', 'take action' → 'act'. Remove adverb padding: 'immensely powerful' → 'powerful', 'really important' → 'important', 'really good' → 'good'.",
+          "flags": [
+            "Leverage",
+            "Put simply",
+            "In fact",
+            "Of course",
+            "After all",
+            "make tweaks",
+            "have an open dialogue",
+            "take action",
+            "immensely powerful",
+            "really important",
+            "really good",
+            "easily run"
+          ]
+        },
+        "3D_Specificity": {
+          "name": "Specificity",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable specificity. Strong quantification of main claims (20%, 12% with source). Concrete nouns throughout (NPS, sentiment analysis, bounce rates). However, relies on vague quantifiers: 'so many ways', 'so many business activities', 'immensely powerful', 'so much easier'. Replace these with specific counts or remove intensifiers.",
+          "flags": [
+            "immensely powerful",
+            "so many ways",
+            "so many business activities",
+            "multiple communication channels",
+            "handful of examples",
+            "so much easier (2x)",
+            "lots of spreadsheets"
+          ]
+        }
+      }
+    },
+    "P4_Strategic_Value": {
+      "parameter_score": 1.8333333333333335,
+      "weight": 0.3,
+      "contribution": 0.55,
+      "sub_parameters": {
+        "4A_Audience": {
+          "name": "Audience Alignment",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Generic/Weak. This content fails the HR Swap test - the entire framework ('capture feedback via surveys/NPS, analyze in CRM, share insights, take action') applies equally to HR (employee feedback), Product (user feedback), or Marketing (customer sentiment). There is zero Sales/Revenue-specific context. To align with monday.com CRM's audience, reframe around Revenue impact: 'How feedback from lost deals reduces sales cycle length,' 'Using NPS to identify upsell opportunities,' 'Tracking feature requests that correlate with deal size.' Add Sales-specific workflows like 'Create a Lost Deal Reason field, automate follow-up sequences when NPS < 6, tie feedback themes to pipeline conversion rates.'",
+          "flags": [
+            "customer feedback analysis",
+            "improve customer engagement",
+            "boost communication",
+            "improve strategic thinking",
+            "customer satisfaction",
+            "surveys and quizzes",
+            "Net Promoter Scores",
+            "customer interviews",
+            "online reviews",
+            "website analytics",
+            "share with finance, product, and marketing"
+          ]
+        },
+        "4B_Actionability": {
+          "name": "Actionability",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Weak actionability. The content tells readers WHAT monday CRM can do ('categorize feedback,' 'build dashboards,' 'create forms') but fails to explain HOW to actually do these things. It's a feature list, not a blueprint. To reach score 3-4, provide specific instructions: 'Click Integrations > Forms > New Form. Add a Dropdown column for Feedback Type (Product/Support/Complaint). Set automation: When form submitted > Create item in Feedback board > Notify assigned team member.'",
+          "flags": [
+            "Categorize feedback",
+            "Segment data",
+            "Automate analysis",
+            "Consider data capture",
+            "Measure success",
+            "Build dashboards and reports",
+            "Create customizable forms",
+            "Import your feedback data",
+            "Collaborate with colleagues"
+          ]
+        },
+        "4C_Evidence": {
+          "name": "Evidence & Examples",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak. The content engages in 'Stat Dumping' with the Forrester Research claim (20% satisfaction, 12% retention) but fails to interpret what this means for the reader's bottom line (e.g., 'This 12% retention saves you $X in churn costs'). Examples are generic ('businesses that aim for growth') rather than specific industry contexts ('SaaS at Series B' or 'E-commerce with 50K+ SKUs'). The monday CRM tie-ins are feature descriptions, not empirical outcomes. To improve: (1) Interpret the Forrester stat with a dollar impact, (2) Use a specific industry example (e.g., 'For a B2B SaaS company at $3M ARR...'), (3) Tie a monday feature to a measurable outcome ('Teams using our feedback forms see 18% faster resolution times').",
+          "flags": [
+            "businesses that aim for growth",
+            "Forrester Research 2022 (stat dumped, not interpreted)",
+            "Whether you call it user feedback",
+            "most businesses rely on"
+          ]
+        },
+        "4D_Originality": {
+          "name": "Originality & AI Detection",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: This is textbook 'Gray Goo.' The title uses 'Unlock the potential' (banned trope). The body includes 'crucial when running' and 'Unlock the power of' as a section header. The entire structure is predictable SaaS filler: 'X is important' → 'Here's how to do X' → 'Buy our product to do X better.' Zero original insight. Rewrite with a human voice and a fresh perspective. Challenge a belief about customer feedback instead of repeating the same tired advice.",
+          "flags": [
+            "Unlock the potential",
+            "immensely powerful tool",
+            "crucial when running",
+            "Unlock the power of",
+            "To sum up"
+          ]
+        }
+      }
+    },
+    "P5_Engagement": {
+      "parameter_score": 2.5,
+      "weight": 0.1,
+      "contribution": 0.25,
+      "sub_parameters": {
+        "5A_Headline": {
+          "name": "Headline & Hook",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak hook. The headline describes a topic ('customer feedback analysis'), not a benefit. The intro is procedural ('In this blog, we'll cover...') and lacks empathy. There's no Pain-Agitate-Solve formula. The reader doesn't feel understood or compelled to continue. Rewrite the headline to promise a specific outcome (e.g., 'How Customer Feedback Analysis Increased Our Revenue by 20%') and start with a pain point (e.g., 'You're collecting feedback, but your churn rate isn't budging.').",
+          "flags": [
+            "Headline: Unlock the potential of customer feedback analysis",
+            "In this blog, we'll cover"
+          ]
+        },
+        "5B_SEO": {
+          "name": "SEO & Shareability",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable Utility Share. A manager would share this internally ('Team, read this guide'), but it lacks the 'Status Signal' for a senior leader to share publicly. The predicted LinkedIn caption is generic ('Good reminder'). To reach Score 4, add a contrarian hook (e.g., 'Your NPS score is lying to you — here's why') or a bold claim that makes the sharer look like a thought leader. Keyword usage is acceptable but repetitive ('customer feedback analysis' appears 15+ times).",
+          "flags": [
+            "customer feedback analysis (15+ repetitions)",
+            "monday sales CRM (8 repetitions)",
+            "Lacks contrarian/bold stance"
+          ]
+        }
+      }
+    }
+  }
+}

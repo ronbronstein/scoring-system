@@ -1,0 +1,259 @@
+{
+  "metadata": {
+    "content_id": "customer-profile-template",
+    "timestamp": "2025-11-23T01:21:28.221259",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "threshold_gate_1": null,
+    "threshold_gate_2_tone": null
+  },
+  "results": {
+    "overall_score": 2.46,
+    "publish_ready": null,
+    "status": "Cannot Determine (Thresholds TBD)"
+  },
+  "gates_status": {
+    "gate_1_overall_threshold_met": null,
+    "gate_2_tone_veto_passed": null,
+    "gate_3_brand_veto_passed": true,
+    "critical_violations_count": 0
+  },
+  "parameters": {
+    "P1_Challenger_Tone": {
+      "parameter_score": 2.833333333333333,
+      "weight": 0.3,
+      "contribution": 0.8499999999999999,
+      "sub_parameters": {
+        "1A_Positive": {
+          "name": "Positive & Solution-Focused",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: The content is heavily solution-focused (>80%). It blames outdated tools and manual processes ('scattered files,' 'multiple versions problem'), not the people using them. The tone is empowering and educational, positioning the reader as capable of building effective customer profiles with the right system. High energy and optimism throughout."
+        },
+        "1B_Direct": {
+          "name": "Direct with Personality",
+          "score": 3,
+          "weight": 0.1,
+          "feedback": "Publishable: The writing is clear and mostly conversational, avoiding heavy jargon. However, it relies on corporate padding ('enables businesses to efficiently,' 'delivers measurable benefits') and hedging ('can help,' 'may be missing'). To reach Score 4, cut the hedging and make statements more direct. Replace 'can help you build' with 'builds' and 'enables businesses to efficiently gather' with 'helps you gather.'",
+          "flags": [
+            "enables businesses to efficiently",
+            "delivers measurable benefits",
+            "can help you",
+            "may be missing",
+            "can lead to",
+            "Optimizes customer acquisition",
+            "may seem straightforward",
+            "can be used to"
+          ]
+        },
+        "1C_Trustworthy": {
+          "name": "Trustworthy & Authentic",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable: The content is credible and avoids overselling. Claims are generally supported with logical explanations of 'how' and 'why' customer profiles deliver value. However, it never acknowledges what customer profiles or CRM software cannot do. Adding a brief acknowledgment that 'profiles are only as effective as the strategy behind them' or 'technology supports but doesn't replace customer understanding' would build higher trust."
+        },
+        "1D_Sharp_Wit": {
+          "name": "Sharp Wit & Confidence",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Generic/Weak: This is a competent, informative guide, but it lacks any distinct voice or spice. The opening ('You can't reach the right customers if you don't know who they are') is a safe truism that could appear in any competitor's content. There are no witty observations, no challenges to conventional wisdom, and no attacks on outdated methods. The tone is purely instructional and neutral — exactly what a legacy competitor would write. To improve: Add a contrarian take (e.g., 'Most customer profiles are fiction dressed up as data'), challenge a common practice, or use sharp wit to critique the old way of building profiles.",
+          "flags": [
+            "You can't reach the right customers if you don't know who they are",
+            "paints a clear picture",
+            "make better decisions",
+            "deeper understanding"
+          ]
+        }
+      }
+    },
+    "P2_Brand_Hygiene": {
+      "parameter_score": 2.1999999999999997,
+      "weight": 0.05,
+      "contribution": 0.10999999999999999,
+      "sub_parameters": {
+        "2A_Mechanical": {
+          "name": "Mechanical Compliance",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Found 2 mechanical violation(s).",
+          "flags": [
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...e | B2C customer profile | | :--- | :--- | | **Organization or..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...customer profile | | :--- | :--- | | **Organization or occupat..."
+            }
+          ]
+        },
+        "2B_Contextual": {
+          "name": "Contextual Terminology",
+          "score": 4,
+          "weight": 0.02,
+          "feedback": "Pass: All instances of restricted terminology ('tools') correctly refer to generic software categories or competitors, not the monday.com platform. No violations of brand hygiene rules detected."
+        },
+        "2C_Persona": {
+          "name": "Persona & Lexicon",
+          "score": 1,
+          "weight": 0.01,
+          "feedback": "Critical Fail: Multiple violations of persona language rules. 1. 'Power users' appears twice referring to customers - should use 'most valuable customers' or 'top customers'. 2. 'users can create' refers to monday CRM customers - should be 'teams can create' or 'you can create'. 3. 'user behavior' in the automation context refers to customer/lead behavior - should be 'customer behavior' or 'lead behavior'.",
+          "flags": [
+            "power users highlight",
+            "your most engaged customers...power users",
+            "users can create AI-driven automations",
+            "gather data on user behavior"
+          ]
+        }
+      }
+    },
+    "P3_Structural_Clarity": {
+      "parameter_score": 2.2,
+      "weight": 0.25,
+      "contribution": 0.55,
+      "sub_parameters": {
+        "3A_BLUF": {
+          "name": "Bottom Line Up Front",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: Buries the lead. The headline promises 'How to create a customer profile' but the article immediately pivots to 'What is a customer profile?' — a textbook Definition Trap. The actual 5-step process doesn't appear until Section 5 (far below the fold). The intro should state: 'To create a customer profile that drives growth: 1) Analyze your top customers, 2) Find common pain points, 3) Gather feedback, 4) Build a template, 5) Use CRM software to automate updates.' Cut the entire 'What is' section from the intro and lead with the tactical steps.",
+          "flags": [
+            "What is a customer profile?",
+            "You can't reach the right customers if you don't know who they are",
+            "In this guide, we'll discuss the benefits"
+          ]
+        },
+        "3B_Scannability": {
+          "name": "Scannability & Hierarchy",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary scannability. The headers alone tell a complete, logical story from definition through implementation. Every paragraph is digestible (1-3 sentences), with strategic use of bullets, bold text, and tables. No walls of text detected. This is a masterclass in scannable content structure."
+        },
+        "3C_Conciseness": {
+          "name": "Conciseness & Human Language",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable quality. The content is clean, uses simple language, and avoids major jargon. Minor improvements: Remove 'actually' from 'actually engage' and 'truly' from 'truly feels' — they add no meaning. Consider tightening 'make better decisions' to 'decide better.' Overall, strong conciseness with minimal fluff.",
+          "flags": [
+            "actually engage",
+            "truly feels"
+          ]
+        },
+        "3D_Specificity": {
+          "name": "Specificity",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak specificity. While the content uses concrete terminology (CRM, firmographics, net promoter score), it relies heavily on unquantified claims. Replace vague impact statements like 'higher engagement', 'better decisions', and 'deeper understanding' with specific metrics (e.g., '25% higher engagement', '3 hours saved per week'). The phrase 'high net promoter score' needs a number, and 'long period of time' should specify duration.",
+          "flags": [
+            "higher engagement",
+            "better decisions",
+            "deeper understanding",
+            "most valuable customer segments",
+            "most promising prospects",
+            "high net promoter score",
+            "long period of time",
+            "more complete picture",
+            "better-informed decisions",
+            "higher conversion rates"
+          ]
+        }
+      }
+    },
+    "P4_Strategic_Value": {
+      "parameter_score": 2.166666666666667,
+      "weight": 0.3,
+      "contribution": 0.65,
+      "sub_parameters": {
+        "4A_Audience": {
+          "name": "Audience Alignment",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Too generic. This content fails the HR Swap test — the entire framework ('create profiles,' 'gather feedback,' 'use templates,' 'CRM software') applies equally to Recruiting, Marketing, or Customer Success. To align with Sales/Revenue professionals, reframe around Revenue-specific outcomes (e.g., 'Profiles that shorten deal cycles by 20%,' 'Segment high-value accounts by ARR potential') and add strategic context for Revenue leaders (e.g., 'How accurate profiles improve forecast accuracy and quota attainment').",
+          "flags": [
+            "customer profile",
+            "engagement and growth",
+            "gather feedback",
+            "customer satisfaction",
+            "personalized marketing",
+            "audience characteristics",
+            "cross-department alignment"
+          ]
+        },
+        "4B_Actionability": {
+          "name": "Actionability",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Weak actionability. The content provides strategic guidance ('Analyze your customers', 'Gather feedback', 'Use CRM analytics') but lacks the tactical mechanics needed for immediate implementation. It tells readers WHAT to do but not HOW to do it in monday CRM. Missing: specific board templates, column configurations, automation recipes, form setup instructions, or dashboard widget specifications. The reader leaves understanding the concept but unable to build anything on Monday morning.",
+          "flags": [
+            "Analyze your current and top customers",
+            "Determine similarities and common pain points",
+            "Gather customer feedback",
+            "Use your findings to build a template",
+            "Choose the right software",
+            "analyze your existing customer data more effectively",
+            "gather data thanks to monday CRM's AI-powered dashboard analytics",
+            "create AI-driven automations to engage and nurture new leads",
+            "create custom segments in monday CRM"
+          ]
+        },
+        "4C_Evidence": {
+          "name": "Evidence & Examples",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable. The content avoids weak 'Imagine if' scenarios and includes some specific examples (e.g., 'SaaS companies with 50–200 employees'). However, it lacks deep data interpretation (e.g., no hard metrics on the cost of outdated profiles) and the monday CRM tie-ins are feature-focused rather than outcome-driven (e.g., 'AI-powered dashboards' without citing a % improvement in profile accuracy). To reach Score 4, add empirical claims like 'Teams using monday CRM's automation recover 10 hours/month in profile maintenance.'",
+          "flags": [
+            "Businesses often maintain",
+            "For example, a customer profile might define",
+            "high net promoter score (no impact interpretation)",
+            "AI-powered dashboard analytics (no outcome metric)"
+          ]
+        },
+        "4D_Originality": {
+          "name": "Originality & AI Detection",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak originality. This is competent, professional content that avoids major AI tropes, but it's predictable and safe. The structure is formulaic (What/Why/How), and there are no counter-intuitive insights or surprising perspectives. To improve: Add a contrarian take (e.g., 'Most customer profiles are useless because teams never update them') or challenge a common belief about customer profiling.",
+          "flags": [
+            "Successful business owners and marketing managers share a common understanding",
+            "In other words",
+            "the dreaded 'multiple versions' problem",
+            "This structured approach delivers measurable benefits"
+          ]
+        }
+      }
+    },
+    "P5_Engagement": {
+      "parameter_score": 3.0000000000000004,
+      "weight": 0.1,
+      "contribution": 0.30000000000000004,
+      "sub_parameters": {
+        "5A_Headline": {
+          "name": "Headline & Hook",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable Hook. The headline promises a clear benefit (drives engagement and growth). The intro identifies a real problem (can't reach the right customers without knowing them), but the agitation is weak. Instead of making the reader feel the cost of this problem, it quickly shifts to 'In this guide, we'll discuss...' which is procedural. To reach a 4, deepen the agitation: What does it cost to NOT know your customers? Lost deals? Wasted ad spend? Make them feel it before offering the solution.",
+          "flags": [
+            "In this guide, we'll discuss"
+          ]
+        },
+        "5B_SEO": {
+          "name": "SEO & Shareability",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable: Utility Share. This is a solid how-to guide that a manager would share internally with their team to solve a specific problem ('Let's build better customer profiles'). However, it lacks the 'High Status Signal' needed for a senior leader to share publicly on LinkedIn. The predicted caption is generic ('Helpful resource') rather than opinionated ('Finally someone said it!'). Keywords are mostly natural, though 'customer profile template' is repeated frequently. To reach Score 4, inject a contrarian stance or bold claim (e.g., 'Most customer profiles are fiction — here's how to build one that's real').",
+          "flags": [
+            "customer profile template (repeated 15+ times)",
+            "Utility Share (not thought leadership)"
+          ]
+        }
+      }
+    }
+  }
+}

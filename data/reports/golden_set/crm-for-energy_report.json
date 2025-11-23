@@ -1,0 +1,438 @@
+{
+  "metadata": {
+    "content_id": "crm-for-energy",
+    "timestamp": "2025-11-23T02:08:51.190625",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "threshold_gate_1": null,
+    "threshold_gate_2_tone": null
+  },
+  "results": {
+    "overall_score": 2.58,
+    "publish_ready": null,
+    "status": "Cannot Determine (Thresholds TBD)"
+  },
+  "gates_status": {
+    "gate_1_overall_threshold_met": null,
+    "gate_2_tone_veto_passed": null,
+    "gate_3_brand_veto_passed": true,
+    "critical_violations_count": 0
+  },
+  "parameters": {
+    "P1_Challenger_Tone": {
+      "parameter_score": 3.0,
+      "weight": 0.3,
+      "contribution": 0.8999999999999999,
+      "sub_parameters": {
+        "1A_Positive": {
+          "name": "Positive & Solution-Focused",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: This content is heavily solution-focused (85-90% of text) and consistently empowering. The 'villain' is always the outdated system/process ('generic CRM', 'disconnected systems', 'siloed departments'), never the human. Language like 'empowers your team', 'transforms challenges into avenues for growth', and 'do what they do best' positions the reader as the hero. The piece maintains high energy and optimism throughout while providing actionable solutions."
+        },
+        "1B_Direct": {
+          "name": "Direct with Personality",
+          "score": 4,
+          "weight": 0.1,
+          "feedback": "Exemplary: This content nails the 'Direct with Personality' balance. It avoids corporate jargon ('central nervous system' instead of 'facilitates optimization'), uses punchy phrasing ('Your sales team's momentum shouldn't be stalled'), and sounds like a smart colleague explaining CRM solutions. Zero throat-clearing. The tone is confident without being rude, and it 'just says the thing' throughout."
+        },
+        "1C_Trustworthy": {
+          "name": "Trustworthy & Authentic",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Generic marketing tone with unearned confidence. The content uses absolute language ('seamlessly', 'effortlessly', 'eliminates data silos', 'zero coding') that oversells capabilities. Most critically, it lacks vulnerability—there's no acknowledgment of what the CRM cannot do or that technology requires human strategy to succeed. Add realistic expectations: mention that CRM effectiveness depends on proper implementation, user adoption, and strategic planning. Acknowledge that automation supports (not replaces) human decision-making.",
+          "flags": [
+            "seamlessly (used 5+ times)",
+            "effortlessly",
+            "eliminates data silos",
+            "zero coding expertise",
+            "without a hitch",
+            "dissolves these barriers",
+            "unwavering confidence",
+            "no acknowledgment of limitations"
+          ]
+        },
+        "1D_Sharp_Wit": {
+          "name": "Sharp Wit & Confidence",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Generic/Weak: Professional but safe tone with multiple clichés ('moving the needle', 'game-changing insights', 'goldmine of opportunity'). While confident, it lacks the sharp wit and spicy opinions that distinguish monday.com from legacy competitors. Replace tired business metaphors with specific, relatable observations.",
+          "flags": [
+            "moving the needle",
+            "game-changing insights",
+            "goldmine of opportunity",
+            "central nervous system",
+            "single source of truth (overused)"
+          ]
+        }
+      }
+    },
+    "P2_Brand_Hygiene": {
+      "parameter_score": 1.5999999999999999,
+      "weight": 0.05,
+      "contribution": 0.08,
+      "sub_parameters": {
+        "2A_Mechanical": {
+          "name": "Mechanical Compliance",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Found 26 mechanical violation(s).",
+          "flags": [
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "MULTICHANNEL_SPELLING",
+              "severity": "Medium",
+              "message": "Use 'multichannel'.",
+              "violation": "Multi-channel",
+              "context": "...ring** and deal insights. * **Multi-channel communication hub** supportin..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...RM (Button: Try monday CRM)]  ---  ## 6 Ways CRM Transforms Ene..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...RM (Button: Try monday CRM)]  ---  ## Must-Have Features for En..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...RM (Button: Try monday CRM)]  ---  ## 10 Top CRM for Power Comp..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...ey Feature | Description | | :--- | :--- | | **Visual pipeline..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...ure | Description | | :--- | :--- | | **Visual pipeline managem..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Billed Annually) | Notes | | :--- | :--- | :--- | | Basic | $9/..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Annually) | Notes | | :--- | :--- | :--- | | Basic | $9/month p..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...y) | Notes | | :--- | :--- | :--- | | Basic | $9/month per seat..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Billed Annually) | Notes | | :--- | :--- | :--- | | Free Editio..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Annually) | Notes | | :--- | :--- | :--- | | Free Edition | $0..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...y) | Notes | | :--- | :--- | :--- | | Free Edition | $0 | Up to..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Billed Annually) | Notes | | :--- | :--- | :--- | | Essential |..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Annually) | Notes | | :--- | :--- | :--- | | Essential | $14/mo..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...y) | Notes | | :--- | :--- | :--- | | Essential | $14/month per..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...(Per User/Month) | Notes | | :--- | :--- | :--- | | Growth | $2..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...er/Month) | Notes | | :--- | :--- | :--- | | Growth | $25 | For..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...h) | Notes | | :--- | :--- | :--- | | Growth | $25 | For SMB au..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Billed Annually) | Notes | | :--- | :--- | :--- | | Free | $0 |..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Annually) | Notes | | :--- | :--- | :--- | | Free | $0 | Up to..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...y) | Notes | | :--- | :--- | :--- | | Free | $0 | Up to 3 users..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Billed Annually) | Notes | | :--- | :--- | :--- | | Sugar Sell..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...Annually) | Notes | | :--- | :--- | :--- | | Sugar Sell Standar..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...y) | Notes | | :--- | :--- | :--- | | Sugar Sell Standard | $59..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...ited to higher-priced tiers.  ---  ## How to Select the Right E..."
+            },
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "EM_DASH_SUBSTITUTES",
+              "severity": "Medium",
+              "message": "Use a proper Em dash (—) instead of double hyphens (--) or a spaced hyphen ( - ).",
+              "violation": "---",
+              "context": "...RM (Button: Try monday CRM)]  ---  ## Why monday CRM is the Pla..."
+            }
+          ]
+        },
+        "2B_Contextual": {
+          "name": "Contextual Terminology",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Critical Fail: 1. Do not refer to monday.com features as 'tools' (found in 'AI-powered tools'). Use 'features' or 'capabilities' instead. 2. Do not call monday.com items 'tasks' (found in 'Smart task generation' and 'task generation'). Use 'items' or 'action items' instead.",
+          "flags": [
+            "AI-powered tools",
+            "Smart task generation",
+            "task generation"
+          ]
+        },
+        "2C_Persona": {
+          "name": "Persona & Lexicon",
+          "score": 4,
+          "weight": 0.01,
+          "feedback": "Pass: All instances of 'user/users' refer to generic software licensing terms or non-specific software usage, not monday.com customers. The content correctly uses 'team', 'team members', and 'customers' when referring to people. No violations of persona guidelines detected."
+        }
+      }
+    },
+    "P3_Structural_Clarity": {
+      "parameter_score": 3.0,
+      "weight": 0.25,
+      "contribution": 0.75,
+      "sub_parameters": {
+        "3A_BLUF": {
+          "name": "Bottom Line Up Front",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Slow start. The headline promises '10 Best Solutions Compared & Reviewed,' but the intro spends 3 paragraphs explaining what CRMs do for energy companies before delivering. The actual list of 10 CRMs is buried below multiple sections ('6 Ways CRM Transforms,' 'Must-Have Features'). To improve: Start Paragraph 1 with 'We evaluated 10 CRMs for energy companies. Here's what we found...' or immediately name the top 3 solutions. The current structure makes the reader wait too long for the promised comparison.",
+          "flags": [
+            "This guide explores how energy-focused CRM platforms transform operations",
+            "We'll review the top 10 platforms"
+          ]
+        },
+        "3B_Scannability": {
+          "name": "Scannability & Hierarchy",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary scannability. The headers alone tell the complete story from problem to solution. Every paragraph is digestible (1-3 sentences), with strategic use of bullets, tables, and bold text creating excellent visual hierarchy. A reader can skim headers and understand the entire narrative without reading body text."
+        },
+        "3C_Conciseness": {
+          "name": "Conciseness & Human Language",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Clean, concise writing with strong active verbs. Avoids all forbidden jargon and corporate fluff. Minor adverb use ('seamlessly', 'automatically') is contextually appropriate. Excellent use of punchy phrases like 'Act now' and 'Close deals faster.' This is publishable quality."
+        },
+        "3D_Specificity": {
+          "name": "Specificity",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary specificity. The content consistently uses concrete nouns (CIS, AMI, OMS, GIS, ERP), quantifies claims with specific numbers (250,000 automation actions, 250+ integrations, exact pricing), and provides detailed examples for each platform. Zero instances of 'thing(s)' or 'aspect(s)'. Minor improvement opportunity: quantify phrases like 'faster response times' or 'high total cost of ownership' with specific metrics where possible."
+        }
+      }
+    },
+    "P4_Strategic_Value": {
+      "parameter_score": 1.8333333333333335,
+      "weight": 0.3,
+      "contribution": 0.55,
+      "sub_parameters": {
+        "4A_Audience": {
+          "name": "Audience Alignment",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: Fundamental audience misalignment. This content targets energy sector operations managers and utility executives, NOT Sales/Revenue professionals. While it discusses CRM selection, the advice is generic software buying guidance ('map your tech ecosystem,' 'document workflows') that applies to any department. The HR Swap test fails completely—this same framework could be rewritten as 'CRM for Healthcare' or 'CRM for Manufacturing' with identical logic. monday.com CRM's audience is Sales Leaders, CRM Admins in Sales orgs, and Revenue teams—not utility operations managers.",
+          "flags": [
+            "Map your current tech ecosystem",
+            "Document your real-world workflows",
+            "Prioritize seamless integrations",
+            "Build for tomorrow, not just today",
+            "energy companies face unique operational challenges",
+            "coordinating field service teams",
+            "utility infrastructure and regulatory compliance",
+            "customer service, field operations, and sales teams",
+            "utilities, renewable energy providers, and power companies"
+          ]
+        },
+        "4B_Actionability": {
+          "name": "Actionability",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Weak actionability. This content operates at the strategic level, explaining WHAT to evaluate ('Map your tech ecosystem', 'Document workflows') without providing the tactical HOW. The selection framework lacks specific execution steps (e.g., 'Create a spreadsheet with these 5 columns' or 'Schedule a 30-minute audit meeting with these 3 stakeholders'). The monday CRM feature descriptions mention capabilities but don't provide implementation blueprints (e.g., 'Create a Status column called X, add automation Y'). The reader understands the importance of CRM but cannot execute a single workflow on Monday morning.",
+          "flags": [
+            "Map your current tech ecosystem",
+            "Document your real-world workflows",
+            "Prioritize seamless integrations",
+            "Build for tomorrow, not just today",
+            "Create a single source of truth",
+            "Streamline operations across all departments",
+            "Deliver exceptional customer experiences",
+            "Unlock new revenue streams",
+            "Transform operational challenges",
+            "Adapt in real time with full team autonomy"
+          ]
+        },
+        "4C_Evidence": {
+          "name": "Evidence & Examples",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Generic/Weak. The content lists CRM features and benefits but provides zero empirical evidence or specific industry examples. No statistics are cited or interpreted (e.g., 'Reduce churn' - by how much? Based on what data?). The 'Use case' sections offer slight industry context (e.g., 'Salesforce integrates smart meter data') but lack real-world outcomes (e.g., 'A Texas utility cut outage response time by 40%'). To elevate this, add: (1) Specific customer success stories ('A renewable energy provider reduced quote time by 60%'), (2) Industry data with interpretation ('Gartner reports 50% of utility CRM projects fail due to poor integration, costing you $2M in wasted budget'), (3) Quantified monday CRM outcomes ('Our data shows automating outage alerts reduces complaint calls by 30%').",
+          "flags": [
+            "Energy companies face unique operational challenges (generic opening)",
+            "Imagine if you could predict future energy demand (hypothetical)",
+            "What if you could... (hypothetical framing)",
+            "Siloed departments create friction (abstract claim, no data)",
+            "Faster response times (unquantified benefit)",
+            "Minimize customer churn (no percentage/data)",
+            "Exceptional service transcends account numbers (vague)",
+            "Zero customer case studies",
+            "No industry statistics cited",
+            "No interpreted data outcomes"
+          ]
+        },
+        "4D_Originality": {
+          "name": "Originality & AI Detection",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable. The content avoids most AI tropes and maintains a professional, human voice. However, it lacks originality in key areas. Phrases like 'Exceptional service transcends account numbers' and the header 'Unlock new revenue streams' are predictable. To reach Score 4, challenge a common belief (e.g., 'Most CRM implementations fail because companies try to automate relationships instead of enabling them').",
+          "flags": [
+            "Unlock new revenue streams",
+            "Exceptional service transcends account numbers",
+            "crucial advantage"
+          ]
+        }
+      }
+    },
+    "P5_Engagement": {
+      "parameter_score": 3.0000000000000004,
+      "weight": 0.1,
+      "contribution": 0.30000000000000004,
+      "sub_parameters": {
+        "5A_Headline": {
+          "name": "Headline & Hook",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable Hook. The intro uses the Pain-Agitate-Solve formula effectively, identifying the operational challenges (Pain), explaining the cost of generic CRM software (Agitate), and promising a solution (Solve). However, the Headline is a Topic Label ('10 Best Solutions Compared & Reviewed') that describes the content rather than promising a specific benefit. To reach a score of 4, rewrite the Headline to promise a tangible outcome (e.g., 'How Energy Companies Cut Admin Time by 40% with the Right CRM' or 'The CRM Strategy That Doubled Revenue for 3 Utilities').",
+          "flags": [
+            "Headline: CRM for Energy Businesses: 10 Best Solutions Compared & Reviewed [2026]"
+          ]
+        },
+        "5B_SEO": {
+          "name": "SEO & Shareability",
+          "score": 3,
+          "weight": 0.05,
+          "feedback": "Publishable Shareability. This is a 'Utility Share'—a manager would send this to their team evaluating CRM options ('Team, read this comparison guide'). However, it lacks the 'High Status Signal' needed for viral potential. The predicted LinkedIn caption is generic: 'Comprehensive CRM guide for energy companies.' To reach Score 4, inject a bold opinion (e.g., 'Why 90% of energy CRMs fail at field service coordination') or a contrarian take that makes sharing it a statement, not just a resource link. Keywords flow naturally—no stuffing detected."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,358 @@
+{
+  "metadata": {
+    "content_id": "account-based-selling-how-to-target-and-close-high-value-customers",
+    "timestamp": "2025-11-23T03:10:00.986563",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "threshold_gate_1": null,
+    "threshold_gate_2_tone": null
+  },
+  "results": {
+    "overall_score": 1.61,
+    "publish_ready": null,
+    "status": "Cannot Determine (Thresholds TBD)"
+  },
+  "gates_status": {
+    "gate_1_overall_threshold_met": null,
+    "gate_2_tone_veto_passed": null,
+    "gate_3_brand_veto_passed": true,
+    "critical_violations_count": 0
+  },
+  "parameters": {
+    "P1_Challenger_Tone": {
+      "parameter_score": 1.6666666666666665,
+      "weight": 0.3,
+      "contribution": 0.49999999999999994,
+      "sub_parameters": {
+        "1A_Positive": {
+          "name": "Positive & Solution-Focused",
+          "score": 4,
+          "weight": 0.05,
+          "feedback": "Exemplary: The content is heavily solution-focused (>80% of text), consistently frames inefficient processes and traditional approaches as the villain rather than people, and maintains an empowering, optimistic tone throughout. Statistics and success metrics reinforce the positive framing, positioning the reader as capable of achieving these results."
+        },
+        "1B_Direct": {
+          "name": "Direct with Personality",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: This reads like a corporate brochure, not human writing. It's packed with jargon ('utilization of', 'provide assistance to', 'conduct an analysis of'), hedging ('It's no secret that', 'At the end of the day', 'Consider a scenario where'), and business clichés ('game changer', 'move the needle', 'low hanging fruit'). A human would say: 'Account-based selling targets high-value customers instead of chasing every lead.' Not: 'The implementation of account-based selling strategies can provide assistance to sales teams in their efforts to conduct an analysis of high-value prospects.' Rewrite every sentence to use Subject-Verb-Object. Cut all hedging phrases. Replace jargon with plain English.",
+          "flags": [
+            "utilization of",
+            "provide assistance to",
+            "conduct an analysis of",
+            "It's no secret that",
+            "At the end of the day",
+            "paradigm shift",
+            "Consider a scenario where",
+            "give consideration to",
+            "It becomes clear that",
+            "truly a win-win situation",
+            "Remember to",
+            "It's important to",
+            "absolutely critical",
+            "game changer",
+            "move the needle",
+            "low hanging fruit",
+            "circle back",
+            "touch base",
+            "take it offline",
+            "revenue generation and long-term partnership establishment",
+            "firmographic data, technographic signals"
+          ]
+        },
+        "1C_Trustworthy": {
+          "name": "Trustworthy & Authentic",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Generic marketing content with unearned confidence. Statistics are presented without context or caveats about execution requirements. No acknowledgment of limitations or scenarios where account-based selling might fail. Add vulnerability by admitting: 'Account-based selling requires significant upfront investment and may not be suitable for companies with limited resources' or 'These results depend on proper execution—the strategy alone doesn't guarantee success.' Remove buzzwords like 'game changer' and 'absolutely critical.'",
+          "flags": [
+            "game changer",
+            "absolutely critical",
+            "truly a win-win",
+            "move the needle",
+            "statistics without context or caveats",
+            "no acknowledgment of limitations",
+            "no discussion of execution requirements"
+          ]
+        },
+        "1D_Sharp_Wit": {
+          "name": "Sharp Wit & Confidence",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: This is 'Vanilla' writing at its worst. The content is saturated with 10+ business clichés ('game changer,' 'move the needle,' 'paradigm shift,' 'low hanging fruit,' 'win-win,' 'touch base,' 'circle back'). Every sentence could appear in a legacy competitor's brochure. Replace passive constructions ('conduct an analysis of,' 'provide assistance to') with active voice. Remove all clichés. Add a distinct, opinionated point of view that challenges conventional wisdom about account-based selling.",
+          "flags": [
+            "game changer",
+            "move the needle",
+            "paradigm shift",
+            "low hanging fruit",
+            "win-win situation",
+            "touch base",
+            "circle back",
+            "at the end of the day",
+            "it's no secret that",
+            "falls through the cracks",
+            "In today's fast-paced business environment",
+            "conduct an analysis of",
+            "provide assistance to",
+            "give consideration to"
+          ]
+        }
+      }
+    },
+    "P2_Brand_Hygiene": {
+      "parameter_score": 1.5999999999999999,
+      "weight": 0.05,
+      "contribution": 0.08,
+      "sub_parameters": {
+        "2A_Mechanical": {
+          "name": "Mechanical Compliance",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Found 1 mechanical violation(s).",
+          "flags": [
+            {
+              "source": "Layer 1 (Regex)",
+              "rule_id": "FORBIDDEN_LEARNINGS",
+              "severity": "High",
+              "message": "Avoid the word 'learnings'. Use 'lessons', 'takeaways', or 'insights'.",
+              "violation": "learnings",
+              "context": "...your team regularly to share learnings and provide assistance where..."
+            }
+          ]
+        },
+        "2B_Contextual": {
+          "name": "Contextual Terminology",
+          "score": 1,
+          "weight": 0.02,
+          "feedback": "Critical Fail: Multiple brand hygiene violations detected. 1) Do not refer to monday.com/monday CRM as a 'tool' or 'hub' (use 'Platform', 'Work OS', or 'Product'). Found: 'monday CRM tool', 'This CRM tool', 'monday sales hub', 'monday CRM hub'. 2) Do not refer to items within monday.com as 'tasks' or 'to-dos' (use 'items', 'rows', or 'item names'). Found: 'customized tasks and to-dos', 'task assignment and to-do management', 'trigger tasks and to-dos'.",
+          "flags": [
+            "monday CRM tool",
+            "customized tasks and to-dos",
+            "monday sales hub",
+            "task assignment and to-do management",
+            "This CRM tool",
+            "monday CRM hub",
+            "trigger tasks and to-dos"
+          ]
+        },
+        "2C_Persona": {
+          "name": "Persona & Lexicon",
+          "score": 4,
+          "weight": 0.01,
+          "feedback": "Pass: No persona violations detected. The content correctly avoids using 'users' for monday.com customers, does not use 'boss', and contains no ad hominem descriptors targeting people."
+        }
+      }
+    },
+    "P3_Structural_Clarity": {
+      "parameter_score": 1.2000000000000002,
+      "weight": 0.25,
+      "contribution": 0.30000000000000004,
+      "sub_parameters": {
+        "3A_BLUF": {
+          "name": "Bottom Line Up Front",
+          "score": 1,
+          "weight": 0.1,
+          "feedback": "Critical Fail: Buries the lead completely. Paragraph 1 is 100% generic fluff ('game changer', 'move the needle', 'It's no secret'). The headline promises 'How to Target and Close' but the actual tactics (identify accounts using firmographic data, personalize outreach, engage stakeholders) don't appear until Paragraphs 3-5. Cut the entire first paragraph. Start immediately with: 'To target high-value customers, identify accounts using firmographic data, technographic signals, and intent data that match your ideal customer profile.' Deliver the promise in sentence 1.",
+          "flags": [
+            "game changer",
+            "move the needle",
+            "It's no secret",
+            "At the end of the day",
+            "paradigm shift",
+            "low hanging fruit",
+            "circle back",
+            "touch base"
+          ]
+        },
+        "3B_Scannability": {
+          "name": "Scannability & Hierarchy",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical fail. Every paragraph is a wall of text (7-9 sentences, 110-150 words each). Headers are generic ('Overview', 'Details on', 'More Information About') and fail the storytelling test. No bullets, no bolding, no whitespace. Completely unreadable for skimming. Requires complete restructuring with descriptive headers, 2-3 sentence paragraphs, and heavy use of bullets/formatting.",
+          "flags": [
+            "Header: Overview of Account-Based Selling",
+            "Header: Details on Target Account Selection",
+            "Header: More Information About Stakeholder Engagement",
+            "Wall of Text (Intro paragraph - 6 sentences)",
+            "Wall of Text (Para 1 - 7 sentences)",
+            "Wall of Text (Para 2 - 7 sentences)",
+            "Wall of Text (Para 3 - 8 sentences)",
+            "Wall of Text (Para 4 - 7 sentences)",
+            "Wall of Text (Para 5 - 9 sentences)",
+            "Wall of Text (Para 6 - 7 sentences)",
+            "No bullet points",
+            "No bold text"
+          ]
+        },
+        "3C_Conciseness": {
+          "name": "Conciseness & Human Language",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: Contains forbidden word 'learnings' (must be 'lessons' or 'insights'). Drowning in corporate fluff and nominalization. Replace: 'utilization' → 'use', 'provide assistance' → 'help', 'conduct an analysis' → 'analyze', 'give consideration' → 'consider', 'make a decision' → 'decide'. Cut filler phrases: 'At the end of the day', 'It's no secret that', 'In today's fast-paced business environment'. Remove adverbs: 'carefully', 'effectively', 'successfully', 'strategically', 'absolutely'. This reads like a corporate memo, not human communication.",
+          "flags": [
+            "learnings",
+            "utilization",
+            "leverage",
+            "provide assistance",
+            "conduct an analysis",
+            "give consideration",
+            "make a decision",
+            "At the end of the day",
+            "It's no secret that",
+            "In today's fast-paced business environment",
+            "carefully analyze",
+            "effectively manage",
+            "successfully implement",
+            "strategically plan",
+            "absolutely critical",
+            "the implementation of",
+            "the identification of",
+            "the development of",
+            "the creation of",
+            "the establishment of",
+            "move the needle",
+            "game changer",
+            "paradigm shift",
+            "low hanging fruit",
+            "circle back",
+            "touch base",
+            "take it offline",
+            "top-of-mind",
+            "falls through the cracks",
+            "win-win situation"
+          ]
+        },
+        "3D_Specificity": {
+          "name": "Specificity",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak specificity. While you include many statistics (87%, 171%, etc.), the actual methodology remains vague. Replace phrases like 'various factors', 'multiple data points', and 'multiple touchpoints' with specific lists (e.g., 'analyze company size, tech stack, and budget'). Eliminate business jargon like 'conduct an analysis of' and 'give consideration to' – just say 'analyze' and 'consider'. The 'what to do' is buried under abstract language, even though 'what happened' is quantified.",
+          "flags": [
+            "various factors",
+            "multiple data points",
+            "multiple touchpoints",
+            "multiple tactics",
+            "various channels",
+            "conduct an analysis of",
+            "provide assistance to",
+            "give consideration to",
+            "move the needle",
+            "touch base",
+            "circle back",
+            "low hanging fruit"
+          ]
+        }
+      }
+    },
+    "P4_Strategic_Value": {
+      "parameter_score": 1.75,
+      "weight": 0.3,
+      "contribution": 0.525,
+      "sub_parameters": {
+        "4A_Audience": {
+          "name": "Audience Alignment",
+          "score": null,
+          "weight": 0.1,
+          "feedback": "ERROR: JSON parsing error: Expecting ',' delimiter: line 4 column 526 (char 2518)"
+        },
+        "4B_Actionability": {
+          "name": "Actionability",
+          "score": 2,
+          "weight": 0.1,
+          "feedback": "Weak actionability. This reads like a consultant's deck, not an implementation guide. You tell readers to 'conduct analysis,' 'establish criteria,' 'create account plans,' and 'build dashboards' without explaining the mechanics. Example: 'Your team should conduct an analysis of firmographic data' – which fields? Which filters? What does 'analysis' mean in monday.com terms? The monday CRM references are vague ('can help with organization') rather than tactical ('Create a Dropdown column called Account Tier with values: Enterprise, Mid-Market, SMB'). This is a 'what to do' list, not a 'how to build it' blueprint.",
+          "flags": [
+            "conduct an analysis of",
+            "effectively manage their pipeline",
+            "strategically plan your approach",
+            "establish clear criteria",
+            "craft messaging that resonates",
+            "create account plans",
+            "Update your CRM daily",
+            "build custom dashboards",
+            "provide assistance to their teams",
+            "give consideration to",
+            "make a decision about"
+          ]
+        },
+        "4C_Evidence": {
+          "name": "Evidence & Examples",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak. The content relies heavily on 'Imagine a company' and 'Consider a scenario' hypotheticals instead of specific industry examples (e.g., 'A SaaS company at Series B' or 'Manufacturing firms with 50+ accounts'). Multiple stats are dumped without interpretation—don't just say '87% report higher ROI'; explain what that means for the Sales Director's quota or margin. The monday.com mentions are vague feature lists, not tied to specific workflow outcomes with measurable impact.",
+          "flags": [
+            "Imagine a company that struggles",
+            "Consider a scenario where your sales team",
+            "Consider a scenario where you've only connected",
+            "Research shows that 87%",
+            "companies using account-based approaches see a 171%",
+            "Companies that effectively manage...report 208%",
+            "Studies indicate that 92%",
+            "Research shows that personalized emails improve",
+            "The average B2B purchase decision now involves 6-10",
+            "Companies that excel at stakeholder engagement see 73%",
+            "Research indicates that account-based selling programs...see a 300%",
+            "Organizations that successfully implement...report 36%"
+          ]
+        },
+        "4D_Originality": {
+          "name": "Originality & AI Detection",
+          "score": 1,
+          "weight": 0.05,
+          "feedback": "Critical Fail: Pure 'Gray Goo.' Opens with the banned 'fast-paced business environment' and deploys nearly every AI trope: 'game changer' (2x), 'At the end of the day' (2x), 'It's no secret' (2x), 'move the needle' (2x), plus corporate jargon like 'low hanging fruit', 'win-win situation', 'circle back', 'touch base'. The writing is bloated with bureaucratic phrases ('conduct an analysis of', 'provide assistance to', 'give consideration to') that no human would naturally use. Zero original insights—every point is predictable sales advice. Rewrite entirely with a human voice and fresh perspective.",
+          "flags": [
+            "In today's fast-paced business environment",
+            "game changer",
+            "At the end of the day",
+            "It's no secret that",
+            "move the needle",
+            "win-win situation",
+            "low hanging fruit",
+            "circle back",
+            "touch base",
+            "conduct an analysis of",
+            "provide assistance to",
+            "give consideration to"
+          ]
+        }
+      }
+    },
+    "P5_Engagement": {
+      "parameter_score": 2.0,
+      "weight": 0.1,
+      "contribution": 0.2,
+      "sub_parameters": {
+        "5A_Headline": {
+          "name": "Headline & Hook",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Weak hook. The headline promises value ('How to Target and Close High-Value Customers'), but the intro is a corporate jargon dump ('fast-paced business environment,' 'game changer,' 'move the needle'). It throws statistics at the reader instead of identifying a specific pain point. There's no empathy, no Pain-Agitate-Solve formula. The reader doesn't feel understood—they feel lectured. Rewrite the intro to start with a specific struggle (e.g., 'Your sales team is burning hours on leads that will never close six-figure deals').",
+          "flags": [
+            "In today's fast-paced business environment",
+            "game changer",
+            "move the needle",
+            "It's no secret that",
+            "provide assistance to sales teams",
+            "At the end of the day"
+          ]
+        },
+        "5B_SEO": {
+          "name": "SEO & Shareability",
+          "score": 2,
+          "weight": 0.05,
+          "feedback": "Generic/Weak Shareability. The content is a solid 101 guide, but the predicted LinkedIn caption is just 'Useful overview' – no strong opinion or status signal. The writing is plagued by unnatural corporate jargon ('conduct an analysis of,' 'provide assistance to,' 'give consideration to') that signals AI generation and hurts readability. Overuse of clichés ('game changer,' 'move the needle,' 'low hanging fruit') further weakens impact. A Sales Director would share this internally with their team as training material, not externally to boost their thought leadership status.",
+          "flags": [
+            "conduct an analysis of",
+            "provide assistance to",
+            "make a decision about",
+            "give consideration to",
+            "game changer",
+            "move the needle",
+            "at the end of the day",
+            "it's no secret",
+            "low hanging fruit",
+            "circle back",
+            "touch base"
+          ]
+        }
+      }
+    }
+  }
+}
