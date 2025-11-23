@@ -17,110 +17,319 @@ import tempfile
 
 # Page configuration
 st.set_page_config(
-    page_title="AI Content Scoring Agent",
-    page_icon="📊",
+    page_title="monday.com AI Content Scoring",
+    page_icon="✨",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for clean, modern design
+# monday.com Brand Design System
 st.markdown("""
 <style>
-    .main-header {
-        font-size: 2.5rem;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Figtree:wght@300;400;500;600;700&display=swap');
+
+    /* Global Styles */
+    * {
+        font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    h1, h2, h3, .header-text {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* monday.com Brand Colors */
+    :root {
+        --monday-purple: #6161FF;
+        --monday-dark: #181B34;
+        --monday-light: #F0F3FF;
+        --monday-white: #FFFFFF;
+        --green-done: #00CA72;
+        --yellow-working: #FFCC00;
+        --red-stuck: #FB275D;
+    }
+
+    /* Hide Streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+
+    /* Sidebar Styling */
+    [data-testid="stSidebar"] {
+        background: var(--monday-white);
+        border-right: 2px solid var(--monday-light);
+        padding-top: 1rem;
+    }
+
+    [data-testid="stSidebar"] .sidebar-content {
+        padding: 0;
+    }
+
+    /* Sidebar Content Items */
+    .sidebar-item {
+        padding: 0.75rem 1rem;
+        margin: 0.25rem 0.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--monday-white);
+        border: 1px solid #E6E9EF;
+    }
+
+    .sidebar-item:hover {
+        background: var(--monday-light);
+        transform: translateX(2px);
+    }
+
+    .sidebar-item-active {
+        background: var(--monday-light);
+        border-left: 4px solid var(--monday-purple);
+    }
+
+    .sidebar-score-badge {
         font-weight: 700;
-        color: #ffffff;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+    }
+
+    /* Main Header */
+    .main-header {
+        font-family: 'Poppins', sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--monday-dark);
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, var(--monday-purple), var(--red-stuck));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .sub-header {
+        font-size: 1.3rem;
+        color: #666;
+        margin-bottom: 2rem;
+        font-weight: 400;
+    }
+
+    /* Hero Metrics Cards */
+    .hero-metric-card {
+        background: linear-gradient(135deg, var(--monday-white) 0%, var(--monday-light) 100%);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 2px solid var(--monday-light);
+        box-shadow: 0 4px 6px rgba(97, 97, 255, 0.1);
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hero-metric-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(97, 97, 255, 0.15);
+    }
+
+    .hero-metric-value {
+        font-family: 'Poppins', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+
+    .hero-metric-label {
+        font-size: 1rem;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+    }
+
+    /* Metric Cards (smaller) */
+    .metric-card {
+        background: var(--monday-white);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 2px solid var(--monday-light);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Score Colors (monday.com palette) */
+    .score-excellent { color: var(--green-done); }
+    .score-good { color: var(--green-done); }
+    .score-moderate { color: var(--yellow-working); }
+    .score-warning { color: var(--yellow-working); }
+    .score-poor { color: var(--red-stuck); }
+
+    /* Status Boxes */
+    .strength-box {
+        background: linear-gradient(135deg, rgba(0, 202, 114, 0.1) 0%, rgba(0, 202, 114, 0.05) 100%);
+        border-left: 4px solid var(--green-done);
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+    }
+
+    .neutral-box {
+        background: linear-gradient(135deg, rgba(255, 204, 0, 0.1) 0%, rgba(255, 204, 0, 0.05) 100%);
+        border-left: 4px solid var(--yellow-working);
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+    }
+
+    .improvement-box {
+        background: linear-gradient(135deg, rgba(251, 39, 93, 0.1) 0%, rgba(251, 39, 93, 0.05) 100%);
+        border-left: 4px solid var(--red-stuck);
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+    }
+
+    .sub-param-header {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--monday-dark);
+    }
+
+    .sub-param-score {
+        font-size: 1.4rem;
+        font-weight: 700;
         margin-bottom: 0.5rem;
     }
-    .sub-header {
-        font-size: 1.2rem;
-        color: #cccccc;
-        margin-bottom: 2rem;
+
+    .sub-param-feedback {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: #555;
     }
-    .metric-card {
-        background: #f8f9fa;
-        padding: 1.5rem;
+
+    /* Flag Items */
+    .flag-item {
+        background: var(--monday-white);
+        padding: 0.875rem;
         border-radius: 8px;
-        border-left: 4px solid #5034ff;
+        margin-bottom: 0.5rem;
+        border-left: 3px solid var(--red-stuck);
+        color: var(--monday-dark);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
-    .score-excellent { color: #00c875; font-weight: bold; }
-    .score-good { color: #66bb6a; font-weight: bold; }
-    .score-pass { color: #9acd32; font-weight: bold; }
-    .score-warning { color: #fdab3d; font-weight: bold; }
-    .score-poor { color: #e44258; font-weight: bold; }
-    .violation-critical { background: #ffe5e5; padding: 0.5rem; border-radius: 4px; }
-    .violation-medium { background: #fff4e5; padding: 0.5rem; border-radius: 4px; }
-    .feedback-text {
-        max-width: 60%;
-        line-height: 1.5;
-        text-align: left;
+
+    /* CTA Button */
+    .cta-button {
+        background: linear-gradient(135deg, var(--monday-purple), #7B7BFF);
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(97, 97, 255, 0.3);
     }
+
+    .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(97, 97, 255, 0.4);
+    }
+
+    /* Content Display */
     .content-display {
-        color: #1a1a1a;
-        background: #f8f9fa;
+        background: var(--monday-white);
+        color: var(--monday-dark);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 2px solid var(--monday-light);
+        line-height: 1.8;
     }
+
+    /* Comparison Cards */
+    .comparison-card {
+        background: var(--monday-white);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 2px solid var(--monday-light);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .comparison-card-golden {
+        border-top: 4px solid var(--green-done);
+    }
+
+    .comparison-card-poison {
+        border-top: 4px solid var(--red-stuck);
+    }
+
+    /* Footer */
     .footer {
         text-align: center;
         color: #888;
         padding: 2rem 0 1rem 0;
         font-size: 0.9rem;
-        border-top: 1px solid #ddd;
-        margin-top: 3rem;
+        border-top: 2px solid var(--monday-light);
+        margin-top: 4rem;
     }
+
+    /* Tabs */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 2rem;
+        gap: 1rem;
+        background: var(--monday-light);
+        padding: 0.5rem;
+        border-radius: 12px;
     }
-    .strength-box {
-        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-        border-left: 4px solid #28a745;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-    }
-    .improvement-box {
-        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-        border-left: 4px solid #dc3545;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-    }
-    .neutral-box {
-        background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
-        border-left: 4px solid #ffc107;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-    }
-    .sub-param-header {
-        font-size: 1.1rem;
+
+    .stTabs [data-baseweb="tab"] {
+        font-family: 'Poppins', sans-serif;
         font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: #000000;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
     }
-    .sub-param-score {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+
+    .stTabs [aria-selected="true"] {
+        background: var(--monday-purple);
+        color: white;
     }
-    .sub-param-feedback {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: #2c3e50;
-    }
-    .flags-container {
-        background: #fff5f5;
-        border: 2px solid #e53e3e;
-        padding: 1rem;
+
+    /* Progress Bars */
+    .parameter-progress {
+        height: 12px;
+        background: var(--monday-light);
         border-radius: 6px;
-        margin-top: 1rem;
+        overflow: hidden;
+        margin: 0.5rem 0;
     }
-    .flag-item {
-        background: white;
-        padding: 0.75rem;
-        border-radius: 4px;
-        margin-bottom: 0.5rem;
-        border-left: 3px solid #e53e3e;
-        color: #1a1a1a;
+
+    .parameter-progress-fill {
+        height: 100%;
+        transition: width 0.6s ease;
+        border-radius: 6px;
+    }
+
+    /* Badge */
+    .badge {
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .badge-success {
+        background: rgba(0, 202, 114, 0.2);
+        color: var(--green-done);
+    }
+
+    .badge-warning {
+        background: rgba(255, 204, 0, 0.2);
+        color: #CC9900;
+    }
+
+    .badge-error {
+        background: rgba(251, 39, 93, 0.2);
+        color: var(--red-stuck);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -263,17 +472,38 @@ def calculate_metrics(reports):
     }
 
 def get_score_color_class(score):
-    """Return CSS class based on score"""
-    if score >= 3.5:
-        return "score-excellent"  # Vibrant green
+    """Return CSS class based on score (monday.com colors)"""
+    if score is None:
+        return "score-poor"
     elif score >= 3.0:
-        return "score-good"  # Medium green
+        return "score-excellent"  # Green (done)
     elif score >= 2.36:
-        return "score-pass"  # Yellow-green (at threshold)
-    elif score >= 2.0:
-        return "score-warning"  # Orange (approaching threshold)
+        return "score-moderate"  # Yellow (working on it)
     else:
-        return "score-poor"  # Red
+        return "score-poor"  # Red (stuck)
+
+def get_score_color_hex(score):
+    """Return hex color based on score (monday.com colors)"""
+    if score is None:
+        return "#FB275D"
+    elif score >= 3.0:
+        return "#00CA72"  # Green
+    elif score >= 2.36:
+        return "#FFCC00"  # Yellow
+    else:
+        return "#FB275D"  # Red
+
+def get_score_badge(score):
+    """Return HTML badge for score"""
+    color = get_score_color_hex(score)
+    if score is None:
+        return f'<span class="badge badge-error">N/A</span>'
+    elif score >= 3.0:
+        return f'<span class="badge badge-success">{score:.2f}</span>'
+    elif score >= 2.36:
+        return f'<span class="badge badge-warning">{score:.2f}</span>'
+    else:
+        return f'<span class="badge badge-error">{score:.2f}</span>'
 
 def display_metrics_overview(metrics):
     """Display overview metrics in cards"""
@@ -303,7 +533,7 @@ def display_metrics_overview(metrics):
             st.metric("Publish-Ready Rate", "TBD")
 
 def plot_parameter_scores(metrics):
-    """Plot parameter scores as bar chart"""
+    """Plot parameter scores as bar chart (monday.com colors)"""
     param_names = {
         'P1': 'P1: Challenger Tone',
         'P2': 'P2: Brand Hygiene',
@@ -317,22 +547,28 @@ def plot_parameter_scores(metrics):
         'Average Score': [metrics['avg_params'][k] for k in ['P1', 'P2', 'P3', 'P4', 'P5']]
     })
 
+    # monday.com color scale: red → yellow → green
     fig = px.bar(df, x='Parameter', y='Average Score',
                  title='Average Scores by Parameter',
                  color='Average Score',
-                 color_continuous_scale=['#e44258', '#fdab3d', '#9acd32', '#66bb6a', '#00c875'],
+                 color_continuous_scale=['#FB275D', '#FFCC00', '#00CA72'],
                  range_color=[1, 4],
                  range_y=[1, 4])
 
-    fig.update_layout(height=400, showlegend=False)
-    fig.add_hline(y=2.36, line_dash="solid", line_color="#5034ff", line_width=3,
+    fig.update_layout(
+        height=400,
+        showlegend=False,
+        font=dict(family="Figtree, sans-serif"),
+        title_font=dict(family="Poppins, sans-serif", size=18, color="#181B34")
+    )
+    fig.add_hline(y=2.36, line_dash="solid", line_color="#6161FF", line_width=3,
                   annotation_text="Publish-Ready Threshold (2.36)",
-                  annotation_font_color="#5034ff")
+                  annotation_font_color="#6161FF")
 
     return fig
 
 def plot_score_distribution(metrics):
-    """Plot distribution of overall scores"""
+    """Plot distribution of overall scores (monday.com colors)"""
     dist = metrics['overall_distribution']
 
     df = pd.DataFrame({
@@ -340,39 +576,213 @@ def plot_score_distribution(metrics):
         'Count': [dist['1-2'], dist['2-3'], dist['3-4']]
     })
 
-    colors = ['#e44258', '#fdab3d', '#00c875']
+    # monday.com colors: red (stuck), yellow (working), green (done)
+    colors = ['#FB275D', '#FFCC00', '#00CA72']
 
     fig = px.bar(df, x='Score Range', y='Count',
                  title='Distribution of Overall Scores',
                  color='Score Range',
                  color_discrete_sequence=colors)
 
-    fig.update_layout(height=400, showlegend=False)
+    fig.update_layout(
+        height=400,
+        showlegend=False,
+        font=dict(family="Figtree, sans-serif"),
+        title_font=dict(family="Poppins, sans-serif", size=18, color="#181B34")
+    )
 
     return fig
 
-def display_individual_report(report, content_folder):
-    """Display detailed view of a single report"""
-    st.markdown(f"### {report['metadata']['content_id']}")
+def display_dashboard_hero(metrics):
+    """Display hero section with AI accuracy and calibration proof"""
+    st.markdown('<div class="main-header">AI Content Scoring System</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">Intelligent evaluation of brand voice, strategic value, and engagement</div>', unsafe_allow_html=True)
 
-    # Two columns: content and analysis
-    col1, col2 = st.columns([1, 1])
+    # Hero metrics row
+    col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("#### Original Content")
+        avg_score = metrics['avg_overall']
+        score_color = get_score_color_hex(avg_score)
+        st.markdown(f"""
+        <div class="hero-metric-card">
+            <div class="hero-metric-label">Average Content Score</div>
+            <div class="hero-metric-value" style="color: {score_color};">{avg_score:.2f}</div>
+            <div style="color: #888; font-size: 0.95rem;">out of 4.0</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        pass_rate = (metrics['pass_count'] / metrics['total_pieces']) * 100 if metrics['total_pieces'] > 0 else 0
+        st.markdown(f"""
+        <div class="hero-metric-card">
+            <div class="hero-metric-label">Publish-Ready Rate</div>
+            <div class="hero-metric-value" style="color: #6161FF;">{pass_rate:.0f}%</div>
+            <div style="color: #888; font-size: 0.95rem;">{metrics['pass_count']} of {metrics['total_pieces']} pieces</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown(f"""
+        <div class="hero-metric-card">
+            <div class="hero-metric-label">Violations Caught</div>
+            <div class="hero-metric-value" style="color: #FB275D;">{metrics['total_violations']}</div>
+            <div style="color: #888; font-size: 0.95rem;">critical issues identified</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+def display_dashboard_insights(reports):
+    """Display top performers and needs improvement"""
+    st.markdown("### 📊 Content Insights")
+
+    col1, col2 = st.columns(2)
+
+    # Sort reports by score
+    sorted_reports = sorted([r for r in reports if r['results']['overall_score'] is not None],
+                          key=lambda x: x['results']['overall_score'], reverse=True)
+
+    with col1:
+        st.markdown("#### ✨ Top Performers")
+        top_3 = sorted_reports[:3] if len(sorted_reports) >= 3 else sorted_reports
+        for report in top_3:
+            score = report['results']['overall_score']
+            content_id = report['metadata']['content_id']
+            badge = get_score_badge(score)
+            st.markdown(f"""
+            <div class="metric-card" style="margin-bottom: 0.75rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-weight: 600; color: #181B34;">{content_id}</div>
+                    {badge}
+                </div>
+                <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">
+                    {report['results'].get('status', 'N/A')}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("#### 🎯 Needs Improvement")
+        bottom_3 = sorted_reports[-3:][::-1] if len(sorted_reports) >= 3 else []
+        for report in bottom_3:
+            score = report['results']['overall_score']
+            content_id = report['metadata']['content_id']
+            badge = get_score_badge(score)
+            violations = report['gates_status']['critical_violations_count']
+            st.markdown(f"""
+            <div class="metric-card" style="margin-bottom: 0.75rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-weight: 600; color: #181B34;">{content_id}</div>
+                    {badge}
+                </div>
+                <div style="font-size: 0.85rem; color: #FB275D; margin-top: 0.25rem;">
+                    {violations} violation{'s' if violations != 1 else ''}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+def render_sidebar_navigation(all_reports):
+    """Render sidebar navigation with content list"""
+    with st.sidebar:
+        st.markdown("### 📁 Content Library")
+
+        # Search bar
+        search = st.text_input("🔍 Search content...", key="sidebar_search")
+
+        # Group reports by category
+        home_reports = [r for r in all_reports if '/' not in r['_filename'] and not r['_filename'].startswith('tmp_')]
+        golden_reports = [r for r in all_reports if 'golden_set' in r['_filename']]
+        poison_reports = [r for r in all_reports if 'poison_set' in r['_filename']]
+
+        # Filter by search
+        if search:
+            home_reports = [r for r in home_reports if search.lower() in r['metadata']['content_id'].lower()]
+            golden_reports = [r for r in golden_reports if search.lower() in r['metadata']['content_id'].lower()]
+            poison_reports = [r for r in poison_reports if search.lower() in r['metadata']['content_id'].lower()]
+
+        selected_content = None
+
+        # Home Assignment section
+        if home_reports:
+            st.markdown("**📊 Home Assignment**")
+            for report in home_reports:
+                score = report['results']['overall_score']
+                content_id = report['metadata']['content_id']
+                color = get_score_color_hex(score)
+
+                if st.button(
+                    f"{content_id}",
+                    key=f"sidebar_{content_id}",
+                    use_container_width=True
+                ):
+                    selected_content = (report, "data/input")
+
+                # Show score inline
+                score_badge = get_score_badge(score)
+                st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+
+        # Golden Set section
+        if golden_reports:
+            st.markdown("---")
+            st.markdown("**🟢 Golden Set**")
+            for report in golden_reports[:5]:  # Limit to 5 for space
+                score = report['results']['overall_score']
+                content_id = report['metadata']['content_id']
+
+                if st.button(
+                    f"{content_id}",
+                    key=f"sidebar_golden_{content_id}",
+                    use_container_width=True
+                ):
+                    selected_content = (report, "data/calibration/golden_set")
+
+                score_badge = get_score_badge(score)
+                st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+
+        # Poison Set section
+        if poison_reports:
+            st.markdown("---")
+            st.markdown("**🔴 Poison Set**")
+            for report in poison_reports[:5]:  # Limit to 5 for space
+                score = report['results']['overall_score']
+                content_id = report['metadata']['content_id']
+
+                if st.button(
+                    f"{content_id}",
+                    key=f"sidebar_poison_{content_id}",
+                    use_container_width=True
+                ):
+                    selected_content = (report, "data/calibration/poison_set")
+
+                score_badge = get_score_badge(score)
+                st.markdown(f"<div style='text-align: right; margin-top: -2.5rem; margin-bottom: 1rem;'>{score_badge}</div>", unsafe_allow_html=True)
+
+        return selected_content
+
+def display_individual_report(report, content_folder):
+    """Display detailed view of a single report (redesigned with 60/40 split)"""
+    st.markdown(f'<h2 style="font-family: Poppins, sans-serif; color: #181B34;">{report["metadata"]["content_id"]}</h2>', unsafe_allow_html=True)
+
+    # Two columns: 60% content, 40% analysis
+    col1, col2 = st.columns([3, 2])
+
+    with col1:
+        st.markdown("#### 📄 Original Content")
         content = load_content_file(content_folder, report['_content_file'])
         if content:
             st.markdown(f"""
-            <div style="max-height: 600px; overflow-y: auto; padding: 1rem;
-                        background: #f8f9fa; border-radius: 8px; font-size: 0.9rem; color: #1a1a1a;">
-            {content[:5000]}{'...' if len(content) > 5000 else ''}
+            <div class="content-display" style="max-height: 700px; overflow-y: auto;">
+            {content[:8000]}{'...' if len(content) > 8000 else ''}
             </div>
             """, unsafe_allow_html=True)
         else:
             st.warning("Content file not found")
 
     with col2:
-        st.markdown("#### Analysis Report")
+        st.markdown("#### ⚡ AI Analysis")
 
         # Overall score
         score = report['results']['overall_score']
@@ -623,41 +1033,93 @@ def render_file_tree(tree, current_path='', level=0):
 
 # Main app
 def main():
-    st.markdown('<div class="main-header">monday.com Content Scoring Dashboard</div>',
-                unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">AI-powered challenger brand voice evaluation system | Made By Ron Bronstein</div>',
-                unsafe_allow_html=True)
+    # Load all reports for sidebar
+    all_reports_home = load_reports("data/reports")
+    all_reports_golden = load_reports("data/reports/golden_set")
+    all_reports_poison = load_reports("data/reports/poison_set")
 
-    # Main tabs
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "📊 Home Assignment Analysis",
-        "📈 Calibration Data",
+    # Combine and mark source
+    for r in all_reports_home:
+        r['_source'] = 'home'
+    for r in all_reports_golden:
+        r['_source'] = 'golden'
+    for r in all_reports_poison:
+        r['_source'] = 'poison'
+
+    all_reports = all_reports_home + all_reports_golden + all_reports_poison
+
+    # Render sidebar and get selection
+    selected_content = render_sidebar_navigation(all_reports)
+
+    # If content is selected from sidebar, show individual view
+    if selected_content:
+        report, content_folder = selected_content
+        display_individual_report(report, content_folder)
+        st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
+        return
+
+    # Otherwise, show dashboard
+    # Main tabs for different views
+    tab1, tab2, tab3 = st.tabs([
+        "🏠 Dashboard",
         "🔬 Live Analysis",
-        "📁 Repository"
+        "📁 Code Repository"
     ])
 
-    # Tab 1: Home Assignment Analysis (Real Files)
+    # Tab 1: Dashboard - Showcase AI capabilities
     with tab1:
-        st.markdown("## Home Assignment Analysis")
-        st.markdown("Analysis of production content (files in `data/input/`)")
-
-        # Load reports from main reports folder (excluding calibration)
-        all_reports = load_reports("data/reports")
-        # Filter out calibration subfolders and live analysis temp files
-        real_reports = [r for r in all_reports
+        # Filter home assignment reports
+        real_reports = [r for r in all_reports_home
                        if '/' not in r['_filename']
                        and not r['_filename'].startswith('tmp_')]
 
         if real_reports:
             metrics = calculate_metrics(real_reports)
 
-            # Overview metrics
-            st.markdown("### Overview Metrics")
-            display_metrics_overview(metrics)
+            # Hero section with key metrics
+            display_dashboard_hero(metrics)
 
-            st.markdown("---")
+            # AI Calibration Proof Section
+            st.markdown("### 🎯 AI Calibration Validation")
+            st.markdown("Proving the AI's ability to distinguish quality content")
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+                golden_metrics = calculate_metrics(all_reports_golden) if all_reports_golden else None
+                if golden_metrics:
+                    st.markdown(f"""
+                    <div class="comparison-card comparison-card-golden">
+                        <h4 style="color: #00CA72; font-family: Poppins, sans-serif;">🟢 Golden Set (Exemplary Content)</h4>
+                        <div class="hero-metric-value" style="color: #00CA72;">{golden_metrics['avg_overall']:.2f}</div>
+                        <div style="color: #666; margin-top: 0.5rem;">Average Score</div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E6E9EF;">
+                            <strong>{golden_metrics['pass_count']}/{golden_metrics['total_pieces']}</strong> pieces publish-ready
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+            with col2:
+                poison_metrics = calculate_metrics(all_reports_poison) if all_reports_poison else None
+                if poison_metrics:
+                    st.markdown(f"""
+                    <div class="comparison-card comparison-card-poison">
+                        <h4 style="color: #FB275D; font-family: Poppins, sans-serif;">🔴 Poison Set (Poor Content)</h4>
+                        <div class="hero-metric-value" style="color: #FB275D;">{poison_metrics['avg_overall']:.2f}</div>
+                        <div style="color: #666; margin-top: 0.5rem;">Average Score</div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E6E9EF;">
+                            <strong>{poison_metrics['pass_count']}/{poison_metrics['total_pieces']}</strong> pieces publish-ready
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            # Content Insights
+            display_dashboard_insights(real_reports)
 
             # Visualizations
+            st.markdown("### 📊 Score Analytics")
             col1, col2 = st.columns(2)
 
             with col1:
@@ -666,233 +1128,19 @@ def main():
             with col2:
                 st.plotly_chart(plot_score_distribution(metrics), use_container_width=True)
 
+            # Call to action
             st.markdown("---")
-
-            # Parameter Average Scores
-            st.markdown("### Parameter Average Scores (1-4 scale)")
-
-            param_names = {
-                'P1': 'P1: Challenger Tone',
-                'P2': 'P2: Brand Hygiene',
-                'P3': 'P3: Structural Clarity',
-                'P4': 'P4: Strategic Value',
-                'P5': 'P5: Engagement'
-            }
-
-            cols = st.columns(5)
-            for idx, (param_key, param_name) in enumerate(param_names.items()):
-                avg_score = metrics['avg_params'][param_key]
-                score_class = get_score_color_class(avg_score)
-                with cols[idx]:
-                    st.markdown(f"""
-                    <div class="metric-card" style="text-align: center;">
-                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">{param_name}</div>
-                        <div class="{score_class}" style="font-size: 1.8rem;">{avg_score:.2f}/4.0</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-            st.markdown("---")
-
-            # Sub-Parameter Average Scores
-            st.markdown("### Sub-Parameter Average Scores (1-4 scale)")
-
-            # Group sub-parameters by main parameter (P1-P5)
-            sub_param_groups = {
-                'P1': [
-                    ('1A_Positive', '1A: Positive'),
-                    ('1B_Direct', '1B: Direct'),
-                    ('1C_Trustworthy', '1C: Trustworthy'),
-                    ('1D_Sharp_Wit', '1D: Sharp Wit')
-                ],
-                'P2': [
-                    ('2A_Mechanical', '2A: Mechanical'),
-                    ('2B_Contextual', '2B: Contextual'),
-                    ('2C_Persona', '2C: Persona')
-                ],
-                'P3': [
-                    ('3A_BLUF', '3A: BLUF'),
-                    ('3B_Scannability', '3B: Scannability'),
-                    ('3C_Conciseness', '3C: Conciseness'),
-                    ('3D_Specificity', '3D: Specificity')
-                ],
-                'P4': [
-                    ('4A_Audience', '4A: Audience'),
-                    ('4B_Actionability', '4B: Actionability'),
-                    ('4C_Evidence', '4C: Evidence'),
-                    ('4D_Originality', '4D: Originality')
-                ],
-                'P5': [
-                    ('5A_Headline', '5A: Headline'),
-                    ('5B_SEO', '5B: SEO')
-                ]
-            }
-
-            # Display in 5 columns (one per main parameter)
-            cols = st.columns(5)
-            for idx, (param_key, sub_params) in enumerate(sub_param_groups.items()):
-                with cols[idx]:
-                    for sub_key, sub_name in sub_params:
-                        if sub_key in metrics['avg_sub_params']:
-                            avg_score = metrics['avg_sub_params'][sub_key]
-                            score_class = get_score_color_class(avg_score)
-                            st.markdown(f"""
-                            <div class="metric-card" style="text-align: center; padding: 1rem; margin-bottom: 1.2rem;">
-                                <div style="font-size: 0.95rem; font-weight: bold; color: #666; margin-bottom: 0.8rem;">{sub_name}</div>
-                                <div class="{score_class}" style="font-size: 1.5rem;">{avg_score:.2f}/4</div>
-                            </div>
-                            """, unsafe_allow_html=True)
-
-            st.markdown("---")
-
-            # Individual reports
-            st.markdown("### Individual Content Analysis")
-
-            content_ids = [r['metadata']['content_id'] for r in real_reports]
-            selected_content = st.selectbox("Select content to view:", content_ids, key='real_files_selector')
-
-            selected_report = next(r for r in real_reports if r['metadata']['content_id'] == selected_content)
-            display_individual_report(selected_report, "data/input")
+            st.markdown("### 💡 Explore More")
+            st.markdown("👈 **Click any content in the sidebar** to see detailed AI analysis with parameter breakdowns, violations, and actionable feedback.")
 
         else:
-            st.info("No real file analyses yet. Add content to `data/input/` and run:\n\n`python src/main.py analyze data/input/<file.txt>`")
+            st.info("No analyses yet. Add content to `data/input/` and run:\n\n`python src/main.py analyze data/input/<file.txt>`")
 
         # Footer
         st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
 
-    # Tab 2: Calibration
+    # Tab 2: Live Analysis
     with tab2:
-        st.markdown("## Calibration Dataset Analysis")
-        st.markdown("Compare scoring performance on **golden set** (exemplary content) vs **poison set** (poor content)")
-
-        dataset_type = st.radio("Select Dataset:", ["Golden Set", "Poison Set"], horizontal=True)
-
-        if dataset_type == "Golden Set":
-            reports_path = "data/reports/golden_set"
-            content_path = "data/calibration/golden_set"
-            st.info("📗 Analyzing high-quality, brand-aligned content")
-        else:
-            reports_path = "data/reports/poison_set"
-            content_path = "data/calibration/poison_set"
-            st.warning("📕 Analyzing poor-quality content (should score low)")
-
-        reports = load_reports(reports_path)
-
-        # Debug: Show how many reports were loaded
-        st.caption(f"Loaded {len(reports)} reports from {reports_path}")
-
-        if reports:
-            metrics = calculate_metrics(reports)
-
-            # Overview metrics
-            st.markdown("### Overview Metrics")
-            display_metrics_overview(metrics)
-
-            st.markdown("---")
-
-            # Visualizations
-            col1, col2 = st.columns(2)
-
-            with col1:
-                st.plotly_chart(plot_parameter_scores(metrics), use_container_width=True)
-
-            with col2:
-                st.plotly_chart(plot_score_distribution(metrics), use_container_width=True)
-
-            st.markdown("---")
-
-            # Parameter Average Scores
-            st.markdown("### Parameter Average Scores (1-4 scale)")
-
-            param_names = {
-                'P1': 'P1: Challenger Tone',
-                'P2': 'P2: Brand Hygiene',
-                'P3': 'P3: Structural Clarity',
-                'P4': 'P4: Strategic Value',
-                'P5': 'P5: Engagement'
-            }
-
-            cols = st.columns(5)
-            for idx, (param_key, param_name) in enumerate(param_names.items()):
-                avg_score = metrics['avg_params'][param_key]
-                score_class = get_score_color_class(avg_score)
-                with cols[idx]:
-                    st.markdown(f"""
-                    <div class="metric-card" style="text-align: center;">
-                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">{param_name}</div>
-                        <div class="{score_class}" style="font-size: 1.8rem;">{avg_score:.2f}/4.0</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-            st.markdown("---")
-
-            # Sub-Parameter Average Scores
-            st.markdown("### Sub-Parameter Average Scores (1-4 scale)")
-
-            # Group sub-parameters by main parameter (P1-P5)
-            sub_param_groups = {
-                'P1': [
-                    ('1A_Positive', '1A: Positive'),
-                    ('1B_Direct', '1B: Direct'),
-                    ('1C_Trustworthy', '1C: Trustworthy'),
-                    ('1D_Sharp_Wit', '1D: Sharp Wit')
-                ],
-                'P2': [
-                    ('2A_Mechanical', '2A: Mechanical'),
-                    ('2B_Contextual', '2B: Contextual'),
-                    ('2C_Persona', '2C: Persona')
-                ],
-                'P3': [
-                    ('3A_BLUF', '3A: BLUF'),
-                    ('3B_Scannability', '3B: Scannability'),
-                    ('3C_Conciseness', '3C: Conciseness'),
-                    ('3D_Specificity', '3D: Specificity')
-                ],
-                'P4': [
-                    ('4A_Audience', '4A: Audience'),
-                    ('4B_Actionability', '4B: Actionability'),
-                    ('4C_Evidence', '4C: Evidence'),
-                    ('4D_Originality', '4D: Originality')
-                ],
-                'P5': [
-                    ('5A_Headline', '5A: Headline'),
-                    ('5B_SEO', '5B: SEO')
-                ]
-            }
-
-            # Display in 5 columns (one per main parameter)
-            cols = st.columns(5)
-            for idx, (param_key, sub_params) in enumerate(sub_param_groups.items()):
-                with cols[idx]:
-                    for sub_key, sub_name in sub_params:
-                        if sub_key in metrics['avg_sub_params']:
-                            avg_score = metrics['avg_sub_params'][sub_key]
-                            score_class = get_score_color_class(avg_score)
-                            st.markdown(f"""
-                            <div class="metric-card" style="text-align: center; padding: 1rem; margin-bottom: 1.2rem;">
-                                <div style="font-size: 0.95rem; font-weight: bold; color: #666; margin-bottom: 0.8rem;">{sub_name}</div>
-                                <div class="{score_class}" style="font-size: 1.5rem;">{avg_score:.2f}/4</div>
-                            </div>
-                            """, unsafe_allow_html=True)
-
-            st.markdown("---")
-
-            # Individual reports
-            st.markdown("### Individual Content Analysis")
-
-            content_ids = [r['metadata']['content_id'] for r in reports]
-            selected_content = st.selectbox("Select content to view:", content_ids)
-
-            selected_report = next(r for r in reports if r['metadata']['content_id'] == selected_content)
-            display_individual_report(selected_report, content_path)
-
-        else:
-            st.warning(f"No reports found in {reports_path}. Run batch analysis first:\n\n`python src/main.py batch {content_path}`")
-
-        # Footer
-        st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
-
-    # Tab 3: Live Analysis
-    with tab3:
         st.markdown("## Live Content Analysis")
 
         st.warning("⚠️ **Disclaimer**: Content entered here is used for temporary analysis only. "
@@ -970,8 +1218,8 @@ def main():
         # Footer
         st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
 
-    # Tab 4: Repository
-    with tab4:
+    # Tab 3: Repository
+    with tab3:
         st.markdown("## Repository Explorer")
         st.markdown("Browse the codebase, prompts, and data (docs folder excluded)")
 
