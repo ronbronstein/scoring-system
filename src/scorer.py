@@ -166,18 +166,21 @@ def evaluate_gates(
     # Check Layer 1 flags (2A_Mechanical)
     layer_1_critical = [f for f in layer_1_flags if f["severity"] == "Critical"]
 
-    # Check Layer 2 P2 agents (2B_Contextual, 2C_Persona) for critical flags
+    # Check Layer 2 P2 agents (2B_Contextual, 2C_Persona)
+    # These agents use binary scoring: Score 1 = Critical Fail, Score 4 = Pass
+    # Any score of 1 from these agents should trigger Gate 3 failure
     p2_brand_hygiene = parameter_scores.get("P2_Brand_Hygiene", {}).get("sub_parameters", {})
 
-    # Check 2B_Contextual
-    agent_2b_flags = p2_brand_hygiene.get("2B_Contextual", {}).get("flags", [])
-    agent_2b_critical = [f for f in agent_2b_flags if isinstance(f, dict) and f.get("severity") == "Critical"]
+    # Check 2B_Contextual: Score 1 = Critical brand violation
+    agent_2b_score = p2_brand_hygiene.get("2B_Contextual", {}).get("score")
+    agent_2b_critical = 1 if agent_2b_score == 1 else 0
 
-    # Check 2C_Persona
-    agent_2c_flags = p2_brand_hygiene.get("2C_Persona", {}).get("flags", [])
-    agent_2c_critical = [f for f in agent_2c_flags if isinstance(f, dict) and f.get("severity") == "Critical"]
+    # Check 2C_Persona: Score 1 = Critical persona violation
+    agent_2c_score = p2_brand_hygiene.get("2C_Persona", {}).get("score")
+    agent_2c_critical = 1 if agent_2c_score == 1 else 0
 
-    gate_3_pass = len(layer_1_critical) == 0 and len(agent_2b_critical) == 0 and len(agent_2c_critical) == 0
+    # Gate 3 passes only if zero critical violations across all P2 sub-parameters
+    gate_3_pass = len(layer_1_critical) == 0 and agent_2b_critical == 0 and agent_2c_critical == 0
 
     # Determine publish-ready status
     # Can only be True if ALL gates pass
@@ -206,7 +209,7 @@ def evaluate_gates(
         "gate_3_brand_veto_passed": gate_3_pass,
         "publish_ready": publish_ready,
         "status": status,
-        "critical_violations_count": len(layer_1_critical) + len(agent_2b_critical) + len(agent_2c_critical),
+        "critical_violations_count": len(layer_1_critical) + agent_2b_critical + agent_2c_critical,
     }
 
 

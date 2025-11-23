@@ -8,14 +8,14 @@
   },
   "results": {
     "overall_score": 1.63,
-    "publish_ready": null,
-    "status": "Cannot Determine (Thresholds TBD)"
+    "publish_ready": false,
+    "status": "Critical Violations (Brand Veto)"
   },
   "gates_status": {
     "gate_1_overall_threshold_met": null,
     "gate_2_tone_veto_passed": null,
-    "gate_3_brand_veto_passed": true,
-    "critical_violations_count": 0
+    "gate_3_brand_veto_passed": false,
+    "critical_violations_count": 1
   },
   "parameters": {
     "P1_Challenger_Tone": {
