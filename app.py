@@ -1073,37 +1073,32 @@ def build_file_tree(root_path='.'):
 
 def render_file_tree(tree, current_path='', level=0):
     """Recursively render file tree with collapsible folders"""
-    selected_file = None
-    indent = "  " * level
-
     # Render directories first
     for dir_name, subtree in tree['dirs'].items():
         dir_path = f"{current_path}/{dir_name}" if current_path else dir_name
 
         # Use expander for folders (collapsed by default)
         with st.expander(f"📁 {dir_name}", expanded=False):
-            result = render_file_tree(subtree, dir_path, level + 1)
-            if result:
-                selected_file = result
+            render_file_tree(subtree, dir_path, level + 1)
 
     # Render files
     for file_name in tree['files']:
         file_path = f"{current_path}/{file_name}" if current_path else file_name
         # Use smaller button styling
         if st.button(f"📄 {file_name}", key=file_path, use_container_width=True):
-            selected_file = file_path
-
-    return selected_file
+            st.session_state.selected_file = file_path
 
 # Main app
 def main():
-    # Initialize session state for selected content and active tab
+    # Initialize session state for selected content, active tab, and selected file
     if 'selected_content' not in st.session_state:
         st.session_state.selected_content = None
     if 'active_tab' not in st.session_state:
         st.session_state.active_tab = 0  # Default to Dashboard
     if 'preserve_tab' not in st.session_state:
         st.session_state.preserve_tab = False
+    if 'selected_file' not in st.session_state:
+        st.session_state.selected_file = None
 
     # Load all reports for sidebar
     all_reports_raw = load_reports("data/reports")
@@ -1133,7 +1128,7 @@ def main():
     # Always show tabs for navigation
     tab1, tab2, tab3 = st.tabs([
         "🏠 Dashboard",
-        "📁 Code Repository",
+        "📁 Project Files",
         "🔬 Live Analysis"
     ])
 
@@ -1225,9 +1220,9 @@ def main():
             st.markdown("### 💡 Explore More")
             st.markdown("👈 **Click any content in the sidebar** to see detailed AI analysis with parameter breakdowns, violations, and actionable feedback.")
 
-    # Tab 2: Repository
+    # Tab 2: Project Files
     with tab2:
-        st.markdown("## Repository Explorer")
+        st.markdown("## Project Files")
         st.markdown("Browse the codebase, prompts, and data (docs folder excluded)")
 
         # Build file tree
@@ -1251,15 +1246,15 @@ def main():
             </style>
             """, unsafe_allow_html=True)
 
-            # Render the file tree and get selected file
-            selected_file = render_file_tree(file_tree)
+            # Render the file tree (selected file is stored in session state)
+            render_file_tree(file_tree)
 
         with col2:
-            # File viewer
-            if selected_file:
-                st.markdown(f"### {selected_file}")
+            # File viewer - use session state instead of return value
+            if st.session_state.selected_file:
+                st.markdown(f"### {st.session_state.selected_file}")
 
-                file_path = Path(selected_file)
+                file_path = Path(st.session_state.selected_file)
                 if file_path.exists():
                     content = file_path.read_text()
 
@@ -1274,7 +1269,7 @@ def main():
 
                     st.code(content, language=lang, line_numbers=True)
                 else:
-                    st.error(f"File not found: {selected_file}")
+                    st.error(f"File not found: {st.session_state.selected_file}")
             else:
                 st.info("👈 Select a file from the left to view its contents")
 
