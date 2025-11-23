@@ -846,10 +846,24 @@ def display_category_metrics(metrics, category_name, category_emoji):
     score_color = get_score_color_hex(avg_score)
     pass_rate = (metrics['pass_count'] / metrics['total_pieces']) * 100 if metrics['total_pieces'] > 0 else 0
 
+    # Category-specific tooltip descriptions
+    category_tooltips = {
+        "Home Assignment": "Your actual content submissions - analyzed with the same 16-agent system that evaluates monday.com's published posts. This is the real test.",
+        "Golden Set": "Exemplary monday.com posts scoring 3+ across all parameters. These showcase the Challenger Brand voice at its best - direct, witty, and packed with strategic value.",
+        "Poison Set": "Poor-quality examples scoring below 2 - generic corporate fluff that fails the Coffee Shop Test. Proves the AI can spot the difference between sharp and boring."
+    }
+
+    tooltip_text = category_tooltips.get(category_name, "")
+
     st.markdown(f"""
     <div class="hero-metric-card">
         <div style="font-family: Poppins, sans-serif; font-size: 1.1rem; font-weight: 600; color: #181B34; margin-bottom: 1rem;">
-            {category_emoji} {category_name}
+            <span class="tooltip-trigger" style="border-bottom: 1px dotted #6161FF;">
+                {category_emoji} {category_name}
+                <div class="tooltip-content">
+                    {tooltip_text}
+                </div>
+            </span>
         </div>
         <div style="margin-bottom: 0.75rem;">
             <div class="tooltip-trigger" style="font-size: 0.75rem; color: #666; text-transform: uppercase; display: inline-block;">
