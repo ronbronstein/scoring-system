@@ -438,6 +438,111 @@ st.markdown("""
         background: var(--red-stuck);
         color: white;
     }
+
+    /* Number Counting Animation */
+    @keyframes countUp {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .animate-count {
+        animation: countUp 0.3s ease-out;
+    }
+
+    /* Staggered Card Reveal Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hero-metric-card {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+    }
+
+    .hero-metric-card:nth-child(1) { animation-delay: 0.1s; }
+    .hero-metric-card:nth-child(2) { animation-delay: 0.2s; }
+    .hero-metric-card:nth-child(3) { animation-delay: 0.3s; }
+
+    /* Tooltip System */
+    .tooltip-trigger {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted var(--monday-purple);
+        cursor: help;
+    }
+
+    .tooltip-content {
+        visibility: hidden;
+        opacity: 0;
+        width: 320px;
+        background: var(--monday-dark);
+        color: white;
+        text-align: left;
+        border-radius: 8px;
+        padding: 1rem;
+        position: absolute;
+        z-index: 1000;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        font-size: 0.85rem;
+        line-height: 1.5;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .tooltip-content::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--monday-dark) transparent transparent transparent;
+    }
+
+    .tooltip-trigger:hover .tooltip-content {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Number Counter Script */
+    <\/style>
+    <script>
+        function animateValue(element, start, end, duration) {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(function() {
+                current += increment;
+                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                    current = end;
+                    clearInterval(timer);
+                }
+                element.textContent = current.toFixed(2);
+            }, 16);
+        }
+
+        // Auto-trigger on page load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.animate-number').forEach(function(el) {
+                    const target = parseFloat(el.getAttribute('data-value'));
+                    animateValue(el, 0, target, 1500);
+                });
+            }, 100);
+        });
+    <\/script>
 </style>
 """, unsafe_allow_html=True)
 
@@ -687,7 +792,14 @@ def plot_parameter_scores(metrics):
         height=400,
         showlegend=False,
         font=dict(family="Figtree, sans-serif"),
-        title_font=dict(family="Poppins, sans-serif", size=18, color="#181B34")
+        title_font=dict(family="Poppins, sans-serif", size=18, color="#181B34"),
+        transition={'duration': 800, 'easing': 'cubic-out'},
+        hovermode='x unified'
+    )
+    fig.update_traces(
+        marker_line_width=0.5,
+        marker_line_color='rgba(255,255,255,0.8)',
+        selector=dict(type='bar')
     )
     fig.add_hline(y=2.36, line_dash="solid", line_color="#6161FF", line_width=3,
                   annotation_text="Publish-Ready Threshold (2.36)",
@@ -716,13 +828,20 @@ def plot_score_distribution(metrics):
         height=400,
         showlegend=False,
         font=dict(family="Figtree, sans-serif"),
-        title_font=dict(family="Poppins, sans-serif", size=18, color="#181B34")
+        title_font=dict(family="Poppins, sans-serif", size=18, color="#181B34"),
+        transition={'duration': 800, 'easing': 'cubic-out'},
+        hovermode='x'
+    )
+    fig.update_traces(
+        marker_line_width=0.5,
+        marker_line_color='rgba(255,255,255,0.8)',
+        selector=dict(type='bar')
     )
 
     return fig
 
 def display_category_metrics(metrics, category_name, category_emoji):
-    """Display metrics for a specific category"""
+    """Display metrics for a specific category with animated numbers"""
     avg_score = metrics['avg_overall']
     score_color = get_score_color_hex(avg_score)
     pass_rate = (metrics['pass_count'] / metrics['total_pieces']) * 100 if metrics['total_pieces'] > 0 else 0
@@ -734,10 +853,12 @@ def display_category_metrics(metrics, category_name, category_emoji):
         </div>
         <div style="margin-bottom: 0.75rem;">
             <div style="font-size: 0.75rem; color: #666; text-transform: uppercase;">Avg Score</div>
-            <div style="font-family: Poppins, sans-serif; font-size: 2rem; font-weight: 600; color: {score_color};">{avg_score:.2f}</div>
+            <div style="font-family: Poppins, sans-serif; font-size: 2rem; font-weight: 600; color: {score_color};">
+                <span class="animate-number" data-value="{avg_score}">{avg_score:.2f}</span>
+            </div>
         </div>
         <div style="padding-top: 0.75rem; border-top: 1px solid #F0F0F0;">
-            <div style="font-size: 0.75rem; color: #666;">Publish-Ready: <strong>{pass_rate:.0f}%</strong></div>
+            <div style="font-size: 0.75rem; color: #666;">Publish-Ready: <strong><span class="animate-number" data-value="{pass_rate}">{pass_rate:.0f}</span>%</strong></div>
             <div style="font-size: 0.75rem; color: #666;">Violations: <strong>{metrics['total_violations']}</strong></div>
             <div style="font-size: 0.75rem; color: #999;">{metrics['total_pieces']} pieces</div>
         </div>
@@ -938,29 +1059,58 @@ def display_individual_report(report, content_folder):
 
         st.markdown("---")
 
-        # Gates status
-        st.markdown("**3-Gate Status**")
+        # Gates status with tooltips
+        st.markdown("""
+        <div class="tooltip-trigger">
+            <strong>3-Gate Status</strong>
+            <div class="tooltip-content">
+                The 3-gate system ensures quality through cumulative checks. All 3 gates must pass for content to be publish-ready.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
         gates = report['gates_status']
 
-        gate_labels = {
-            'gate_1_overall_threshold_met': 'Gate 1: Overall Threshold',
-            'gate_2_tone_veto_passed': 'Gate 2: Tone Minimum (Boredom Veto)',
-            'gate_3_brand_veto_passed': 'Gate 3: Zero Critical Violations (Brand Veto)'
+        gate_info = {
+            'gate_1_overall_threshold_met': {
+                'label': 'Gate 1: Overall Threshold',
+                'tooltip': 'Score ≥ 2.36 to pass. Combines all 5 parameters to hit the challenger brand standard.'
+            },
+            'gate_2_tone_veto_passed': {
+                'label': 'Gate 2: Tone Minimum (Boredom Veto)',
+                'tooltip': 'Tone ≥ 2.51 to avoid the boredom penalty. Generic content fails regardless of other qualities.'
+            },
+            'gate_3_brand_veto_passed': {
+                'label': 'Gate 3: Zero Critical Violations (Brand Veto)',
+                'tooltip': 'Zero tolerance for brand violations. One slip (like "Monday.com" or "Tool") fails the entire piece.'
+            }
         }
 
-        for gate_key, gate_label in gate_labels.items():
+        for gate_key, info in gate_info.items():
             status = gates[gate_key]
-            if status is True:
-                st.success(f"✅ {gate_label}")
-            elif status is False:
-                st.error(f"❌ {gate_label}")
-            else:
-                st.info(f"⏸️ {gate_label} (TBD)")
+            status_icon = "✅" if status is True else ("❌" if status is False else "⏸️")
+            status_text = info['label'] + (" (TBD)" if status is None else "")
+
+            st.markdown(f"""
+            <div class="tooltip-trigger" style="margin: 0.5rem 0;">
+                {status_icon} {status_text}
+                <div class="tooltip-content">{info['tooltip']}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
         st.markdown("---")
 
-        # Parameter scores
+        # Parameter scores with tooltips
         st.markdown("**Parameter Scores (1-4 scale)**")
+
+        param_tooltips = {
+            'P1_Challenger_Tone': 'The spiciness factor (30% weight). Are you fluff-free while sounding human? This checks if you write like a smart colleague, not a brochure.',
+            'P2_Brand_Hygiene': 'Brand hygiene (5% weight + veto power). Non-negotiable rules like lowercase monday.com, "customers" not "users", and "sub-items" not "sub-tasks".',
+            'P3_Structural_Clarity': 'Get to the point (25% weight). Sales leaders don't have time for rhetorical questions or dictionary definitions—deliver value in paragraph 1.',
+            'P4_Strategic_Value': 'Substance equals style (30% weight). Does this piece give Sales Leaders actionable insight they can use Monday morning?',
+            'P5_Engagement': 'Stop the scroll (10% weight). Does your headline promise a benefit, not just announce a topic?'
+        }
+
         for param_key in ['P1_Challenger_Tone', 'P2_Brand_Hygiene', 'P3_Structural_Clarity',
                          'P4_Strategic_Value', 'P5_Engagement']:
             param_data = report['parameters'][param_key]
@@ -968,8 +1118,12 @@ def display_individual_report(report, content_folder):
             param_name = param_key.replace('_', ' ')
 
             score_class = get_score_color_class(param_score)
-            st.markdown(f"**{param_name}**: <span class='{score_class}'>{param_score:.2f}/4.0</span>",
-                       unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class="tooltip-trigger">
+                <strong>{param_name}</strong>: <span class='{score_class}'>{param_score:.2f}/4.0</span>
+                <div class="tooltip-content">{param_tooltips[param_key]}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
             # Show sub-parameters in expander
             with st.expander(f"View {param_key} Details", expanded=False):
@@ -1296,7 +1450,7 @@ def main():
             # Call to action
             st.markdown("---")
             st.markdown("### 💡 Explore More")
-            st.markdown("👈 **Click any content in the sidebar** to see detailed AI analysis with parameter breakdowns, violations, and actionable feedback.")
+            st.markdown("👈 **Pick any piece** to see how the AI broke down tone, structure, and strategic value.")
 
     # Tab 2: Project Files
     with tab2:
@@ -1358,13 +1512,12 @@ def main():
     with tab3:
         st.markdown("## Live Content Analysis")
 
-        st.warning("⚠️ **Disclaimer**: Content entered here is used for temporary analysis only. "
-                  "It will not be saved and will be deleted when you leave this page.")
+        st.info("💡 **Quick Test**: Drop your content below to see how it scores against monday.com's challenger brand standard. Analysis is temporary and not saved.")
 
         content_input = st.text_area(
             "Paste your content here:",
             height=300,
-            placeholder="Paste your blog post, article, or marketing copy here..."
+            placeholder="Drop your blog post, article, or marketing copy here—then hit Analyze to see how the AI breaks down tone, structure, and strategic value..."
         )
 
         col1, col2, col3 = st.columns([1, 1, 3])
@@ -1373,16 +1526,33 @@ def main():
             analyze_button = st.button("🔬 Analyze Content", type="primary")
 
         if analyze_button and content_input.strip():
-            with st.spinner("Running analysis... This may take 30-60 seconds."):
+            with st.status("Analyzing content...", expanded=True) as status:
+                st.write("🔍 Running Layer 1: Brand compliance checks...")
                 result = run_analysis(content_input)
 
+                if 'error' not in result:
+                    st.write("📝 Executing Layer 2: 16 AI agents evaluating tone, structure, value...")
+                    st.write("✨ Aggregating scores and generating report...")
+                    status.update(label="✅ Analysis complete!", state="complete", expanded=False)
+
             if 'error' in result:
-                st.error(f"Analysis failed: {result['error']}")
+                st.error(f"⚠️ Oops! Analysis hit a snag: {result['error']}")
                 if 'raw' in result:
-                    with st.expander("View raw output"):
+                    with st.expander("View technical details"):
                         st.code(result['raw'])
             else:
-                st.success("✅ Analysis complete!")
+                # Get score for contextual message
+                score = result['results']['overall_score']
+                threshold = 2.36
+                gap = threshold - score if score < threshold else 0
+
+                # Contextual success message based on score
+                if score >= 3.5:
+                    st.success(f"✨ Exceptional! Scored {score:.2f}/4.0—this hits the challenger standard.")
+                elif score >= threshold:
+                    st.success(f"✅ Publishable. Scored {score:.2f}/4.0—cleared the threshold.")
+                else:
+                    st.warning(f"⚠️ Needs work. Scored {score:.2f}/4.0—just {gap:.2f} points below publish-ready.")
 
                 # Display results
                 score = result['results']['overall_score']
