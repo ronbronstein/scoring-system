@@ -55,6 +55,9 @@ output/
 !package-lock.json
 !data/reports/**/*.json
 
+# Calibration manifests (generated files)
+data/calibration/poison_set/*.json
+
 # Temporary files
 *.tmp
 *.temp
