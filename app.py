@@ -400,43 +400,6 @@ st.markdown("""
         color: white;
     }
 
-    /* Radio Button Navigation Styled as Tabs */
-    div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div > div[data-testid="stVerticalBlock"] > div[role="radiogroup"] {
-        background: var(--monday-light) !important;
-        padding: 0.5rem !important;
-        border-radius: 12px !important;
-        display: flex !important;
-        gap: 1rem !important;
-    }
-
-    div[role="radiogroup"] label {
-        font-family: 'Poppins', sans-serif !important;
-        font-weight: 600 !important;
-        border-radius: 8px !important;
-        padding: 0.75rem 1.5rem !important;
-        background: transparent !important;
-        color: var(--monday-dark) !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-    }
-
-    div[role="radiogroup"] label:hover {
-        background: rgba(97, 97, 255, 0.1) !important;
-    }
-
-    div[role="radiogroup"] label[data-checked="true"] {
-        background: var(--monday-purple) !important;
-        color: white !important;
-    }
-
-    /* Hide the radio button circle */
-    div[role="radiogroup"] label input[type="radio"] {
-        display: none !important;
-    }
-
-    div[role="radiogroup"] label > div:first-child {
-        display: none !important;
-    }
 
     /* Progress Bars */
     .parameter-progress {
@@ -992,10 +955,24 @@ def render_sidebar_navigation(all_reports):
     with st.sidebar:
         st.markdown("### 📁 Navigation")
 
-        # Dashboard button (resets to overview)
-        if st.button("🏠 Dashboard", key="sidebar_dashboard", use_container_width=True, type="primary"):
+        # Main page navigation buttons
+        if st.button("🏠 Dashboard", key="nav_dashboard", use_container_width=True,
+                     type="primary" if st.session_state.current_page == "dashboard" else "secondary"):
+            st.session_state.current_page = "dashboard"
             st.session_state.selected_content = None
 
+        if st.button("📁 Project Files", key="nav_project_files", use_container_width=True,
+                     type="primary" if st.session_state.current_page == "project_files" else "secondary"):
+            st.session_state.current_page = "project_files"
+            st.session_state.selected_file = None
+
+        if st.button("🔬 Live Analysis", key="nav_live_analysis", use_container_width=True,
+                     type="primary" if st.session_state.current_page == "live_analysis" else "secondary"):
+            st.session_state.current_page = "live_analysis"
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("---")
+        st.markdown("### 📄 Content Library")
         st.markdown("<br>", unsafe_allow_html=True)
 
         # Group reports by source
@@ -1021,6 +998,7 @@ def render_sidebar_navigation(all_reports):
                         key=f"sidebar_home_{idx}_{content_id}",
                         use_container_width=True
                     ):
+                        st.session_state.current_page = "dashboard"
                         selected_content = (report, "data/input")
 
                     # Show score badge positioned below button
@@ -1042,6 +1020,7 @@ def render_sidebar_navigation(all_reports):
                         key=f"sidebar_golden_{idx}_{content_id}",
                         use_container_width=True
                     ):
+                        st.session_state.current_page = "dashboard"
                         selected_content = (report, "data/calibration/golden_set")
 
                     score_badge = get_score_badge(score)
@@ -1062,6 +1041,7 @@ def render_sidebar_navigation(all_reports):
                         key=f"sidebar_poison_{idx}_{content_id}",
                         use_container_width=True
                     ):
+                        st.session_state.current_page = "dashboard"
                         selected_content = (report, "data/calibration/poison_set")
 
                     score_badge = get_score_badge(score)
@@ -1435,11 +1415,11 @@ def render_file_tree(tree, current_path='', level=0):
 
 # Main app
 def main():
-    # Initialize session state for selected content, active tab, and selected file
+    # Initialize session state for selected content, current page, and selected file
     if 'selected_content' not in st.session_state:
         st.session_state.selected_content = None
-    if 'active_tab' not in st.session_state:
-        st.session_state.active_tab = "Dashboard"  # Default to Dashboard
+    if 'current_page' not in st.session_state:
+        st.session_state.current_page = "dashboard"  # Default to dashboard
     if 'selected_file' not in st.session_state:
         st.session_state.selected_file = None
 
@@ -1468,32 +1448,8 @@ def main():
     if selected_content:
         st.session_state.selected_content = selected_content
 
-    # Custom tab navigation using radio buttons (avoids Streamlit tabs bug)
-    tab_options = ["🏠 Dashboard", "📁 Project Files", "🔬 Live Analysis"]
-    tab_mapping = {
-        "🏠 Dashboard": "Dashboard",
-        "📁 Project Files": "Project Files",
-        "🔬 Live Analysis": "Live Analysis"
-    }
-
-    # Get the index for the current active tab
-    display_name = [k for k, v in tab_mapping.items() if v == st.session_state.active_tab][0]
-    current_index = tab_options.index(display_name)
-
-    # Radio button navigation styled as tabs
-    selected_display = st.radio(
-        "",
-        tab_options,
-        index=current_index,
-        horizontal=True,
-        label_visibility="collapsed"
-    )
-
-    # Update session state with selected tab
-    st.session_state.active_tab = tab_mapping[selected_display]
-
-    # Tab 1: Dashboard - Showcase AI capabilities
-    if st.session_state.active_tab == "Dashboard":
+    # Page 1: Dashboard - Showcase AI capabilities
+    if st.session_state.current_page == "dashboard":
         # If content is selected, show individual view
         if st.session_state.selected_content:
             report, content_folder = st.session_state.selected_content
@@ -1598,8 +1554,8 @@ def main():
             st.markdown("### 💡 Explore More")
             st.markdown("👈 **Pick any piece** to see how the AI broke down tone, structure, and strategic value.")
 
-    # Tab 2: Project Files
-    if st.session_state.active_tab == "Project Files":
+    # Page 2: Project Files
+    if st.session_state.current_page == "project_files":
         st.markdown("## Project Files")
         st.markdown("Browse the codebase, prompts, and data (docs folder excluded)")
 
@@ -1654,8 +1610,8 @@ def main():
         # Footer
         st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
 
-    # Tab 3: Live Analysis
-    if st.session_state.active_tab == "Live Analysis":
+    # Page 3: Live Analysis
+    if st.session_state.current_page == "live_analysis":
         st.markdown("## Live Content Analysis")
 
         st.info("💡 **Quick Test**: Drop your content below to see how it scores against monday.com's challenger brand standard. Analysis is temporary and not saved.")
