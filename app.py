@@ -400,6 +400,44 @@ st.markdown("""
         color: white;
     }
 
+    /* Radio Button Navigation Styled as Tabs */
+    div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div > div[data-testid="stVerticalBlock"] > div[role="radiogroup"] {
+        background: var(--monday-light) !important;
+        padding: 0.5rem !important;
+        border-radius: 12px !important;
+        display: flex !important;
+        gap: 1rem !important;
+    }
+
+    div[role="radiogroup"] label {
+        font-family: 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1.5rem !important;
+        background: transparent !important;
+        color: var(--monday-dark) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+    }
+
+    div[role="radiogroup"] label:hover {
+        background: rgba(97, 97, 255, 0.1) !important;
+    }
+
+    div[role="radiogroup"] label[data-checked="true"] {
+        background: var(--monday-purple) !important;
+        color: white !important;
+    }
+
+    /* Hide the radio button circle */
+    div[role="radiogroup"] label input[type="radio"] {
+        display: none !important;
+    }
+
+    div[role="radiogroup"] label > div:first-child {
+        display: none !important;
+    }
+
     /* Progress Bars */
     .parameter-progress {
         height: 12px;
@@ -957,7 +995,6 @@ def render_sidebar_navigation(all_reports):
         # Dashboard button (resets to overview)
         if st.button("🏠 Dashboard", key="sidebar_dashboard", use_container_width=True, type="primary"):
             st.session_state.selected_content = None
-            # Note: No st.rerun() to avoid tab navigation issues
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -1402,9 +1439,7 @@ def main():
     if 'selected_content' not in st.session_state:
         st.session_state.selected_content = None
     if 'active_tab' not in st.session_state:
-        st.session_state.active_tab = 0  # Default to Dashboard
-    if 'preserve_tab' not in st.session_state:
-        st.session_state.preserve_tab = False
+        st.session_state.active_tab = "Dashboard"  # Default to Dashboard
     if 'selected_file' not in st.session_state:
         st.session_state.selected_file = None
 
@@ -1433,15 +1468,32 @@ def main():
     if selected_content:
         st.session_state.selected_content = selected_content
 
-    # Always show tabs for navigation
-    tab1, tab2, tab3 = st.tabs([
-        "🏠 Dashboard",
-        "📁 Project Files",
-        "🔬 Live Analysis"
-    ])
+    # Custom tab navigation using radio buttons (avoids Streamlit tabs bug)
+    tab_options = ["🏠 Dashboard", "📁 Project Files", "🔬 Live Analysis"]
+    tab_mapping = {
+        "🏠 Dashboard": "Dashboard",
+        "📁 Project Files": "Project Files",
+        "🔬 Live Analysis": "Live Analysis"
+    }
+
+    # Get the index for the current active tab
+    display_name = [k for k, v in tab_mapping.items() if v == st.session_state.active_tab][0]
+    current_index = tab_options.index(display_name)
+
+    # Radio button navigation styled as tabs
+    selected_display = st.radio(
+        "",
+        tab_options,
+        index=current_index,
+        horizontal=True,
+        label_visibility="collapsed"
+    )
+
+    # Update session state with selected tab
+    st.session_state.active_tab = tab_mapping[selected_display]
 
     # Tab 1: Dashboard - Showcase AI capabilities
-    with tab1:
+    if st.session_state.active_tab == "Dashboard":
         # If content is selected, show individual view
         if st.session_state.selected_content:
             report, content_folder = st.session_state.selected_content
@@ -1547,7 +1599,7 @@ def main():
             st.markdown("👈 **Pick any piece** to see how the AI broke down tone, structure, and strategic value.")
 
     # Tab 2: Project Files
-    with tab2:
+    if st.session_state.active_tab == "Project Files":
         st.markdown("## Project Files")
         st.markdown("Browse the codebase, prompts, and data (docs folder excluded)")
 
@@ -1603,7 +1655,7 @@ def main():
         st.markdown('<div class="footer">Made By Ron Bronstein</div>', unsafe_allow_html=True)
 
     # Tab 3: Live Analysis
-    with tab3:
+    if st.session_state.active_tab == "Live Analysis":
         st.markdown("## Live Content Analysis")
 
         st.info("💡 **Quick Test**: Drop your content below to see how it scores against monday.com's challenger brand standard. Analysis is temporary and not saved.")
