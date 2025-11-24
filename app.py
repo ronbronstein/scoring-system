@@ -1279,7 +1279,10 @@ def run_analysis_with_progress(content_text):
             f.write(content_text)
             temp_path = f.name
 
-        # Run analysis with streaming output
+        # Run analysis with streaming output (unbuffered for real-time progress)
+        env = os.environ.copy()
+        env['PYTHONUNBUFFERED'] = '1'
+
         process = subprocess.Popen(
             [sys.executable, 'src/main.py', 'analyze', temp_path, '--json', '--no-save'],
             stdout=subprocess.PIPE,
@@ -1287,7 +1290,7 @@ def run_analysis_with_progress(content_text):
             text=True,
             bufsize=1,
             cwd=os.path.dirname(os.path.abspath(__file__)) or '.',
-            env={**os.environ}
+            env=env
         )
 
         # Stream output line by line
@@ -1304,8 +1307,21 @@ def run_analysis_with_progress(content_text):
             elif '[LAYER 2]' in line_stripped:
                 yield {'type': 'progress', 'message': '📝 Executing Layer 2: 16 AI agents evaluating content...'}
             elif 'Calling' in line_stripped and '/' in line_stripped:
-                # Extract agent number from lines like "[1/16] Calling agent_name..."
-                yield {'type': 'progress', 'message': f'📝 {line_stripped.split("] ")[0].replace("[", "Agent ")}...'}
+                # Extract agent info from lines like "[1/16] Calling 1A_Positive..."
+                # Format as "Agent 1A: Positive & Solution-Focused"
+                try:
+                    parts = line_stripped.split('Calling ')
+                    if len(parts) > 1:
+                        agent_id = parts[1].replace('...', '').strip()
+                        # Convert "1A_Positive" to "Agent 1A: Positive"
+                        if '_' in agent_id:
+                            agent_code, agent_desc = agent_id.split('_', 1)
+                            agent_desc = agent_desc.replace('_', ' ')
+                            yield {'type': 'progress', 'message': f'📝 Agent {agent_code}: {agent_desc}'}
+                        else:
+                            yield {'type': 'progress', 'message': f'📝 {line_stripped.split("] ")[0].replace("[", "Agent ")}...'}
+                except:
+                    yield {'type': 'progress', 'message': f'📝 {line_stripped.split("] ")[0].replace("[", "Agent ")}...'}
             elif '[SCORER]' in line_stripped:
                 yield {'type': 'progress', 'message': '✨ Aggregating scores and generating report...'}
 
@@ -1626,6 +1642,7 @@ def main():
 
         with col1:
             analyze_button = st.button("🔬 Analyze Content", type="primary")
+            st.caption("💡 Please stay on this page while analysis is running")
 
         if analyze_button and content_input.strip():
             with st.status("Analyzing content...", expanded=True) as status:
